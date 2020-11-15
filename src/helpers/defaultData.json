@@ -1,0 +1,19 @@
+{
+   "name": null,
+   "prices": {
+     "symbol": "€",
+     "separator": ",",
+     "forceDecimal": true,
+     "decimal": 2,
+     "space": true
+   },
+   "parameters": {
+
+   },
+   "style": {
+
+   },
+   "pages": [
+
+   ]
+}
