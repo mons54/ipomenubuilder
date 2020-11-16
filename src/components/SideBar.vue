@@ -4,69 +4,70 @@
       <div
         @click="selectSidebar('dish')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-card-checklist class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-card-checklist/>
         </div>
         Plats
       </div>
       <div
         @click="selectSidebar('text')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-type class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-type/>
         </div>
         Textes
       </div>
       <div
         @click="selectSidebar('image')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-image class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-image/>
         </div>
         Images
       </div>
       <div
         @click="selectSidebar('icon')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-star class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-star/>
         </div>
         Icones
       </div>
       <div
         @click="selectSidebar('template')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-images class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-images/>
         </div>
         Modèles
       </div>
       <div
         @click="selectSidebar('color')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-droplet-fill class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-droplet-fill/>
         </div>
         Couleurs
       </div>
       <div
         @click="selectSidebar('icon')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-grid1x2-fill class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-grid1x2-fill/>
         </div>
         Grille
       </div>
       <div
         @click="selectSidebar('format')"
         class="nav-item">
-        <div class="icon">
-          <b-icon-back class="nav-icon"/>
+        <div class="nav-icon">
+          <b-icon-back/>
         </div>
         Format
       </div>
     </div>
     <div class="tab">
+      <Colors v-if="selected === 'color'"/>
       <Texts v-if="selected === 'text'"/>
     </div>
   </div>
@@ -74,10 +75,12 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import Texts from '@/components/Text'
+import Colors from '@/components/Colors'
+import Texts from '@/components/Texts'
 
 export default {
   components: {
+    Colors,
     Texts,
   },
   computed: {
@@ -116,7 +119,7 @@ export default {
       padding: 12px 0;
       font-size: 13px;
       cursor: pointer;
-      .icon {
+      .nav-icon {
         font-size: 20px;
         margin-bottom: 4px;
       }
