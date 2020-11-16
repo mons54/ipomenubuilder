@@ -15,6 +15,7 @@
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.0",
     "vue": "^2.6.11",
+    "vue-color": "^2.7.1",
     "vuetify": "^2.3.17",
     "vuetify-loader": "^1.6.0"
   },

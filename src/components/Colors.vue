@@ -1,26 +1,31 @@
 <template>
   <div>
-    <div style="display: flex; justify-content: center">
+    <div class="current-colors">
       <div class="palette-color">
-        <div
-          class="color"
-          :style="`backgroundColor: ${colors[0]}`"
+        <InputColor
+          v-model="colors[0]"
+          class="input-color"
+          id="color0"
         />
-        <div
-          class="color"
-          :style="`backgroundColor: ${colors[1]}`"
+        <InputColor
+          v-model="colors[1]"
+          class="input-color"
+          id="color1"
         />
-        <div
-          class="color"
-          :style="`backgroundColor: ${colors[2]}`"
+        <InputColor
+          v-model="colors[2]"
+          class="input-color"
+          id="color2"
         />
-        <div
-          class="color"
-          :style="`backgroundColor: ${colors[3]}`"
+        <InputColor
+          v-model="colors[3]"
+          class="input-color"
+          id="color3"
         />
-        <div
-          class="color"
-          :style="`backgroundColor: ${colors[4]}`"
+        <InputColor
+          v-model="colors[4]"
+          class="input-color"
+          id="color4"
         />
       </div>
     </div>
@@ -43,6 +48,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import InputColor from '@/components/InputColor.vue'
 import { defaultColors } from '@/helpers/color'
 
 export default {
@@ -50,6 +56,9 @@ export default {
     return {
       defaultColors,
     }
+  },
+  components: {
+    InputColor,
   },
   computed: {
     ...mapState({
@@ -78,25 +87,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.current-colors {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
 .palette-colors {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 12px;
-  column-gap: 24px;
+  column-gap: 12px;
+  .palette-color {
+    border: 1px solid #263238;
+    border-radius: 4px;
+  }
 }
+
 .palette-color {
   cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
-  border: 1px solid #263238;
-  border-radius: 4px;
-  margin: 8px 0;
   overflow: hidden;
-  place-self: center;
   .color {
     width: 32px;
     height: 32px;
+  }
+  .input-color {
+    width: 40px;
   }
 }
 </style>
