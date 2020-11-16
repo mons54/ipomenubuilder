@@ -1,0 +1,77 @@
+<template>
+  <div
+    class="texts">
+    <div
+      v-for="(text, ti) in texts"
+      :key="ti"
+      class="text">
+      <div v-text-container>
+        <div v-text-content="text.width">
+          <div
+            v-for="(value, index) in text.elements"
+            v-html="value.html"
+            :style="value.style"
+            :key="index">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState({
+      texts: state => state.text.data,
+    }),
+  },
+  methods: {
+    ...mapActions('text', [
+      'getTextData',
+    ]),
+  },
+  directives: {
+    textContainer: {
+      inserted (el) {
+        const rect = el.getBoundingClientRect()
+        el.style.height = rect.width + 'px'
+      },
+    },
+    textContent: {
+      inserted (el, { value }) {
+        const rect = el.parentElement.getBoundingClientRect()
+        el.style.transform = `scale(${rect.width / value})`
+        el.style.width = `${value}px`
+      },
+    },
+  },
+  created() {
+    this.getTextData()
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.texts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  .text {
+    background-color: #263238;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    > div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+</style>

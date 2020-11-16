@@ -2,6 +2,7 @@
   <div class="sidebar">
     <div class="nav">
       <div
+        @click="selectSidebar('dish')"
         class="nav-item">
         <div class="icon">
           <b-icon-card-checklist class="nav-icon"/>
@@ -9,6 +10,7 @@
         Plats
       </div>
       <div
+        @click="selectSidebar('text')"
         class="nav-item">
         <div class="icon">
           <b-icon-type class="nav-icon"/>
@@ -16,6 +18,7 @@
         Textes
       </div>
       <div
+        @click="selectSidebar('image')"
         class="nav-item">
         <div class="icon">
           <b-icon-image class="nav-icon"/>
@@ -23,6 +26,7 @@
         Images
       </div>
       <div
+        @click="selectSidebar('icon')"
         class="nav-item">
         <div class="icon">
           <b-icon-star class="nav-icon"/>
@@ -30,6 +34,7 @@
         Icones
       </div>
       <div
+        @click="selectSidebar('template')"
         class="nav-item">
         <div class="icon">
           <b-icon-images class="nav-icon"/>
@@ -37,6 +42,7 @@
         Modèles
       </div>
       <div
+        @click="selectSidebar('color')"
         class="nav-item">
         <div class="icon">
           <b-icon-droplet-fill class="nav-icon"/>
@@ -44,6 +50,7 @@
         Couleurs
       </div>
       <div
+        @click="selectSidebar('icon')"
         class="nav-item">
         <div class="icon">
           <b-icon-grid1x2-fill class="nav-icon"/>
@@ -51,6 +58,7 @@
         Grille
       </div>
       <div
+        @click="selectSidebar('format')"
         class="nav-item">
         <div class="icon">
           <b-icon-back class="nav-icon"/>
@@ -59,10 +67,31 @@
       </div>
     </div>
     <div class="tab">
-      Contenu
+      <Texts v-if="selected === 'text'"/>
     </div>
   </div>
 </template>
+
+<script>
+import { mapMutations, mapState } from 'vuex'
+import Texts from '@/components/Text'
+
+export default {
+  components: {
+    Texts,
+  },
+  computed: {
+    ...mapState({
+      selected: state => state.sidebar.selected,
+    }),
+  },
+  methods: {
+    ...mapMutations('sidebar', [
+      'selectSidebar',
+    ]),
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .sidebar {
@@ -71,12 +100,14 @@
   height: 100%;
   background-color: #455A64;
   color: #fff;
+  overflow: hidden;
   .nav {
     display: flex;
     align-items: center;
     flex-direction: column;
     background-color: #37474F;
     width: 92px;
+    flex: 0 0 92px;
     .nav-item {
       display: flex;
       flex-direction: column;
@@ -93,6 +124,9 @@
   }
   .tab {
     flex: 1;
+    padding: 24px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
 </style>
