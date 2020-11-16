@@ -6,9 +6,14 @@ const state = () => ({
   data: null,
   onSave: false,
   saved: true,
+  page: 0,
 })
 
-const getters = {}
+const getters = {
+  page(state) {
+    return state.data.pages[state.page]
+  }
+}
 
 const actions = {
   async getMenuData({ commit }) {

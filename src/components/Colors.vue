@@ -96,8 +96,8 @@ export default {
 .palette-colors {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 12px;
-  column-gap: 12px;
+  row-gap: 20px;
+  column-gap: 20px;
   .palette-color {
     border: 1px solid #263238;
     border-radius: 4px;

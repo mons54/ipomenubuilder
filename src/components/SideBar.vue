@@ -50,7 +50,7 @@
         Couleurs
       </div>
       <div
-        @click="selectSidebar('icon')"
+        @click="selectSidebar('grid')"
         class="nav-item">
         <div class="nav-icon">
           <b-icon-grid1x2-fill/>
@@ -68,6 +68,7 @@
     </div>
     <div class="tab">
       <Colors v-if="selected === 'color'"/>
+      <Grids v-if="selected === 'grid'"/>
       <Texts v-if="selected === 'text'"/>
     </div>
   </div>
@@ -76,11 +77,13 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Colors from '@/components/Colors'
+import Grids from '@/components/Grids'
 import Texts from '@/components/Texts'
 
 export default {
   components: {
     Colors,
+    Grids,
     Texts,
   },
   computed: {
