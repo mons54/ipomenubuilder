@@ -34,7 +34,7 @@
         class="palette-color"
         v-for="(value, key) in defaultColors"
         :key="key"
-        v-on:click="colorsModel = value">
+        v-on:click="colors = value">
         <div
           v-for="(color, index) in value"
           class="color"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import InputColor from '@/components/InputColor.vue'
 import { defaultColors } from '@/helpers/color'
 
@@ -61,17 +61,17 @@ export default {
     InputColor,
   },
   computed: {
-    ...mapState({
-      colors: state => state.menu.data.colors,
-    }),
-    colorsModel: {
+    ...mapGetters('menu', [
+      'page',
+    ]),
+    colors: {
       get() {
-        return this.colors
+        return this.page.colors
       },
       set(colors) {
-        this.$store.state.menu.data.colors = colors
+        this.page.colors = colors
       }
-    }
+    },
   },
   methods: {
     random () {

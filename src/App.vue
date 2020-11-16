@@ -6,6 +6,7 @@
         <div id="content">
           <div>
             <div id="contentInner">
+              <Menu/>
             </div>
           </div>
         </div>
@@ -19,11 +20,13 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Menu from '@/components/Menu'
 import NavBar from '@/components/NavBar'
 import SideBar from '@/components/SideBar.vue'
 
 export default {
   components: {
+    Menu,
     NavBar,
     SideBar,
   },
@@ -67,7 +70,7 @@ body {
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 :focus {
