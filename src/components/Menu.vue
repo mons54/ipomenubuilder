@@ -4,10 +4,6 @@
       <div :style="styleLayout">
         <div
           v-for="(area, ai) of areas"
-          v-on:click="e => {
-            e.stopPropagation()
-            $store.dispatch('selectArea', area)
-          }"
           :key="ai"
           :style="styleArea(area, ai)"
           class="area">
