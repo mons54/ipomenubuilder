@@ -68,6 +68,7 @@
     </div>
     <div class="tab">
       <Colors v-if="selected === 'color'"/>
+      <Dishes v-if="selected === 'dish'"/>
       <Grids v-if="selected === 'grid'"/>
       <Texts v-if="selected === 'text'"/>
     </div>
@@ -77,12 +78,14 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Colors from '@/components/Colors'
+import Dishes from '@/components/Dishes'
 import Grids from '@/components/Grids'
 import Texts from '@/components/Texts'
 
 export default {
   components: {
     Colors,
+    Dishes,
     Grids,
     Texts,
   },
