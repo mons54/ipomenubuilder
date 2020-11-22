@@ -1,10 +1,10 @@
-import { menu } from '@/helpers/menu'
+import { formats } from '@/helpers/menu'
 
 export default {
-  getOne () {
+  getAll () {
     return new Promise(resolve => resolve({
       data: {
-        menu,
+        formats,
       }
     }))
   },

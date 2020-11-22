@@ -1,12 +1,22 @@
 <template>
-  <div id="menu">
-    <div :style="stylePage">
-      <div :style="styleLayout">
+  <div id="menuContainer">
+    <div id="menu">
+      <div
+        id="menuContent"
+        :style="styleMenuContent">
         <div
-          v-for="(area, ai) of areas"
-          :key="ai"
-          :style="styleArea(area, ai)"
-          class="area">
+          id="pageContainer"
+          :style="stylePageContainer">
+          <div
+            id="page"
+            :style="stylePage">
+            <div
+              v-for="(area, ai) of areas"
+              :key="ai"
+              :style="styleArea(area)"
+              class="area">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -14,18 +24,70 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { getAreas } from '@/helpers/grid'
+import { mapGetters, mapState } from 'vuex'
+//import { getAreas } from '@/helpers/grid'
 
 export default {
+  data () {
+    return {
+      spacing: 40,
+    }
+  },
   computed: {
+    ...mapState({
+      menu: state => state.menu.data,
+      format: state => state.menu.data.format,
+      scale: state => state.menu.scale,
+    }),
     ...mapGetters('menu', [
       'page',
     ]),
-    grid () {
-      return this.page.grid
-    },
     areas () {
+      return this.page.areas
+    },
+    bleed () {
+      return this.format.bleed
+    },
+    safeZone () {
+      return this.format.safeZone
+    },
+    width () {
+      return this.format.width + this.bleed * 2
+    },
+    height () {
+      return this.format.height + this.bleed * 2
+    },
+    fullWidth () {
+      return this.width + this.spacing * 2
+    },
+    fullHeight () {
+      return this.height + this.spacing * 2
+    },
+    styleMenuContent () {
+      return {
+        width: `${this.fullWidth * this.scale}px`,
+        height: `${this.fullHeight * this.scale}px`,
+      }
+    },
+    stylePageContainer () {
+      return {
+        width: `${this.fullWidth}px`,
+        height: `${this.fullHeight}px`,
+        transform: `scale(${this.scale})`,
+        padding: `${this.spacing}px`,
+      }
+    },
+    stylePage () {
+      return {
+        padding: `${this.bleed}px`,
+        background: '#607D8B',
+        width: `${this.width}px`,
+        height: `${this.height}px`,
+        position: 'relative',
+        overflow: 'hidden',
+      }
+    },
+    /**areas () {
       const areas = getAreas(this.grid.gridTemplateAreas)
       areas.sort((a, b) => {
         if (b === 'main')
@@ -39,19 +101,7 @@ export default {
         return b > a ? -1 : 1
       })
       return areas
-    },
-    stylePage () {
-      return {
-        padding: '11.338582677165356px',
-        background: '#607D8B',
-        width: `793.7007874015749px`,
-        height: `1122.5196850393702px`,
-        position: 'relative',
-        overflow: 'hidden',
-        color: '#fff',
-        lineHeight: 0,
-      }
-    },
+    },*/
     styleLayout () {
       return {
         ...this.grid,
@@ -63,22 +113,51 @@ export default {
     },
   },
   methods: {
-    styleArea (name, index) {
+    styleArea(area) {
+      return {
+        width: `${area.width}px`
+      }
+    },
+    /*styleArea (name, index) {
       return {
         position: 'relative',
         backgroundColor: this.page.colors[index],
         gridArea: name,
         overflow: 'hidden',
       }
-    },
+    },*/
   },
 }
 </script>
 
 <style lang="scss" scoped>
-#menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#menuContainer {
+  width: 100%;
+  height: 100%;
+  touch-action: manipulation;
+  user-select: none;
+  overflow: auto;
+  #menu {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 40px;
+    overflow: auto;
+    #menuContent {
+      margin: auto;
+      #pageContainer {
+        position: relative;
+        transform-origin: top left;
+        #page {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          .area {
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 </style>

@@ -10,7 +10,7 @@ const actions = {
   async getTextData({ commit, state }) {
     if (!state.data.length) {
       const { data } = await text.getAll()
-      commit('setTextData', data)
+      commit('setTextData', data.texts)
     }
     return state.data
   },

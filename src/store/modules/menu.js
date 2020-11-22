@@ -1,4 +1,4 @@
-import defaultData from '@/helpers/defaultData'
+import menu from '@/api/menu'
 
 const state = () => ({
   id: null,
@@ -7,6 +7,7 @@ const state = () => ({
   onSave: false,
   saved: true,
   page: 0,
+  scale: 0.5,
 })
 
 const getters = {
@@ -18,14 +19,19 @@ const getters = {
 const actions = {
   async getMenuData({ commit }) {
 
-    commit('setMenuData', defaultData)
+    const { data } = await menu.getOne()
 
-    return defaultData
+    console.log(data)
+
+    commit('setMenuData', data.menu)
+
+    return data
   },
 }
 
 const mutations = {
   setMenuData(state, data) {
+    console.log(data)
     state.data = data
   },
 }

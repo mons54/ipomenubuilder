@@ -1,19 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app"
+    v-if="menu">
     <NavBar/>
     <div id="container">
-      <div id="containerInner">
-        <div id="content">
-          <div>
-            <div id="contentInner">
-              <Menu/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="sidebar">
-        <SideBar/>
-      </div>
+      <Menu/>
+      <SideBar/>
     </div>
   </div>
 </template>
@@ -33,11 +24,11 @@ export default {
   computed: {
     ...mapState({
       id: state => state.menu.id,
-      data: state => state.menu.data,
+      menu: state => state.menu.data,
       historyIndex: state => state.history.index,
     }),
     json () {
-      return JSON.stringify(this.data)
+      return JSON.stringify(this.menu)
     },
   },
   methods: {
@@ -131,26 +122,5 @@ body {
   display: flex;
   flex: 1;
   overflow: hidden;
-}
-
-#containerInner {
-  flex: 1;
-  position: relative;
-  height: 100%;
-}
-
-#content {
-  overflow: auto;
-  height: 100%;
-}
-
-#contentInner {
-  margin: 20px 20px 80px;
-}
-
-#sidebar {
-  flex: 0 25%;
-  max-width: 480px;
-  border-left: 1px solid #dadada;
 }
 </style>
