@@ -2,8 +2,8 @@ import { defaultColors } from '@/helpers/color'
 import { formats } from '@/helpers/format'
 import { grids } from '@/helpers/grid'
 
-const color = defaultColors[0]
-const format = formats[2]
+const colors = defaultColors[0]
+const format = formats[1]
 const grid = grids[0]
 
 const page = {
@@ -14,7 +14,7 @@ const page = {
 format.inside.forEach(width => {
   page.areas.push({
     width,
-    color,
+    colors,
     grid,
   })
 })

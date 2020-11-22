@@ -106,7 +106,7 @@ export default {
 
 <style lang="scss" scoped>
 #sidebar {
-  flex: 0 25%;
+  flex: 0 0 25%;
   max-width: 480px;
   border-left: 1px solid #dadada;
   .sidebar {

@@ -7,7 +7,7 @@ const state = () => ({
   onSave: false,
   saved: true,
   page: 0,
-  scale: 0.5,
+  scale: 1,
 })
 
 const getters = {
@@ -21,8 +21,6 @@ const actions = {
 
     const { data } = await menu.getOne()
 
-    console.log(data)
-
     commit('setMenuData', data.menu)
 
     return data
@@ -31,7 +29,6 @@ const actions = {
 
 const mutations = {
   setMenuData(state, data) {
-    console.log(data)
     state.data = data
   },
 }
