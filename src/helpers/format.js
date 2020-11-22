@@ -1,7 +1,7 @@
 export const formats = [
   {
-    name: "A4",
-    fold: "none",
+    name: "1 volet",
+    area: 1,
     width: 793.7007874015749,
     height: 1122.5196850393702,
     inside: [793.7007874015749],
@@ -10,8 +10,8 @@ export const formats = [
     safeZone: 22.67716535433071,
   },
   {
-    name: "½ A4 Half Fold",
-    fold: "half",
+    name: "2 volet",
+    area: 2,
     width: 793.7007874015749,
     height: 1122.5196850393702,
     inside: [396.85039370078744, 396.85039370078744],
@@ -20,8 +20,8 @@ export const formats = [
     safeZone: 22.67716535433071,
   },
   {
-    name: "Long Tri-Fold",
-    fold: "tri",
+    name: "3 volet",
+    area: 3,
     width: 1111.181102362205,
     height: 793.7007874015749,
     inside: [374.1732283464567, 374.1732283464567, 362.8346456692914],

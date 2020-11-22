@@ -35,8 +35,14 @@ export default {
     ...mapActions('history', [
       'addHistory',
     ]),
+    ...mapActions('format', [
+      'getFormatData',
+    ]),
     ...mapActions('menu', [
       'getMenuData',
+    ]),
+    ...mapActions('text', [
+      'getTextData',
     ]),
   },
   watch: {
@@ -45,7 +51,9 @@ export default {
     },
   },
   created() {
+    this.getFormatData()
     this.getMenuData()
+    this.getTextData()
   },
 }
 </script>

@@ -1,4 +1,4 @@
-import { formats } from '@/helpers/menu'
+import { formats } from '@/helpers/format'
 
 export default {
   getAll () {

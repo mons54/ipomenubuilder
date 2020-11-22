@@ -58,14 +58,6 @@
           </div>
           Grille
         </div>
-        <div
-          @click="selectSidebar('format')"
-          class="nav-item">
-          <div class="nav-icon">
-            <b-icon-back/>
-          </div>
-          Format
-        </div>
       </div>
       <div class="tab">
         <Colors v-if="selected === 'color'"/>

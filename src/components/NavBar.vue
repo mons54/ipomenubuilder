@@ -11,9 +11,19 @@
         <b-icon-arrow-left-short/>
         Retour
       </b-nav-item>
-      <b-nav-item>Télécharger</b-nav-item>
+      <b-nav-item-dropdown
+        text="Redimensionner"
+        right>
+        <b-dropdown-item
+          v-for="(format, key) of formats"
+          :key="key"
+          @click="resizeMenu(format)">
+          {{ format.name }}
+        </b-dropdown-item>
+      </b-nav-item-dropdown>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
+      <b-nav-item>Télécharger</b-nav-item>
       <b-nav-item  v-if="onSave" :disabled="true">
         Enregistrement...
       </b-nav-item>
@@ -33,12 +43,14 @@ import { mapActions, mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
+      formats: state => state.format.data,
       onSave: state => state.menu.onSave,
       saved: state => state.menu.saved,
     }),
   },
   methods: {
     ...mapActions('menu', [
+      'resizeMenu',
       'saveMenuData',
     ]),
   },

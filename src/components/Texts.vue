@@ -20,18 +20,13 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   computed: {
     ...mapState({
       texts: state => state.text.data,
     }),
-  },
-  methods: {
-    ...mapActions('text', [
-      'getTextData',
-    ]),
   },
   directives: {
     textContainer: {
@@ -47,9 +42,6 @@ export default {
         el.style.width = `${value}px`
       },
     },
-  },
-  created() {
-    this.getTextData()
   },
 }
 </script>

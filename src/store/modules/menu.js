@@ -1,4 +1,6 @@
 import menu from '@/api/menu'
+import { defaultColors } from '@/helpers/color'
+import { grids } from '@/helpers/grid'
 
 const state = () => ({
   id: null,
@@ -34,6 +36,33 @@ const actions = {
     commit('setMenuData', data.menu)
 
     return data
+  },
+  resizeMenu({ state }, format) {
+    if (state.data.format.area !== format.area) {
+
+      state.data.pages.forEach((page, i) => {
+
+        // Remove use less area
+        page.areas.splice(format.area)
+
+
+        let size = i % 2 ? format.outside : format.inside
+
+        size.forEach((width, i) => {
+          if (!page.areas[i]) {
+            page.areas.push({
+              width,
+              colors: defaultColors[0],
+              grid: grids[0],
+            })
+          } else {
+            page.areas[i].width = width
+          }
+        })
+      })
+    }
+
+    state.data.format = format
   },
 }
 
