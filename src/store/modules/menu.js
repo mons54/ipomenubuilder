@@ -7,12 +7,22 @@ const state = () => ({
   onSave: false,
   saved: true,
   page: 0,
+  area: 0,
   scale: 1,
 })
 
 const getters = {
   page(state) {
-    return state.data.pages[state.page]
+    let page = state.data.pages[state.page]
+    if (!page)
+      page = state.data.pages[0]
+    return page
+  },
+  area(state, getters) {
+    let area = getters.page.areas[state.area]
+    if (!area)
+      area = getters.page.areas[0]
+    return area
   }
 }
 

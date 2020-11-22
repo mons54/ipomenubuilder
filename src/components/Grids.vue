@@ -29,14 +29,14 @@ export default {
   },
   computed: {
     ...mapGetters('menu', [
-      'page',
+      'area',
     ]),
     grid: {
       get() {
-        return this.page.grid
+        return this.area.grid
       },
       set(grid) {
-        this.page.grid = grid
+        this.area.grid = grid
       }
     },
   },

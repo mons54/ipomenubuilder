@@ -62,14 +62,14 @@ export default {
   },
   computed: {
     ...mapGetters('menu', [
-      'page',
+      'area',
     ]),
     colors: {
       get() {
-        return this.page.colors
+        return this.area.colors
       },
       set(colors) {
-        this.page.colors = colors
+        this.area.colors = colors
       }
     },
   },

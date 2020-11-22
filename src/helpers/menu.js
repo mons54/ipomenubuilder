@@ -3,7 +3,7 @@ import { formats } from '@/helpers/format'
 import { grids } from '@/helpers/grid'
 
 const colors = defaultColors[0]
-const format = formats[1]
+const format = formats[2]
 const grid = grids[0]
 
 const page = {
