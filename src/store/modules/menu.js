@@ -70,6 +70,9 @@ const mutations = {
   setMenuData(state, data) {
     state.data = data
   },
+  setMenuArea(state, index) {
+    state.area = index
+  },
 }
 
 export default {

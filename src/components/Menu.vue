@@ -14,6 +14,7 @@
               v-for="(area, ai) of areas"
               :key="ai"
               :style="styleArea(area)"
+              @click="setMenuArea(ai)"
               class="area">
               <div
                 :style="styleGrid(area.grid)"
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import { getAreas } from '@/helpers/grid'
 
 export default {
@@ -155,6 +156,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations('menu', [
+      'setMenuArea',
+    ]),
     styleGrid (grid) {
       return {
         ...grid,
