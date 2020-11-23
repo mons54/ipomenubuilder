@@ -14,16 +14,21 @@
               v-for="(area, ai) of areas"
               :key="ai"
               :style="styleArea(area)"
-              @click="setMenuArea(ai)"
               class="area">
               <div
                 :style="styleGrid(area.grid)"
                 class="grid">
                 <div
-                  v-for="(gridName, gai) of gridAreas(area.grid)"
+                  v-for="(name, gai) of gridAreas(area.grid)"
+                  @click="selectGridArea({ index: ai, name })"
                   :key="gai"
-                  :style="styleGridArea(area, gridName, gai)"
+                  :style="styleGridArea(area, name, gai)"
                   class="grid-area">
+                  <div
+                    v-if="area[name] && area[name].image"
+                    v-image-area="area[name].image"
+                    :style="styleImageArea(area[name].image)"
+                  />
                 </div>
               </div>
               <div
@@ -57,8 +62,25 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import Vue from 'vue'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import { getAreas } from '@/helpers/grid'
+
+function imageArea (el, { value }, vnode) {
+  if (!value.size)
+    return
+  let backgroundSize
+  const rect = el.parentNode.getBoundingClientRect()
+  const ratio = rect.width / value.width
+  if (rect.height > ratio * value.height)
+    backgroundSize = `auto ${value.size}%`
+  else
+    backgroundSize = `${value.size}% auto`
+  if (backgroundSize !== value.backgroundSize) {
+    vnode.context.$store.commit('history/breakHistory')
+    Vue.set(value, 'backgroundSize', backgroundSize)
+  }
+}
 
 export default {
   data () {
@@ -156,8 +178,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('menu', [
-      'setMenuArea',
+    ...mapActions('menu', [
+      'selectGridArea',
     ]),
     styleGrid (grid) {
       return {
@@ -195,6 +217,49 @@ export default {
         gridArea: name,
         overflow: 'hidden',
       }
+    },
+    styleImageArea (image) {
+
+      const style = {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url(${image.webformatURL})`,
+        transform: '',
+      }
+
+      if (!isNaN(image.positionX))
+        style.backgroundPositionX = `${image.positionX}%`
+      else
+        style.backgroundPositionX = 'center'
+
+      if (!isNaN(image.positionY))
+        style.backgroundPositionY = `${image.positionY}%`
+      else
+        style.backgroundPositionY = 'center'
+
+      if (image.backgroundSize)
+        style.backgroundSize = image.backgroundSize
+      else
+        style.backgroundSize = 'contain'
+
+      if (image.flipHorizontal)
+        style.transform += 'scaleX(-1)'
+      if (image.flipVertical)
+        style.transform += 'scaleY(-1)'
+
+      if (image.filter)
+        style.filter = image.filter
+
+      return style
+    },
+  },
+  directives: {
+    imageArea: {
+      componentUpdated: imageArea,
+      inserted: imageArea,
     },
   },
 }

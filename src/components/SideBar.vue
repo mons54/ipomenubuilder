@@ -60,17 +60,19 @@
         </div>
       </div>
       <div class="tab">
-        <Colors v-if="selected === 'color'"/>
-        <Dishes v-if="selected === 'dish'"/>
-        <Grids v-if="selected === 'grid'"/>
-        <Texts v-if="selected === 'text'"/>
+        <GridArea v-if="area"/>
+        <Colors v-else-if="selected === 'color'"/>
+        <Dishes v-else-if="selected === 'dish'"/>
+        <Grids v-else-if="selected === 'grid'"/>
+        <Texts v-else-if="selected === 'text'"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import GridArea from '@/components/GridArea'
 import Colors from '@/components/Colors'
 import Dishes from '@/components/Dishes'
 import Grids from '@/components/Grids'
@@ -78,6 +80,7 @@ import Texts from '@/components/Texts'
 
 export default {
   components: {
+    GridArea,
     Colors,
     Dishes,
     Grids,
@@ -85,11 +88,12 @@ export default {
   },
   computed: {
     ...mapState({
+      area: state => state.menu.gridArea,
       selected: state => state.sidebar.selected,
     }),
   },
   methods: {
-    ...mapMutations('sidebar', [
+    ...mapActions('sidebar', [
       'selectSidebar',
     ]),
   },

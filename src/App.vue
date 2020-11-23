@@ -32,11 +32,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions('history', [
-      'addHistory',
-    ]),
     ...mapActions('format', [
       'getFormatData',
+    ]),
+    ...mapActions('history', [
+      'addHistory',
     ]),
     ...mapActions('menu', [
       'getMenuData',

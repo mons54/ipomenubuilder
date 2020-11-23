@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import menu from '@/api/menu'
 import { defaultColors } from '@/helpers/color'
 import { grids } from '@/helpers/grid'
@@ -10,6 +11,7 @@ const state = () => ({
   saved: true,
   page: 0,
   area: 0,
+  gridArea: null,
   scale: 1,
 })
 
@@ -25,7 +27,16 @@ const getters = {
     if (!area)
       area = getters.page.areas[0]
     return area
-  }
+  },
+  gridArea(state, getters) {
+    if (!state.gridArea)
+      return null
+    if (!getters.area[state.gridArea])
+      Vue.set(getters.area, state.gridArea, {
+        image: null,
+      })
+    return getters.area[state.gridArea]
+  },
 }
 
 const actions = {
@@ -64,6 +75,10 @@ const actions = {
 
     state.data.format = format
   },
+  selectGridArea({ commit }, { index, name }) {
+    commit('setMenuArea', index)
+    commit('setMenuGridArea', name)
+  },
 }
 
 const mutations = {
@@ -72,6 +87,9 @@ const mutations = {
   },
   setMenuArea(state, index) {
     state.area = index
+  },
+  setMenuGridArea (state, name) {
+    state.gridArea = name
   },
 }
 

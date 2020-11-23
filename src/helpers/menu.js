@@ -16,6 +16,9 @@ format.inside.forEach(width => {
     width,
     colors,
     grid,
+    areas: {
+      
+    }
   })
 })
 

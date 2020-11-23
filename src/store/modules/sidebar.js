@@ -4,7 +4,12 @@ const state = () => ({
 
 const getters = {}
 
-const actions = {}
+const actions = {
+  selectSidebar: ({ commit }, value) => {
+    commit('selectSidebar', value)
+    commit('menu/setMenuGridArea', null, { root: true })
+  },
+}
 
 const mutations = {
   selectSidebar: (state, value) => {
