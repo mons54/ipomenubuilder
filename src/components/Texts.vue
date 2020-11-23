@@ -3,6 +3,7 @@
     class="texts">
     <div
       v-for="(text, ti) in texts"
+      v-draggable
       :key="ti"
       class="text">
       <div v-text-container>

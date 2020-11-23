@@ -2,6 +2,7 @@
   <div class="dishes">
     <div
       v-for="(value, key) in dishes"
+      v-draggable
       :key="key"
       class="dish">
       <div
@@ -36,12 +37,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dish {
-  background-color: #263238;
-  border-radius: 4px;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-  padding: 16px;
+.dishes {
+  .dish {
+    background-color: #263238;
+    border-radius: 4px;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    padding: 16px;
+  }
 }
 </style>
