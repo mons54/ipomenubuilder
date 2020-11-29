@@ -12,6 +12,8 @@ export default {
         let clone
         let position
 
+        el.style.touchAction = 'none'
+
         interact(el).draggable({
           listeners: {
             start() {
