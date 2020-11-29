@@ -17,7 +17,7 @@ format.inside.forEach(width => {
     colors,
     grid,
     areas: {
-      
+
     }
   })
 })
@@ -35,7 +35,9 @@ export const menu = {
 
   },
   styles: {
-
+    page: {
+      color: '#fff',
+    },
   },
   pages: [page],
 }

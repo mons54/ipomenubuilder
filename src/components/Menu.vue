@@ -11,30 +11,66 @@
             id="page"
             :style="stylePage">
             <div
-              v-for="(area, ai) of areas"
-              :key="ai"
-              :style="styleArea(area)"
-              class="area">
+              id="pageContent"
+              v-dropzone="page">
               <div
-                :style="styleGrid(area.grid)"
-                class="grid">
+                v-for="(area, ai) of areas"
+                :key="ai"
+                :style="styleArea(area)"
+                class="area">
                 <div
-                  v-for="(name, gai) of gridAreas(area.grid)"
-                  @click="selectGridArea({ index: ai, name })"
-                  :key="gai"
-                  :style="styleGridArea(area, name, gai)"
-                  class="grid-area">
+                  :style="styleGrid(area.grid)"
+                  class="grid">
                   <div
-                    v-if="area[name] && area[name].image"
-                    v-image-area="area[name].image"
-                    :style="styleImageArea(area[name].image)"
-                  />
+                    v-for="(name, gai) of gridAreas(area.grid)"
+                    @click="selectGridArea({ index: ai, name })"
+                    :key="gai"
+                    :style="styleGridArea(area, name, gai)"
+                    class="grid-area">
+                    <div
+                      v-if="area[name] && area[name].image"
+                      v-image-area="area[name].image"
+                      :style="styleImageArea(area[name].image)"
+                    />
+                  </div>
                 </div>
+                <div
+                  v-if="ai + 1 !== areas.length"
+                  class="bleed bleed--area"
+                />
               </div>
               <div
-                v-if="ai + 1 !== areas.length"
-                class="bleed bleed--area"
-              />
+                v-for="element of page.elements"
+                v-draggable="element"
+                :key="element.id"
+                :style="styleElement(element.rect)">
+                <div
+                  v-if="element.type === 'text'">
+                  <div
+                    v-for="(text, ti) in element.value.elements"
+                    v-html="text.html"
+                    :key="ti"
+                    :style="text.style">
+                  </div>
+                </div>
+                <div v-if="element.type === 'dish'">
+                  <div
+                    v-for="(item, index) in element.value.items"
+                    :key="index"
+                    :style="element.value.styleItem"
+                    class="item">
+                    <div :style="element.value.styleName">
+                      {{ item.name}}
+                    </div>
+                    <div :style="element.value.styleDescription">
+                      {{ item.description }}
+                    </div>
+                    <div :style="element.value.stylePrice">
+                      {{ item.prices[0] }} €
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div id="bleed">
@@ -146,6 +182,7 @@ export default {
         height: `${this.height}px`,
         position: 'relative',
         overflow: 'hidden',
+        ...this.menu.styles.page,
       }
     },
     styleBleedTop () {
@@ -255,6 +292,13 @@ export default {
 
       return style
     },
+    styleElement(rect) {
+      return {
+        position: 'absolute',
+        width: 'fit-content',
+        transform: `translate(${rect.left}px, ${rect.top}px)`,
+      }
+    },
   },
   directives: {
     imageArea: {
@@ -283,7 +327,7 @@ export default {
       #pageContainer {
         position: relative;
         transform-origin: top left;
-        #page {
+        #pageContent {
           display: flex;
           width: 100%;
           height: 100%;

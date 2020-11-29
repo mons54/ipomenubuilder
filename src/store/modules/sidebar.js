@@ -1,5 +1,5 @@
 const state = () => ({
-  selected: 'dishes',
+  selected: 'text',
 })
 
 const getters = {}

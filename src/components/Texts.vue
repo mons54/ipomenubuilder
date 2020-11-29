@@ -2,14 +2,21 @@
   <div
     class="texts">
     <div
-      v-for="(text, ti) in texts"
-      v-draggable
+      v-for="(value, ti) in texts"
+      v-draggable.clone="{
+        type: 'text',
+        value,
+      }"
+      @dragStart="dragStart"
+      @dragEnd="dragEnd"
       :key="ti"
       class="text">
       <div v-text-container>
-        <div v-text-content="text.width">
+        <div
+          data-content
+          v-text-content="value.width">
           <div
-            v-for="(value, index) in text.elements"
+            v-for="(value, index) in value.elements"
             v-html="value.html"
             :style="value.style"
             :key="index">
@@ -23,11 +30,23 @@
 <script>
 import { mapState } from 'vuex'
 
+let styleContent
+
 export default {
   computed: {
     ...mapState({
       texts: state => state.text.data,
     }),
+  },
+  methods: {
+    dragStart(el) {
+      const content = el.querySelector('[data-content]')
+      styleContent = content.getAttribute('style')
+      content.removeAttribute('style')
+    },
+    dragEnd(el) {
+      el.querySelector('[data-content]').setAttribute('style', styleContent)
+    },
   },
   directives: {
     textContainer: {

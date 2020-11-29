@@ -2,7 +2,10 @@
   <div class="dishes">
     <div
       v-for="(value, key) in dishes"
-      v-draggable
+      v-draggable.clone="{
+        type: 'dish',
+        value,
+      }"
       :key="key"
       class="dish">
       <div
