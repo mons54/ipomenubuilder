@@ -5,7 +5,13 @@
       v-for="(value, ti) in texts"
       v-draggable.clone="{
         type: 'text',
-        value,
+        value: {
+          scale: {
+            x: 1,
+            y: 1,
+          },
+          ...value
+        },
       }"
       @dragstart="dragstart"
       @dragenter="dragenter"

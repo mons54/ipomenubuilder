@@ -21,7 +21,13 @@
             v-if="draggable"
             v-draggable.clone="{
               type: 'image',
-              value,
+              value: {
+                image: value.image,
+                size: {
+                  width: value.image.webformatWidth,
+                  height: value.image.webformatHeight,
+                },
+              },
             }"
             @dragstart="dragstart"
             @dragenter="dragenter"

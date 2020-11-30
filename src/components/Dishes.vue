@@ -4,7 +4,13 @@
       v-for="(value, key) in dishes"
       v-draggable.clone="{
         type: 'dish',
-        value,
+        value: {
+          scale: {
+            x: 1,
+            y: 1,
+          },
+          ...value
+        },
       }"
       @dragstart="dragstart"
       @dragenter="dragenter"

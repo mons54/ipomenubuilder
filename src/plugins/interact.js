@@ -68,10 +68,6 @@ export default {
                 dropzone.value.elements.push({
                   id: uid(),
                   rect,
-                  scale: {
-                    x: 1,
-                    y: 1,
-                  },
                   ...value,
                 })
 
@@ -115,43 +111,47 @@ export default {
       }
     })
 
-    Vue.directive('resizable', {
-      inserted (el, { value, modifiers }) {
-
-        console.log(modifiers)
-
-        let resizableModifiers = []
-
-        if (modifiers.preserve) {
-          resizableModifiers.push(interact.modifiers.aspectRatio({
-            ratio: 'preserve',
-            equalDelta: true,
-          }))
-        }
+    Vue.directive('resizableText', {
+      inserted (el, { value }) {
 
         interact(el).
         resizable({
-          modifiers: resizableModifiers,
           edges: { top: true, right: true, bottom: true, left: true },
+          modifiers: [
+            interact.modifiers.aspectRatio({
+              ratio: 'preserve',
+              equalDelta: true,
+            })
+          ],
           listeners: {
             move(event) {
 
               const x = (event.deltaRect.left - event.deltaRect.right) / 100
               const y = (event.deltaRect.top - event.deltaRect.bottom) / 100
 
-
-              if (value.x - x > 0.2)
+              if (x) {
                 value.x -= x
-
-              if (value.y - y > 0.2)
+                value.y = value.x
+              } else {
                 value.y -= y
-
-              if (modifiers.preserve) {
-                if (x)
-                  value.y = value.x
-                else
-                  value.x = value.y
+                value.x = value.y
               }
+            }
+          },
+        })
+      }
+    })
+
+    Vue.directive('resizableImage', {
+      inserted (el, { value }) {
+
+        interact(el).
+        resizable({
+          edges: { top: true, right: true, bottom: true, left: true },
+          listeners: {
+            move(event) {
+              value.width += event.deltaRect.width
+              value.height += event.deltaRect.height
             }
           },
         })

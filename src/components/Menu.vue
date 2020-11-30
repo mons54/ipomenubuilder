@@ -46,8 +46,8 @@
                 :style="styleElement(element.rect)">
                 <div
                   v-if="element.type === 'text'"
-                  v-resizable.preserve="element.scale"
-                  :style="styleElementContent(element.scale)">
+                  v-resizable-text="element.value.scale"
+                  :style="styleElementText(element.value.scale)">
                   <div
                     v-for="(text, ti) in element.value.elements"
                     v-html="text.html"
@@ -57,8 +57,8 @@
                 </div>
                 <div
                   v-if="element.type === 'dish'"
-                  v-resizable.preserve="element.scale"
-                  :style="styleElementContent(element.scale)">
+                  v-resizable-text="element.value.scale"
+                  :style="styleElementText(element.value.scale)">
                   <div
                     v-for="(item, index) in element.value.items"
                     :key="index"
@@ -77,9 +77,11 @@
                 </div>
                 <div
                   v-if="element.type === 'image'"
-                  v-resizable.preserve="element.scale"
-                  :style="styleElementContent(element.scale)">
-                  <img :src="element.value.image.webformatURL"/>
+                  v-resizable-image="element.value.size"
+                  :style="styleElementImage(element.value.size)">
+                  <img
+                    :src="element.value.image.webformatURL"
+                    style="width: 100%; height: 100%;"/>
                 </div>
               </div>
             </div>
@@ -310,9 +312,15 @@ export default {
         transform: `translate(${rect.left}px, ${rect.top}px)`,
       }
     },
-    styleElementContent(scale) {
+    styleElementText(scale) {
       return {
         transform: `scale(${scale.x}, ${scale.y})`,
+      }
+    },
+    styleElementImage(value) {
+      return {
+        width: `${value.width}px`,
+        height: `${value.height}px`,
       }
     },
   },
