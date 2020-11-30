@@ -45,7 +45,9 @@
                 :key="element.id"
                 :style="styleElement(element.rect)">
                 <div
-                  v-if="element.type === 'text'">
+                  v-if="element.type === 'text'"
+                  v-resizable.preserve="element.scale"
+                  :style="styleElementContent(element.scale)">
                   <div
                     v-for="(text, ti) in element.value.elements"
                     v-html="text.html"
@@ -53,7 +55,10 @@
                     :style="text.style">
                   </div>
                 </div>
-                <div v-if="element.type === 'dish'">
+                <div
+                  v-if="element.type === 'dish'"
+                  v-resizable.preserve="element.scale"
+                  :style="styleElementContent(element.scale)">
                   <div
                     v-for="(item, index) in element.value.items"
                     :key="index"
@@ -297,6 +302,11 @@ export default {
         position: 'absolute',
         width: 'fit-content',
         transform: `translate(${rect.left}px, ${rect.top}px)`,
+      }
+    },
+    styleElementContent(scale) {
+      return {
+        transform: `scale(${scale.x}, ${scale.y})`,
       }
     },
   },

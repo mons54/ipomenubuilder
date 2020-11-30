@@ -12,6 +12,7 @@ const state = () => ({
   page: 0,
   area: 0,
   gridArea: null,
+  element: null,
   scale: 1,
 })
 
@@ -36,6 +37,9 @@ const getters = {
         image: null,
       })
     return getters.area[state.gridArea]
+  },
+  element(state, getters) {
+    return getters.page.elements.find(element => element.id === state.element)
   },
 }
 
@@ -90,6 +94,9 @@ const mutations = {
   },
   setMenuGridArea (state, name) {
     state.gridArea = name
+  },
+  setMenuElement (state, id) {
+    state.element = id
   },
 }
 
