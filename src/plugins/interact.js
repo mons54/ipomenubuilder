@@ -2,7 +2,7 @@ import interact from 'interactjs'
 import { v4 as uid } from 'uuid'
 
 let dropzone
-let scale
+let draggable
 
 export default {
   install (Vue) {
@@ -18,8 +18,6 @@ export default {
         draggable({
           listeners: {
             start() {
-
-              scale = 0.5
 
               if (modifiers.clone) {
 
@@ -40,18 +38,25 @@ export default {
                 position = value.rect
               }
 
-              if (data.on && data.on.dragStart)
-                data.on.dragStart(el)
+              draggable = {
+                el,
+                value,
+                modifiers,
+                data,
+              }
+
+              if (data.on && data.on.dragstart)
+                data.on.dragstart(draggable)
             },
             move (event) {
               position.left += event.dx
               position.top += event.dy
-              el.style.transform =`translate(${position.left}px, ${position.top}px) scale(${scale})`
+              el.style.transform =`translate(${position.left}px, ${position.top}px)`
             },
             end(event) {
 
-              if (data.on && data.on.dragEnd)
-                data.on.dragEnd(el)
+              if (data.on && data.on.dragend)
+                data.on.dragend(draggable)
 
               if (!value.id && dropzone) {
 
@@ -100,10 +105,12 @@ export default {
           }
         }).
         on('dragenter', () => {
-          scale = 1
+          if (draggable.data.on && draggable.data.on.dragenter)
+            draggable.data.on.dragenter(draggable)
         }).
         on('dragleave', () => {
-          scale = 0.5
+          if (draggable.data.on && draggable.data.on.dragleave)
+            draggable.data.on.dragleave(draggable)
         })
       }
     })

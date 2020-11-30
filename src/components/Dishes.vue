@@ -6,21 +6,27 @@
         type: 'dish',
         value,
       }"
+      @dragstart="dragstart"
+      @dragenter="dragenter"
+      @dragleave="dragleave"
+      @dragend="dragend"
       :key="key"
       class="dish">
-      <div
-        v-for="(item, index) in value.items"
-        :key="index"
-        :style="value.styleItem"
-        class="item">
-        <div :style="value.styleName">
-          {{ item.name}}
-        </div>
-        <div :style="value.styleDescription">
-          {{ item.description }}
-        </div>
-        <div :style="value.stylePrice">
-          {{ item.prices[0] }} €
+      <div>
+        <div
+          v-for="(item, index) in value.items"
+          :key="index"
+          :style="value.styleItem"
+          class="item">
+          <div :style="value.styleName">
+            {{ item.name}}
+          </div>
+          <div :style="value.styleDescription">
+            {{ item.description }}
+          </div>
+          <div :style="value.stylePrice">
+            {{ item.prices[0] }} €
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +41,21 @@ export default {
     return {
       dishes,
     }
-  }
+  },
+  methods: {
+    dragstart(event) {
+      event.el.firstChild.style.transform = `scale(0.75)`
+    },
+    dragenter(event) {
+      event.el.firstChild.style.transform = `scale(1)`
+    },
+    dragleave(event) {
+      event.el.firstChild.style.transform = `scale(0.75)`
+    },
+    dragend(event) {
+      event.el.firstChild.style.transform = `scale(1)`
+    },
+  },
 }
 </script>
 

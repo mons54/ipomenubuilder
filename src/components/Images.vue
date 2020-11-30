@@ -17,10 +17,22 @@
           class="image"
           :key="value.image.previewUrl"
           :style="value.style">
-          <div>
-            <img
-              @click="$emit('input', value.image)"
-              :src="value.image.previewURL"/>
+          <div
+            v-if="draggable"
+            v-draggable.clone="{
+              type: 'image',
+              value,
+            }"
+            @dragstart="dragstart"
+            @dragenter="dragenter"
+            @dragleave="dragleave"
+            @dragend="dragend">
+            <img :src="value.image.previewURL">
+          </div>
+          <div
+            v-else
+            @click="$emit('input', value.image)">
+            <img :src="value.image.previewURL"/>
           </div>
         </div>
       </div>
@@ -34,6 +46,7 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 export default {
   props: {
     value: String,
+    draggable: Boolean,
   },
   computed: {
     ...mapState({
@@ -96,6 +109,23 @@ export default {
     },
     getWidth (data) {
       return this.defaultHeight * (data.imageWidth / data.imageHeight)
+    },
+    dragstart(event) {
+      event.el.firstChild.style.transform = `scale(${event.value.value.image.previewWidth / event.value.value.image.webformatWidth})`
+      event.el.firstChild.setAttribute('src', event.value.value.image.webformatURL)
+      event.el.firstChild.style.transition = '0.5s ease-in-out'
+      event.el.firstChild.style.transformOrigin = 'top left'
+    },
+    dragenter(event) {
+      event.el.firstChild.style.transform = `scale(1)`
+    },
+    dragleave(event) {
+      event.el.firstChild.style.transform = `scale(${event.value.value.image.previewWidth / event.value.value.image.webformatWidth})`
+    },
+    dragend(event) {
+      event.el.firstChild.style.removeProperty('transition')
+      event.el.firstChild.style.removeProperty('transform')
+      event.el.firstChild.setAttribute('src', event.value.value.image.previewURL)
     },
   },
   watch: {

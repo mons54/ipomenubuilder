@@ -64,6 +64,9 @@
         <Colors v-else-if="selected === 'color'"/>
         <Dishes v-else-if="selected === 'dish'"/>
         <Grids v-else-if="selected === 'grid'"/>
+        <Images
+          v-else-if="selected === 'image'"
+          :draggable="true"/>
         <Texts v-else-if="selected === 'text'"/>
       </div>
     </div>
@@ -76,6 +79,7 @@ import GridArea from '@/components/GridArea'
 import Colors from '@/components/Colors'
 import Dishes from '@/components/Dishes'
 import Grids from '@/components/Grids'
+import Images from '@/components/Images'
 import Texts from '@/components/Texts'
 
 export default {
@@ -84,6 +88,7 @@ export default {
     Colors,
     Dishes,
     Grids,
+    Images,
     Texts,
   },
   computed: {

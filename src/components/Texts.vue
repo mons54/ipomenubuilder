@@ -7,8 +7,10 @@
         type: 'text',
         value,
       }"
-      @dragStart="dragStart"
-      @dragEnd="dragEnd"
+      @dragstart="dragstart"
+      @dragenter="dragenter"
+      @dragleave="dragleave"
+      @dragend="dragend"
       :key="ti"
       class="text">
       <div v-text-container>
@@ -39,13 +41,20 @@ export default {
     }),
   },
   methods: {
-    dragStart(el) {
-      const content = el.querySelector('[data-content]')
+    dragstart(event) {
+      const content = event.el.querySelector('[data-content]')
       styleContent = content.getAttribute('style')
       content.removeAttribute('style')
+      content.style.transform = `scale(0.5)`
     },
-    dragEnd(el) {
-      el.querySelector('[data-content]').setAttribute('style', styleContent)
+    dragenter(event) {
+      event.el.querySelector('[data-content]').style.transform = `scale(1)`
+    },
+    dragleave(event) {
+      event.el.querySelector('[data-content]').style.transform = `scale(0.5)`
+    },
+    dragend(event) {
+      event.el.querySelector('[data-content]').setAttribute('style', styleContent)
     },
   },
   directives: {

@@ -75,6 +75,12 @@
                     </div>
                   </div>
                 </div>
+                <div
+                  v-if="element.type === 'image'"
+                  v-resizable.preserve="element.scale"
+                  :style="styleElementContent(element.scale)">
+                  <img :src="element.value.image.webformatURL"/>
+                </div>
               </div>
             </div>
           </div>
