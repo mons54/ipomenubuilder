@@ -23,7 +23,7 @@
       </b-nav-item-dropdown>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
-      <b-nav-item>Télécharger</b-nav-item>
+      <Download/>
       <b-nav-item  v-if="onSave" :disabled="true">
         Enregistrement...
       </b-nav-item>
@@ -39,8 +39,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Download from '@/components/Download'
 
 export default {
+  components: {
+    Download,
+  },
   computed: {
     ...mapState({
       formats: state => state.format.data,
