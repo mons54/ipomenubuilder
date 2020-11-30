@@ -44,42 +44,42 @@
               :key="element.id"
               :style="styleElement(element.rect)">
               <div
-                v-if="element.type === 'text'"
-                v-resizable-text="element.value.scale"
-                :style="styleElementText(element.value.scale)">
+                v-if="element.type === 'dish'"
+                v-resizable-dish="element.rect"
+                :style="styleElementDish(element.rect)">
                 <div
-                  v-for="(text, ti) in element.value.elements"
+                  v-for="(item, index) in element.items"
+                  :key="index"
+                  :style="element.styleItem"
+                  class="item">
+                  <div :style="element.styleName">
+                    {{ item.name}}
+                  </div>
+                  <div :style="element.styleDescription">
+                    {{ item.description }}
+                  </div>
+                  <div :style="element.stylePrice">
+                    {{ item.prices[0] }} €
+                  </div>
+                </div>
+              </div>
+              <div
+                v-else-if="element.type === 'text'"
+                v-resizable-text="element.scale"
+                :style="styleElementText(element.scale)">
+                <div
+                  v-for="(text, ti) in element.elements"
                   v-html="text.html"
                   :key="ti"
                   :style="text.style">
                 </div>
               </div>
               <div
-                v-if="element.type === 'dish'"
-                v-resizable-text="element.value.scale"
-                :style="styleElementText(element.value.scale)">
-                <div
-                  v-for="(item, index) in element.value.items"
-                  :key="index"
-                  :style="element.value.styleItem"
-                  class="item">
-                  <div :style="element.value.styleName">
-                    {{ item.name}}
-                  </div>
-                  <div :style="element.value.styleDescription">
-                    {{ item.description }}
-                  </div>
-                  <div :style="element.value.stylePrice">
-                    {{ item.prices[0] }} €
-                  </div>
-                </div>
-              </div>
-              <div
-                v-if="element.type === 'image'"
-                v-resizable-image="element.value.size"
-                :style="styleElementImage(element.value.size)">
+                v-else-if="element.type === 'image'"
+                v-resizable-image="element.rect"
+                :style="styleElementImage(element.rect)">
                 <img
-                  :src="element.value.image.webformatURL"
+                  :src="element.image.webformatURL"
                   style="width: 100%; height: 100%;"/>
               </div>
             </div>
@@ -313,6 +313,11 @@ export default {
     styleElementText(scale) {
       return {
         transform: `scale(${scale.x}, ${scale.y})`,
+      }
+    },
+    styleElementDish(value) {
+      return {
+        width: `${value.width}px`,
       }
     },
     styleElementImage(value) {

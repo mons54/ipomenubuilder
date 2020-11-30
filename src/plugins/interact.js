@@ -62,15 +62,18 @@ export default {
 
             if (!value.id && dropzone) {
 
-              const rect = event.rect
+              const rect = {
+                ...event.rect,
+                ...value.rect,
+              }
 
               rect.top -= dropzone.rect.top
               rect.left -= dropzone.rect.left
 
               dropzone.value.elements.push({
                 id: uid(),
-                rect,
                 ...value,
+                rect,
               })
 
               dropzone = null
@@ -163,6 +166,33 @@ export default {
       componentUpdated: _resizableText,
     })
 
+    function _resizableDish (el, { value }, { context }) {
+      interact(el).
+      resizable({
+        edges: { right: true, left: true },
+        listeners: {
+          move(event) {
+            if (value.width + event.deltaRect.width < 80)
+              return
+            value.left += event.deltaRect.left
+            value.width += event.deltaRect.width
+          }
+        },
+      }).
+      on('resizestart', () => {
+        context.$store.commit('history/stopHistory')
+      }).
+      on('resizeend', () => {
+        context.$store.commit('history/startHistory')
+        context.$store.dispatch('history/addHistory')
+      })
+    }
+
+    Vue.directive('resizableDish', {
+      inserted: _resizableDish,
+      componentUpdated: _resizableDish,
+    })
+
     function _resizableImage (el, { value }, { context }) {
 
       interact(el).
@@ -170,8 +200,14 @@ export default {
         edges: { top: true, right: true, bottom: true, left: true },
         listeners: {
           move(event) {
-            value.width += event.deltaRect.width
-            value.height += event.deltaRect.height
+            if (value.width + event.deltaRect.width > 80) {
+              value.left += event.deltaRect.left
+              value.width += event.deltaRect.width
+            }
+            if (value.height + event.deltaRect.height > 80) {
+              value.top += event.deltaRect.top
+              value.height += event.deltaRect.height
+            }
           }
         },
       }).

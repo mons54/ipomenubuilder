@@ -21,12 +21,10 @@
             v-if="draggable"
             v-draggable.clone="{
               type: 'image',
-              value: {
-                image: value.image,
-                size: {
-                  width: value.image.webformatWidth,
-                  height: value.image.webformatHeight,
-                },
+              ...value,
+              rect: {
+                width: value.image.webformatWidth,
+                height: value.image.webformatHeight,
               },
             }"
             @dragstart="dragstart"
@@ -117,21 +115,32 @@ export default {
       return this.defaultHeight * (data.imageWidth / data.imageHeight)
     },
     dragstart(event) {
-      event.el.firstChild.style.transform = `scale(${event.value.value.image.previewWidth / event.value.value.image.webformatWidth})`
-      event.el.firstChild.setAttribute('src', event.value.value.image.webformatURL)
-      event.el.firstChild.style.transition = '0.5s ease-in-out'
-      event.el.firstChild.style.transformOrigin = 'top left'
+      const el = event.el.firstChild
+      const image = event.value.image
+      const img = new Image;
+      img.onload = () => {
+        el.src = img.src
+      }
+      img.src = image.webformatURL
+      el.style.width = `${image.webformatWidth}px`
+      el.style.transform = `scale(${image.previewWidth / image.webformatWidth})`
+      el.style.transition = '0.5s ease-in-out'
+      el.style.transformOrigin = 'top left'
     },
     dragenter(event) {
       event.el.firstChild.style.transform = `scale(1)`
     },
     dragleave(event) {
-      event.el.firstChild.style.transform = `scale(${event.value.value.image.previewWidth / event.value.value.image.webformatWidth})`
+      const image = event.value.image
+      event.el.firstChild.style.transform = `scale(${image.previewWidth / image.webformatWidth})`
     },
     dragend(event) {
-      event.el.firstChild.style.removeProperty('transition')
-      event.el.firstChild.style.removeProperty('transform')
-      event.el.firstChild.setAttribute('src', event.value.value.image.previewURL)
+      const el = event.el.firstChild
+      const image = event.value.image
+      el.style.removeProperty('width')
+      el.style.removeProperty('transition')
+      el.style.removeProperty('transform')
+      el.src = image.previewURL
     },
   },
   watch: {

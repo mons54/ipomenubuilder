@@ -4,12 +4,9 @@
       v-for="(value, key) in dishes"
       v-draggable.clone="{
         type: 'dish',
-        value: {
-          scale: {
-            x: 1,
-            y: 1,
-          },
-          ...value
+        ...value,
+        rect: {
+          width
         },
       }"
       @dragstart="dragstart"
@@ -40,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { dishes } from '@/helpers/dish'
 
 export default {
@@ -48,8 +46,17 @@ export default {
       dishes,
     }
   },
+  computed: {
+    ...mapGetters('menu', [
+      'page',
+    ]),
+    width() {
+      return this.page.areas[0].width - 40
+    },
+  },
   methods: {
     dragstart(event) {
+      event.el.firstChild.style.width = `${this.width}px`
       event.el.firstChild.style.transform = `scale(0.75)`
     },
     dragenter(event) {
@@ -59,6 +66,7 @@ export default {
       event.el.firstChild.style.transform = `scale(0.75)`
     },
     dragend(event) {
+      event.el.firstChild.style.removeProperty('width')
       event.el.firstChild.style.transform = `scale(1)`
     },
   },
