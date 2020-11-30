@@ -6,156 +6,187 @@ let draggable
 
 export default {
   install (Vue) {
-    Vue.directive('draggable', {
-      inserted (el, { value, modifiers }, { data }) {
 
-        let clone
-        let position
+    let clone
+    let position
 
-        el.style.touchAction = 'none'
+    function _draggable (el, { value, modifiers }, { data, context }) {
 
-        interact(el).
-        draggable({
-          listeners: {
-            start() {
+      el.style.touchAction = 'none'
 
-              if (modifiers.clone) {
+      interact(el).
+      draggable({
+        listeners: {
+          start() {
 
-                clone = el.cloneNode(true)
+            context.$store.commit('history/stopHistory')
 
-                const rect = el.getBoundingClientRect()
+            if (modifiers.clone) {
 
-                el.parentElement.insertBefore(clone, el)
+              clone = el.cloneNode(true)
 
-                document.body.appendChild(el)
+              const rect = el.getBoundingClientRect()
 
-                el.style.position = 'absolute'
-                el.style.left = 0
-                el.style.top = 0
+              el.parentElement.insertBefore(clone, el)
 
-                position = { left: rect.left, top: rect.top }
-              } else {
-                position = value.rect
-              }
+              document.body.appendChild(el)
 
-              draggable = {
-                el,
-                value,
-                modifiers,
-                data,
-              }
+              el.style.position = 'absolute'
+              el.style.left = 0
+              el.style.top = 0
 
-              if (data.on && data.on.dragstart)
-                data.on.dragstart(draggable)
-            },
-            move (event) {
-              position.left += event.dx
-              position.top += event.dy
-              el.style.transform =`translate(${position.left}px, ${position.top}px)`
-            },
-            end(event) {
+              position = { left: rect.left, top: rect.top }
+            } else {
+              position = value.rect
+            }
 
-              if (data.on && data.on.dragend)
-                data.on.dragend(draggable)
+            draggable = {
+              el,
+              value,
+              modifiers,
+              data,
+            }
 
-              if (!value.id && dropzone) {
+            if (data.on && data.on.dragstart)
+              data.on.dragstart(draggable)
+          },
+          move (event) {
+            position.left += event.dx
+            position.top += event.dy
+            el.style.transform =`translate(${position.left}px, ${position.top}px)`
+          },
+          end(event) {
 
-                const rect = event.rect
+            if (data.on && data.on.dragend)
+              data.on.dragend(draggable)
 
-                rect.top -= dropzone.rect.top
-                rect.left -= dropzone.rect.left
+            if (!value.id && dropzone) {
 
-                dropzone.value.elements.push({
-                  id: uid(),
-                  rect,
-                  ...value,
-                })
+              const rect = event.rect
 
-                dropzone = null
-              }
+              rect.top -= dropzone.rect.top
+              rect.left -= dropzone.rect.left
 
-              if (modifiers.clone) {
-                clone.parentElement.insertBefore(el, clone)
-                clone.remove()
-                el.style.removeProperty('position')
-                el.style.removeProperty('left')
-                el.style.removeProperty('top')
-                el.style.removeProperty('transform')
-              }
+              dropzone.value.elements.push({
+                id: uid(),
+                rect,
+                ...value,
+              })
+
+              dropzone = null
+            }
+
+            context.$store.commit('history/startHistory')
+            context.$store.dispatch('history/addHistory')
+
+            if (modifiers.clone) {
+              clone.parentElement.insertBefore(el, clone)
+              clone.remove()
+              el.style.removeProperty('position')
+              el.style.removeProperty('left')
+              el.style.removeProperty('top')
+              el.style.removeProperty('transform')
             }
           }
-        })
-      }
+        }
+      })
+    }
+
+    Vue.directive('draggable', {
+      inserted: _draggable,
+      componentUpdated: _draggable,
     })
+
+    function _dropzone (el, { value }) {
+      interact(el).
+      dropzone({
+        ondrop() {
+          const rect = el.getBoundingClientRect()
+          dropzone = {
+            rect,
+            value,
+          }
+        }
+      }).
+      on('dragenter', () => {
+        if (draggable.data.on && draggable.data.on.dragenter)
+          draggable.data.on.dragenter(draggable)
+      }).
+      on('dragleave', () => {
+        if (draggable.data.on && draggable.data.on.dragleave)
+          draggable.data.on.dragleave(draggable)
+      })
+    }
 
     Vue.directive('dropzone', {
-      inserted (el, { value }) {
-        interact(el).
-        dropzone({
-          ondrop() {
-            const rect = el.getBoundingClientRect()
-            dropzone = {
-              rect,
-              value,
+      inserted: _dropzone,
+      componentUpdated: _dropzone,
+    })
+
+    function _resizableText (el, { value }, { context }) {
+      interact(el).
+      resizable({
+        edges: { top: true, right: true, bottom: true, left: true },
+        modifiers: [
+          interact.modifiers.aspectRatio({
+            ratio: 'preserve',
+            equalDelta: true,
+          })
+        ],
+        listeners: {
+          move(event) {
+
+            const x = (event.deltaRect.left - event.deltaRect.right) / 100
+            const y = (event.deltaRect.top - event.deltaRect.bottom) / 100
+
+            if (x && value.x - x > 0.2) {
+              value.x -= x
+              value.y = value.x
+            } else if (y && value.y - y > 0.2) {
+              value.y -= y
+              value.x = value.y
             }
           }
-        }).
-        on('dragenter', () => {
-          if (draggable.data.on && draggable.data.on.dragenter)
-            draggable.data.on.dragenter(draggable)
-        }).
-        on('dragleave', () => {
-          if (draggable.data.on && draggable.data.on.dragleave)
-            draggable.data.on.dragleave(draggable)
-        })
-      }
-    })
+        },
+      }).
+      on('resizestart', () => {
+        context.$store.commit('history/stopHistory')
+      }).
+      on('resizeend', () => {
+        context.$store.commit('history/startHistory')
+        context.$store.dispatch('history/addHistory')
+      })
+    }
 
     Vue.directive('resizableText', {
-      inserted (el, { value }) {
-
-        interact(el).
-        resizable({
-          edges: { top: true, right: true, bottom: true, left: true },
-          modifiers: [
-            interact.modifiers.aspectRatio({
-              ratio: 'preserve',
-              equalDelta: true,
-            })
-          ],
-          listeners: {
-            move(event) {
-
-              const x = (event.deltaRect.left - event.deltaRect.right) / 100
-              const y = (event.deltaRect.top - event.deltaRect.bottom) / 100
-
-              if (x) {
-                value.x -= x
-                value.y = value.x
-              } else {
-                value.y -= y
-                value.x = value.y
-              }
-            }
-          },
-        })
-      }
+      inserted: _resizableText,
+      componentUpdated: _resizableText,
     })
 
-    Vue.directive('resizableImage', {
-      inserted (el, { value }) {
+    function _resizableImage (el, { value }, { context }) {
 
-        interact(el).
-        resizable({
-          edges: { top: true, right: true, bottom: true, left: true },
-          listeners: {
-            move(event) {
-              value.width += event.deltaRect.width
-              value.height += event.deltaRect.height
-            }
-          },
-        })
-      }
+      interact(el).
+      resizable({
+        edges: { top: true, right: true, bottom: true, left: true },
+        listeners: {
+          move(event) {
+            value.width += event.deltaRect.width
+            value.height += event.deltaRect.height
+          }
+        },
+      }).
+      on('resizestart', () => {
+        context.$store.commit('history/stopHistory')
+      }).
+      on('resizeend', () => {
+        context.$store.commit('history/startHistory')
+        context.$store.dispatch('history/addHistory')
+      })
+    }
+
+    Vue.directive('resizableImage', {
+      inserted: _resizableImage,
+      componentUpdated: _resizableImage,
     })
   }
 }
