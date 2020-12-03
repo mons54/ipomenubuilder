@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import ActionBar from '@/components/ActionBar'
 import Menu from '@/components/Menu'
 import NavBar from '@/components/NavBar'
@@ -45,19 +45,30 @@ export default {
     ]),
     ...mapActions('menu', [
       'getMenuData',
+      'saveMenuData',
     ]),
     ...mapActions('text', [
       'getTextData',
+    ]),
+    ...mapMutations('menu', [
+      'setMenuId',
+      'setMenuSaved',
     ]),
   },
   watch: {
     json () {
       this.addHistory()
+      this.setMenuSaved(false)
+    },
+    historyIndex() {
+      this.saveMenuData()
     },
   },
   created() {
+    const id = 1
+    this.setMenuId(id)
     this.getFormatData()
-    this.getMenuData()
+    this.getMenuData(id)
     this.getTextData()
   },
 }

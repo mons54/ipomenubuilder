@@ -44,13 +44,28 @@ const getters = {
 }
 
 const actions = {
-  async getMenuData({ commit }) {
+  async getMenuData({ commit }, id) {
 
-    const { data } = await menu.getOne()
+    const { data } = await menu.getOne(id)
 
     commit('setMenuData', data.menu)
 
     return data
+  },
+  saveMenuData({ commit, state }) {
+
+    commit('setMenuOnSave', true)
+
+    return menu.save(state.id, JSON.stringify(state.data)).
+    then(() => {
+      commit('setMenuSaved', true)
+    }).
+    catch(() => {
+      commit('setMenuSaved', false)
+    }).
+    finally(() => {
+      commit('setMenuOnSave', false)
+    })
   },
   resizeMenu({ state }, format) {
     if (state.data.format.area !== format.area) {
@@ -97,6 +112,15 @@ const mutations = {
   },
   setMenuElement (state, id) {
     state.element = id
+  },
+  setMenuId(state, value) {
+    state.id = value
+  },
+  setMenuSaved(state, value) {
+    state.saved = value
+  },
+  setMenuOnSave(state, value) {
+    state.onSave = value
   },
 }
 
