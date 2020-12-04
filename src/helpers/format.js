@@ -30,3 +30,9 @@ export const formats = [
     safeZone: 22.67716535433071,
   }
 ]
+
+const dpi = 96
+
+export function pxToMm(px) {
+  return px / dpi * 25.4
+}

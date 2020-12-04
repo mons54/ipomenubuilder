@@ -23,6 +23,7 @@ format.inside.forEach(width => {
 })
 
 export const menu = {
+  name: "Test",
   format,
   prices: {
     symbol: "€",

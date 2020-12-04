@@ -30,11 +30,18 @@
               :step="0.5"/>
           </b-col>
         </b-row>
-        {{ imageWidth }} x {{ imageHeight }}
+        <div class="size">
+          {{ imageWidth }} x {{ imageHeight }} px ({{ imageWidthMm }} x {{ imageHeightMm }} mm)
+        </div>
       </div>
       <b-row>
         <b-col sm="12">
-          <b-button variant="success" class="w-100 mt-3">Télécharger</b-button>
+          <b-button
+            @click="download"
+            variant="success"
+            class="w-100 mt-3">
+            Télécharger
+          </b-button>
         </b-col>
       </b-row>
     </div>
@@ -42,7 +49,20 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import axios from 'axios'
+import download from 'js-file-download'
+import Image from '@/components/Image'
+import Page from '@/components/Page'
 import { mapState } from 'vuex'
+import { pxToMm } from '@/helpers/format'
+import { getFontsLink } from '@/helpers/font'
+
+function getFonts (html) {
+  return getFontsLink([...html.matchAll(
+    /font-family:\s?(?:&quot;)?([\w ]+)(?:&quot;)?/g
+  )], 1)
+}
 
 export default {
   data () {
@@ -59,13 +79,116 @@ export default {
       menu: state => state.menu.data,
       format: state => state.menu.data.format,
     }),
+    imageWidthMm () {
+      return Math.round(pxToMm(this.format.width * this.scale))
+    },
+    imageHeightMm () {
+      return Math.round(pxToMm(this.format.height * this.scale))
+    },
     imageWidth () {
       return Math.round(this.format.width * this.scale)
     },
     imageHeight () {
       return Math.round(this.format.height * this.scale)
     },
-  }
+  },
+  methods: {
+    download () {
+
+      let data
+      let path
+      let ext = this.type
+
+      if (this.type === 'pdf') {
+        data = this.pdf()
+        path = '/pdf'
+      } else {
+        data = this.image()
+        path = `/image/${this.type}`
+      }
+
+      axios({
+        url: `${process.env.VUE_APP_NODE_URL}/download${path}`,
+        method: 'POST',
+        responseType: 'blob',
+        data,
+      }).
+      then(({data, headers}) => {
+        if (headers['content-type'] === 'application/zip')
+          ext = 'zip'
+        download(data, `${this.menu.name}.${ext}`)
+      })
+    },
+    pdf () {
+
+      const pages = []
+
+      this.menu.pages.forEach(page => {
+
+        const component = new Vue({
+          ...Page,
+          propsData: {
+            page,
+            format: this.format,
+            menu: this.menu,
+            mark: this.mark,
+          }
+        }).$mount()
+
+        const html = component.$el.outerHTML
+        const fonts = getFonts(html)
+
+        pages.push({
+          html,
+          fonts,
+        })
+
+        component.$destroy()
+      })
+
+      return {
+        width: this.format.width,
+        height: this.format.height,
+        bleed: this.format.bleed,
+        mark: this.mark,
+        pages,
+      }
+    },
+    image () {
+
+      const images = []
+
+      this.menu.pages.forEach(page => {
+
+        const component = new Vue({
+          ...Image,
+          propsData: {
+            page,
+            format: this.format,
+            menu: this.menu,
+            scale: this.scale,
+          }
+        }).$mount()
+
+        const html = component.$el.outerHTML
+        const fonts = getFonts(html)
+
+        images.push({
+          html,
+          fonts,
+        })
+
+        component.$destroy()
+      })
+
+      return {
+        width: this.imageWidth,
+        height: this.imageHeight,
+        bleed: this.format.bleed * this.scale,
+        images,
+      }
+    },
+  },
 }
 </script>
 
@@ -73,5 +196,8 @@ export default {
 .download {
   width: 300px;
   padding: 20px;
+  .size {
+    font-size: 0.9rem;
+  }
 }
 </style>
