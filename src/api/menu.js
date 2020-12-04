@@ -7,8 +7,6 @@ export default {
 
     const data = localStorage.getItem(id)
 
-    console.log(data)
-
     if (data) {
       response = {
         ...response,
