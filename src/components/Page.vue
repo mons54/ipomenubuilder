@@ -10,17 +10,14 @@
         <div
           :style="styleGrid(area.grid)">
           <div
-            :style="styleGrid(area.grid)">
+            v-for="(name, gai) of gridAreas(area.grid)"
+            :key="gai"
+            :style="styleGridArea(area, name, gai)">
             <div
-              v-for="(name, gai) of gridAreas(area.grid)"
-              :key="gai"
-              :style="styleGridArea(area, name, gai)">
-              <div
-                v-if="area[name] && area[name].image"
-                v-image-area="area[name].image"
-                :style="styleImageArea(area[name].image)"
-              />
-            </div>
+              v-if="area[name] && area[name].image"
+              v-image-area="area[name].image"
+              :style="styleImageArea(area[name].image)"
+            />
           </div>
         </div>
       </div>
