@@ -34,7 +34,7 @@
         class="palette-color"
         v-for="(value, key) in defaultColors"
         :key="key"
-        v-on:click="colors = value">
+        v-on:click="colors = {...value}">
         <div
           v-for="(color, index) in value"
           class="color"
