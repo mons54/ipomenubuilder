@@ -58,7 +58,7 @@
           v-else-if="element.type === 'image'"
           :style="styleElementImage(element.rect)">
           <img
-            :src="element.image.webformatURL"
+            :src="element.image.fullHDURL"
             style="width: 100%; height: 100%;"/>
         </div>
       </div>

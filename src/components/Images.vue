@@ -121,7 +121,7 @@ export default {
       img.onload = () => {
         el.src = img.src
       }
-      img.src = image.webformatURL
+      img.src = image.fullHDURL
       el.style.width = `${image.webformatWidth}px`
       el.style.transform = `scale(${image.previewWidth / image.webformatWidth})`
       el.style.transition = '0.5s ease-in-out'

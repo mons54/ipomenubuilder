@@ -96,7 +96,7 @@ export default {
         top: 0,
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${image.webformatURL})`,
+        backgroundImage: `url(${image.fullHDURL})`,
         transform: '',
       }
 
