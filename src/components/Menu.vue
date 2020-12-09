@@ -52,14 +52,20 @@
                   :key="index"
                   :style="element.styleItem"
                   class="item">
-                  <div :style="element.styleName">
-                    {{ item.name}}
-                  </div>
-                  <div :style="element.styleDescription">
-                    {{ item.description }}
-                  </div>
+                  <Editable
+                    v-model="item.name"
+                    :style="element.styleName"
+                  />
+                  <Editable
+                    v-model="item.description"
+                    :style="element.styleDescription"
+                  />
                   <div :style="element.stylePrice">
-                    {{ item.prices[0] }} €
+                    <Editable
+                      v-model="item.prices[0]"
+                      :price="true"
+                      :inline="true"
+                    /> €
                   </div>
                 </div>
               </div>
@@ -67,12 +73,12 @@
                 v-else-if="element.type === 'text'"
                 v-resizable-text="element.scale"
                 :style="styleElementText(element.scale)">
-                <div
+                <Editable
                   v-for="(text, ti) in element.elements"
-                  v-html="text.html"
+                  v-model="text.html"
+                  :style="text.style"
                   :key="ti"
-                  :style="text.style">
-                </div>
+                />
               </div>
               <div
                 v-else-if="element.type === 'image'"
@@ -110,10 +116,14 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
-import page from '@/mixins/page.js'
+import Editable from '@/components/Editable'
+import page from '@/mixins/page'
 
 export default {
   mixins: [page],
+  components: {
+    Editable,
+  },
   data () {
     return {
       spacing: 40,
