@@ -223,7 +223,7 @@ export default {
       'activeElement',
       'clickElement',
       'desactiveElement',
-    ])
+    ]),
   },
 }
 </script>

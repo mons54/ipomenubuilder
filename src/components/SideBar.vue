@@ -1,7 +1,9 @@
 <template>
   <div id="sidebar">
     <div class="sidebar">
-      <div class="nav">
+      <div
+        class="nav"
+        @click="desactiveElement">
         <div
           @click="selectSidebar('dish')"
           class="nav-item">
@@ -60,7 +62,10 @@
         </div>
       </div>
       <div class="tab">
-        <GridArea v-if="area"/>
+        <StyleDish
+          v-if="dishActived"
+          :element="dishActived"/>
+        <GridArea v-else-if="area"/>
         <Colors v-else-if="selected === 'color'"/>
         <Dishes v-else-if="selected === 'dish'"/>
         <Grids v-else-if="selected === 'grid'"/>
@@ -74,13 +79,14 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import GridArea from '@/components/GridArea'
 import Colors from '@/components/Colors'
 import Dishes from '@/components/Dishes'
 import Grids from '@/components/Grids'
 import Images from '@/components/Images'
 import Texts from '@/components/Texts'
+import StyleDish from '@/components/StyleDish'
 
 export default {
   components: {
@@ -90,16 +96,23 @@ export default {
     Grids,
     Images,
     Texts,
+    StyleDish,
   },
   computed: {
     ...mapState({
       area: state => state.menu.gridArea,
       selected: state => state.sidebar.selected,
     }),
+    ...mapGetters('element', [
+      'dishActived',
+    ])
   },
   methods: {
     ...mapActions('sidebar', [
       'selectSidebar',
+    ]),
+    ...mapMutations('element', [
+      'desactiveElement',
     ]),
   },
 }

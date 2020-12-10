@@ -1,0 +1,225 @@
+<template>
+  <div class="font-family">
+    <div class="selection">
+      <b-form-input
+        v-model="search"
+        placeholder="Police..."
+        type="search"
+        @click="clickSearch"
+      />
+      <div
+        class="menu menu--category"
+        @click="clickCategories">
+        <div
+          class="menu-label"
+          :class="{'open': showCategories }">
+          {{ categoriesLabel }}
+        </div>
+        <div
+          v-show="showCategories"
+          class="menu-content"
+          @click="e => e.stopPropagation()">
+          <b-form-checkbox-group
+            v-model="category"
+            :options="categories"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="menu menu-fonts">
+      <div
+        class="menu-label"
+        @click="clickFonts"
+        :class="{'open': showFonts }">
+        {{ value|fontFamily }}
+      </div>
+      <div
+        v-show="showFonts"
+        class="menu-content"
+        @click="e => e.stopPropagation()">
+        <div
+          v-if="!fonts.length"
+          class="font">
+          Aucun résulat
+        </div>
+        <div
+          v-for="font in fonts"
+          @click="$emit('input', font.family)"
+          :key="font.family"
+          class="font">
+          <div
+            class="family"
+            :style="`font-family: ${font.family}`">
+            {{ font.family|fontFamily }}
+          </div>
+          <div
+            class="category"
+            :style="`font-family: ${font.category}`">
+            {{ font.category.replace('-', ' ') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    value: String,
+  },
+  data() {
+    return {
+      showCategories: false,
+      showFonts: false,
+      category: ['serif', 'sans-serif', 'display', 'handwriting', 'monospace'],
+      categories: [
+        { text: 'Serif', value: 'serif' },
+        { text: 'Sans Serif', value: 'sans-serif' },
+        { text: 'Display', value: 'display' },
+        { text: 'Handwriting', value: 'handwriting' },
+        { text: 'Monospace', value: 'monospace' },
+      ],
+      search: '',
+    }
+  },
+  computed: {
+    fonts() {
+      return this.$fonts.get(this.category, this.search)
+    },
+    categoriesLabel() {
+
+      const categories = this.categories.filter(category => this.category.includes(category.value))
+
+      if (!categories.length)
+        return 'Aucune'
+
+      if (categories.length !== this.categories.length)
+        return `${categories[0].text} +${categories.length - 1}`
+
+      return 'Categories'
+    }
+  },
+  methods: {
+    clickSearch (e) {
+      e.stopPropagation()
+      this.showCategories = false
+      this.showFonts = true
+    },
+    clickCategories(e) {
+      e.stopPropagation()
+      this.showCategories = !this.showCategories
+      this.showFonts = true
+    },
+    clickFonts(e) {
+      e.stopPropagation()
+      this.showFonts = !this.showFonts
+    },
+    hideFonts() {
+      this.showFonts = false
+    },
+    hideCategories () {
+      this.showCategories = false
+    },
+  },
+  filters: {
+    fontFamily (value) {
+      if (!value)
+        return
+      return value.replace(/"/g, '')
+    },
+  },
+  watch: {
+    showCategories(value) {
+      document.removeEventListener('click', this.hideCategories)
+      if (value)
+        document.addEventListener('click', this.hideCategories)
+    },
+    showFonts(value) {
+      document.removeEventListener('click', this.hideFonts)
+      if (value) {
+        document.addEventListener('click', this.hideFonts)
+      }
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.font-family {
+  .menu {
+    position: relative;
+    height: 40px;
+    border: 1px solid #37474f;
+    border-radius: 4px;
+    background-color: #343a40;
+    .menu-label {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 12px;
+      &:after {
+        display: flex;
+        margin-left: auto;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #fff;
+        content: "";
+        height: 0;
+        position: relative;
+        speak: none;
+        width: 0;
+      }
+      &.open:after {
+        transform: rotate(180deg);
+      }
+    }
+    .menu-content {
+      position: absolute;
+      background-color: #343a40;
+      max-height: 300px;
+      border: 1px solid #37474f;
+      border-radius: 4px;
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+      z-index: 9;
+    }
+  }
+  .selection {
+    display: flex;
+    margin-bottom: 8px;
+    .menu {
+      flex: 0 0 52%;
+      margin-left: 8px;
+    }
+    .menu-content {
+      padding: 12px;
+      z-index: 10;
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
+  .font {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 12px;
+    &:hover {
+      background-color: #37474f;
+    }
+    .family {
+      flex: 1;
+    }
+    .category {
+      text-transform: capitalize;
+    }
+  }
+}
+</style>

@@ -3,7 +3,13 @@ const state = () => ({
   clicked: null,
 })
 
-const getters = {}
+const getters = {
+  dishActived(state) {
+    if (state.actived && state.actived.type === 'dish')
+      return state.actived
+    return null
+  }
+}
 
 const actions = {}
 

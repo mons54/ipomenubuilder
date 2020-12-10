@@ -11,17 +11,17 @@ export const dishes = [
     },
     styleName: {
       gridArea: 'name',
-      fontFamily: 'Roboto',
+      fontFamily: '"Roboto"',
       fontSize: '13px',
     },
     styleDescription: {
       gridArea: 'description',
-      fontFamily: 'Open Sans',
+      fontFamily: '"Open Sans"',
       fontSize: '11px',
     },
     stylePrice: {
       gridArea: 'price',
-      fontFamily: 'Open Sans',
+      fontFamily: '"Open Sans"',
       fontSize: '12px',
     },
     items: [
