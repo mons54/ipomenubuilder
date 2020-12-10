@@ -6,7 +6,7 @@
     v-on:keypress="onKeypress($event)"
     v-on:paste="onPaste($event)"
     v-html="data"
-    :class="{'active': isActive}"
+    :class="{'active': active}"
     :style="style"
     contenteditable="true"
     class="editable notranslate"
@@ -33,7 +33,8 @@ export default {
   },
   data () {
     return {
-      isActive: false,
+      active: false,
+      innerHTML: null,
     }
   },
   computed: {
@@ -41,8 +42,8 @@ export default {
       menu: state => state.menu.data,
     }),
     data() {
-      if (this.isActive)
-        return this.$el.innerHTML
+      if (this.innerHTML)
+        return this.innerHTML
       return this.value
     },
     style() {
@@ -50,9 +51,6 @@ export default {
 
       if (this.inline)
         style.display = 'inline'
-
-      if (this.isActive)
-        style.cursor = 'text'
 
       return style
     }
@@ -66,7 +64,7 @@ export default {
     ]),
     onFocus () {
       this.innerHTML = this.$el.innerHTML
-      this.isActive = true
+      this.active = true
     },
     onBlur () {
       if (this.price) {
@@ -78,7 +76,7 @@ export default {
           this.$emit('input', price)
       }
       document.getSelection().empty()
-      this.isActive = false
+      this.active = false
       if (this.innerHTML !== this.$el.innerHTML)
         this.addHistory()
     },
