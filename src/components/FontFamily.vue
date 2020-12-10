@@ -5,7 +5,9 @@
         v-model="search"
         placeholder="Police..."
         type="search"
+        size="sm"
         @click="clickSearch"
+        autocomplete="false"
       />
       <div
         class="menu menu--category"
@@ -102,18 +104,27 @@ export default {
   },
   methods: {
     clickSearch (e) {
-      e.stopPropagation()
-      this.showCategories = false
-      this.showFonts = true
+      if (this.showFonts)
+        e.stopPropagation()
+      setTimeout(() => {
+        this.showCategories = false
+        this.showFonts = true
+      })
     },
     clickCategories(e) {
-      e.stopPropagation()
-      this.showCategories = !this.showCategories
-      this.showFonts = true
+      if (this.showFonts)
+        e.stopPropagation()
+      setTimeout(() => {
+        this.showFonts = true
+        this.showCategories = !this.showCategories
+      })
     },
     clickFonts(e) {
-      e.stopPropagation()
-      this.showFonts = !this.showFonts
+      if (this.showFonts)
+        e.stopPropagation()
+      setTimeout(() => {
+        this.showFonts = !this.showFonts
+      })
     },
     hideFonts() {
       this.showFonts = false
@@ -149,7 +160,7 @@ export default {
 .font-family {
   .menu {
     position: relative;
-    height: 40px;
+    height: 32px;
     border: 1px solid #37474f;
     border-radius: 4px;
     background-color: #343a40;
