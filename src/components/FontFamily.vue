@@ -7,7 +7,7 @@
         type="search"
         size="sm"
         @click="clickSearch"
-        autocomplete="false"
+        autocomplete="off"
       />
       <div
         class="menu menu--category"

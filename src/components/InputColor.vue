@@ -8,6 +8,7 @@
         showColor = !showColor
       }"
       :id="id"
+      :size="size"
       type="color"
     />
     <div @click="e => {
@@ -34,6 +35,10 @@ export default {
   props: {
     value: String,
     id: String,
+    size: {
+      type: String,
+      default: 'md',
+    },
   },
   data() {
     return {
