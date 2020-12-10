@@ -5,6 +5,7 @@ let dropzone
 let draggable
 
 export default {
+
   install (Vue) {
 
     let clone
@@ -17,8 +18,15 @@ export default {
       interact(el).
       draggable({
         listeners: {
-          start() {
+          start(event) {
 
+            if (
+              ['dish', 'text'].includes(value.type) &&
+              context.$store.state.element.actived === value
+            )
+              return event.interaction.stop()
+
+            context.$store.commit('element/clickElement', null)
             context.$store.commit('history/stopHistory')
 
             if (modifiers.clone) {
@@ -138,7 +146,6 @@ export default {
         ],
         listeners: {
           move(event) {
-
             const x = (event.deltaRect.left - event.deltaRect.right) / 100
             const y = (event.deltaRect.top - event.deltaRect.bottom) / 100
 
@@ -153,6 +160,7 @@ export default {
         },
       }).
       on('resizestart', () => {
+        context.$store.commit('element/clickElement', null)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {
@@ -180,6 +188,7 @@ export default {
         },
       }).
       on('resizestart', () => {
+        context.$store.commit('element/clickElement', null)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {

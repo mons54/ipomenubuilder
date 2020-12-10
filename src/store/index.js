@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import element from './modules/element'
 import format from './modules/format'
 import history from './modules/history'
 import image from './modules/image'
@@ -11,6 +12,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    element,
     format,
     history,
     image,

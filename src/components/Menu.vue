@@ -1,5 +1,7 @@
 <template>
-  <div id="menu">
+  <div
+    id="menu"
+    @click="desactiveElement">
     <div
       id="menuContent"
       :style="styleMenuContent">
@@ -42,11 +44,19 @@
               v-for="element of page.elements"
               v-draggable="element"
               :key="element.id"
-              :style="styleElement(element.rect)">
+              :style="styleElement(element.rect)"
+              class="element"
+              :class="{'active': activedElement === element}"
+              @mousedown="clickElement(element)"
+              @click="e => {
+                e.stopPropagation()
+                activeElement(element)
+              }">
               <div
                 v-if="element.type === 'dish'"
                 v-resizable-dish="element.rect"
-                :style="styleElementDish(element.rect)">
+                :style="styleElementDish(element.rect)"
+                class="dish">
                 <div
                   v-for="(item, index) in element.items"
                   :key="index"
@@ -55,16 +65,19 @@
                   <Editable
                     v-model="item.name"
                     :style="element.styleName"
+                    :contenteditable="activedElement === element"
                   />
                   <Editable
                     v-model="item.description"
                     :style="element.styleDescription"
+                    :contenteditable="activedElement === element"
                   />
                   <div :style="element.stylePrice">
                     <Editable
                       v-model="item.prices[0]"
                       :price="true"
                       :inline="true"
+                      :contenteditable="activedElement === element"
                     /> €
                   </div>
                 </div>
@@ -72,11 +85,13 @@
               <div
                 v-else-if="element.type === 'text'"
                 v-resizable-text="element.scale"
-                :style="styleElementText(element.scale)">
+                :style="styleElementText(element.scale)"
+                class="text">
                 <Editable
                   v-for="(text, ti) in element.elements"
                   v-model="text.html"
                   :style="text.style"
+                  :contenteditable="activedElement === element"
                   :key="ti"
                 />
               </div>
@@ -115,7 +130,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import Editable from '@/components/Editable'
 import page from '@/mixins/page'
 
@@ -134,6 +149,7 @@ export default {
       menu: state => state.menu.data,
       format: state => state.menu.data.format,
       scale: state => state.menu.scale,
+      activedElement: state => state.element.actived,
     }),
     ...mapGetters('menu', [
       'page',
@@ -203,6 +219,11 @@ export default {
     ...mapActions('menu', [
       'selectGridArea',
     ]),
+    ...mapMutations('element', [
+      'activeElement',
+      'clickElement',
+      'desactiveElement',
+    ])
   },
 }
 </script>
@@ -219,6 +240,19 @@ export default {
     #pageContainer {
       position: relative;
       transform-origin: top left;
+      .element {
+        &.active {
+          > div {
+            outline: 1px solid #FFC107;
+            &.dish,
+            &.text {
+              cursor: default !important;
+              outline-offset: 8px;
+            }
+          }
+        }
+
+      }
       .area {
         position: relative;
         height: 100%;

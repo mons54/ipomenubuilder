@@ -8,8 +8,8 @@
     v-html="data"
     :class="{'active': active}"
     :style="style"
-    contenteditable="true"
-    class="editable notranslate"
+    :contenteditable="contenteditable"
+    class="notranslate"
     spellcheck="false"
   />
 </template>
@@ -29,6 +29,10 @@ export default {
     price: {
       type: Boolean,
       default: false
+    },
+    contenteditable: {
+      type: Boolean,
+      default: true
     },
   },
   data () {
@@ -114,8 +118,8 @@ export default {
 }
 </script>
 
-<style>
-.editable {
-  cursor: default;
+<style lang="scss" scoped>
+[contenteditable="true"] {
+  cursor: text;
 }
 </style>
