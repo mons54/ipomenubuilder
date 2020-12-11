@@ -248,11 +248,15 @@ export default {
             &.dish,
             &.text {
               cursor: default !important;
-              outline-offset: 8px;
             }
           }
         }
-
+        &:hover {
+          > .dish,
+          > .text {
+            outline: 1px solid #FFC107;
+          }
+        }
       }
       .area {
         position: relative;
