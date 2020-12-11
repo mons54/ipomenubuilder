@@ -1,6 +1,6 @@
 <template>
   <div class="style-dish">
-    <h6>Nom de plat</h6>
+    <h6>Nom</h6>
     <FontFamily
       v-model="styleName.fontFamily"
     />
@@ -11,7 +11,7 @@
       @textDecoration="textDecorationName"
       class="mt-2"
     />
-    <h6 class="mt-2">Description</h6>
+    <h6 class="mt-3">Description</h6>
     <FontFamily
       v-model="styleDescription.fontFamily"
     />
@@ -22,7 +22,7 @@
       @textDecoration="textDecorationDescription"
       class="mt-2"
     />
-    <h6 class="mt-2">Prix</h6>
+    <h6 class="mt-3">Prix</h6>
     <FontFamily
       v-model="stylePrice.fontFamily"
     />
