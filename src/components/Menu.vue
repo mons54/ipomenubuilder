@@ -90,6 +90,7 @@
                 class="text">
                 <Editable
                   v-for="(text, ti) in element.elements"
+                  @click.native="activeElementText(text)"
                   v-model="text.html"
                   :style="text.style"
                   :contenteditable="activedElement === element"
@@ -222,6 +223,7 @@ export default {
     ]),
     ...mapMutations('element', [
       'activeElement',
+      'activeElementText',
       'clickElement',
       'desactiveElement',
     ]),

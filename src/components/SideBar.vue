@@ -65,6 +65,9 @@
         <StyleDish
           v-if="dishActived"
           :element="dishActived"/>
+        <StyleText
+          v-if="textActived"
+          :element="textActived"/>
         <GridArea v-else-if="area"/>
         <Colors v-else-if="selected === 'color'"/>
         <Dishes v-else-if="selected === 'dish'"/>
@@ -87,6 +90,7 @@ import Grids from '@/components/Grids'
 import Images from '@/components/Images'
 import Texts from '@/components/Texts'
 import StyleDish from '@/components/StyleDish'
+import StyleText from '@/components/StyleText'
 
 export default {
   components: {
@@ -97,6 +101,7 @@ export default {
     Images,
     Texts,
     StyleDish,
+    StyleText,
   },
   computed: {
     ...mapState({
@@ -105,6 +110,7 @@ export default {
     }),
     ...mapGetters('element', [
       'dishActived',
+      'textActived',
     ])
   },
   methods: {
