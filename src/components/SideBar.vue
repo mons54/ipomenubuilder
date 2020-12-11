@@ -66,7 +66,7 @@
           v-if="dishActived"
           :element="dishActived"/>
         <StyleText
-          v-if="textActived"
+          v-else-if="textActived"
           :element="textActived"/>
         <GridArea v-else-if="area"/>
         <Colors v-else-if="selected === 'color'"/>
