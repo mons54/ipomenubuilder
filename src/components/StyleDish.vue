@@ -6,18 +6,32 @@
     />
     <FontStyle
       v-model="styleName"
-      @fontWeight="fontWeight"
-      @fontStyle="fontStyle"
-      @textDecoration="textDecoration"
+      @fontWeight="fontWeightName"
+      @fontStyle="fontStyleName"
+      @textDecoration="textDecorationName"
       class="mt-2"
     />
     <h6 class="mt-2">Description</h6>
     <FontFamily
       v-model="styleDescription.fontFamily"
     />
+    <FontStyle
+      v-model="styleDescription"
+      @fontWeight="fontWeightDescription"
+      @fontStyle="fontStyleDescription"
+      @textDecoration="textDecorationDescription"
+      class="mt-2"
+    />
     <h6 class="mt-2">Prix</h6>
     <FontFamily
       v-model="stylePrice.fontFamily"
+    />
+    <FontStyle
+      v-model="styleDescription"
+      @fontWeight="fontWeightPrice"
+      @fontStyle="fontStylePrice"
+      @textDecoration="textDecorationPrice"
+      class="mt-2"
     />
   </div>
 </template>
@@ -47,14 +61,32 @@ export default {
     },
   },
   methods: {
-    fontWeight(value) {
+    fontWeightName(value) {
       Vue.set(this.styleName, 'fontWeight', value)
     },
-    fontStyle(value) {
+    fontStyleName(value) {
       Vue.set(this.styleName, 'fontStyle', value)
     },
-    textDecoration(value) {
+    textDecorationName(value) {
       Vue.set(this.styleName, 'textDecoration', value)
+    },
+    fontWeightDescription(value) {
+      Vue.set(this.styleDescription, 'fontWeight', value)
+    },
+    fontStyleDescription(value) {
+      Vue.set(this.styleDescription, 'fontStyle', value)
+    },
+    textDecorationDescription(value) {
+      Vue.set(this.styleDescription, 'textDecoration', value)
+    },
+    fontWeightPrice(value) {
+      Vue.set(this.stylePrice, 'fontWeight', value)
+    },
+    fontStylePrice(value) {
+      Vue.set(this.stylePrice, 'fontStyle', value)
+    },
+    textDecorationPrice(value) {
+      Vue.set(this.stylePrice, 'textDecoration', value)
     }
   }
 }
