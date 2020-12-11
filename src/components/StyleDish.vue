@@ -27,7 +27,7 @@
       v-model="stylePrice.fontFamily"
     />
     <FontStyle
-      v-model="styleDescription"
+      v-model="stylePrice"
       @fontWeight="fontWeightPrice"
       @fontStyle="fontStylePrice"
       @textDecoration="textDecorationPrice"
