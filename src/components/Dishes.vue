@@ -19,7 +19,10 @@
         <div
           v-for="(item, index) in value.items"
           :key="index"
-          :style="value.styleItem"
+          :style="{
+            ...value.styleItem,
+            ...value.grid.template,
+          }"
           class="item">
           <div :style="value.styleName">
             {{ item.name}}

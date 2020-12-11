@@ -27,20 +27,20 @@
         :style="styleElement(element.rect)">
         <div
           v-if="element.type === 'dish'"
-          :style="styleElementDish(element.rect)">
+          :style="styleElementDish(element)">
           <div
             v-for="(item, index) in element.items"
             :key="index"
-            :style="element.styleItem"
+            :style="styleElementDishItem(element)"
             class="item">
-            <div :style="element.styleName">
+            <div :style="styleElementDishName(element)">
               {{ item.name}}
             </div>
-            <div :style="element.styleDescription">
-              {{ item.description }}
-            </div>
-            <div :style="element.stylePrice">
+            <div :style="styleElementDishPrice(element)">
               {{ item.prices[0] }} €
+            </div>
+            <div :style="styleElementDishDescription(element)">
+              {{ item.description }}
             </div>
           </div>
         </div>

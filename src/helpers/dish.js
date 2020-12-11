@@ -1,18 +1,123 @@
-export const dishes = [
+const marginItem = '0.4em'
+
+export const gridsDish = [
   {
-    styleItem: {
+    template: {
       display: 'grid',
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name price" "description description"',
       gridTemplateColumns: '1fr auto',
       alignItems: 'baseline',
       textAlign: 'left',
-      margin: '0 0 8px',
+    },
+    price: {
+      marginLeft: marginItem,
+    },
+  },
+  {
+    template: {
+      display: 'grid',
+      breakInside: 'avoid-column',
+      gridTemplateAreas: '"name price" "description auto"',
+      gridTemplateColumns: '1fr auto',
+      alignItems: 'baseline',
+      textAlign: 'left',
+    },
+    price: {
+      marginLeft: marginItem,
+    },
+  },
+  {
+    template: {
+      display: 'grid',
+      breakInside: 'avoid-column',
+      gridTemplateAreas: '"name name" "description price"',
+      gridTemplateColumns: '1fr auto',
+      alignItems: 'baseline',
+      textAlign: 'left',
+    },
+    price: {
+      marginLeft: marginItem,
+    },
+  },
+  {
+    template: {
+      textAlign: 'left',
+    },
+    name: {
+      display: 'inline-flex',
+    },
+    price: {
+      display: 'inline-flex',
+      marginLeft: marginItem,
+    },
+  },
+  {
+    template: {
+      textAlign: 'center',
+    },
+    name: {
+      display: 'inline-flex',
+    },
+    price: {
+      display: 'inline-flex',
+      marginLeft: marginItem,
+    },
+  },
+  {
+    template: {
+      textAlign: 'right',
+    },
+    name: {
+      display: 'inline-flex',
+    },
+    price: {
+      display: 'inline-flex',
+      marginLeft: marginItem,
+    },
+  },
+  {
+    template: {
+      display: 'grid',
+      breakInside: 'avoid-column',
+      gridTemplateAreas: '"name" "description" "price"',
+      gridTemplateColumns: '1fr',
+      textAlign: 'center',
+    },
+  },
+  {
+    template: {
+      display: 'grid',
+      breakInside: 'avoid-column',
+      gridTemplateAreas: '"name" "description" "price"',
+      gridTemplateColumns: '1fr',
+      textAlign: 'left',
+    },
+  },
+  {
+    template: {
+      display: 'grid',
+      breakInside: 'avoid-column',
+      gridTemplateAreas: '"name" "description" "price"',
+      gridTemplateColumns: '1fr',
+      textAlign: 'right',
+    },
+  },
+]
+
+const grid = gridsDish[0]
+
+export const dishes = [
+  {
+    styleItem: {
+      marginBottom: '8px',
+      lineHeight: 1.5,
     },
     styleName: {
       gridArea: 'name',
       fontFamily: '"Roboto"',
       fontSize: '13px',
+      lineHeight: 1.5,
     },
     styleDescription: {
       gridArea: 'description',
@@ -24,6 +129,7 @@ export const dishes = [
       fontFamily: '"Open Sans"',
       fontSize: '12px',
     },
+    grid,
     items: [
       {
         name: "Thai Lime Prawn Soup",

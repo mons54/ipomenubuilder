@@ -139,7 +139,35 @@ export default {
     },
     styleElementDish(value) {
       return {
-        width: `${value.width}px`,
+        width: `${value.rect.width}px`,
+      }
+    },
+    styleElementDishItem(value) {
+      return {
+        ...value.styleItem,
+        ...value.grid.template,
+      }
+    },
+    styleElementDishName(value) {
+      return {
+        ...value.styleName,
+        ...value.grid.name,
+        gridArea: 'name',
+      }
+    },
+    styleElementDishDescription(value) {
+      return {
+        ...value.styleDescription,
+        ...value.grid.description,
+        gridArea: 'description',
+
+      }
+    },
+    styleElementDishPrice(value) {
+      return {
+        ...value.stylePrice,
+        ...value.grid.price,
+        gridArea: 'price',
       }
     },
     styleElementImage(value) {

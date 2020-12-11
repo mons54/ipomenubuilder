@@ -55,24 +55,20 @@
               <div
                 v-if="element.type === 'dish'"
                 v-resizable-dish="element.rect"
-                :style="styleElementDish(element.rect)"
+                :style="styleElementDish(element)"
                 class="dish">
                 <div
                   v-for="(item, index) in element.items"
                   :key="index"
-                  :style="element.styleItem"
+                  :style="styleElementDishItem(element)"
                   class="item">
                   <Editable
                     v-model="item.name"
-                    :style="element.styleName"
+                    :style="styleElementDishName(element)"
                     :contenteditable="activedElement === element"
                   />
-                  <Editable
-                    v-model="item.description"
-                    :style="element.styleDescription"
-                    :contenteditable="activedElement === element"
-                  />
-                  <div :style="element.stylePrice">
+                  <div
+                    :style="styleElementDishPrice(element)">
                     <Editable
                       v-model="item.prices[0]"
                       :price="true"
@@ -80,6 +76,11 @@
                       :contenteditable="activedElement === element"
                     /> €
                   </div>
+                  <Editable
+                    v-model="item.description"
+                    :style="styleElementDishDescription(element)"
+                    :contenteditable="activedElement === element"
+                  />
                 </div>
               </div>
               <div
