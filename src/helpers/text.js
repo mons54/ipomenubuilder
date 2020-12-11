@@ -13,12 +13,6 @@ export const texts = [
       },
       {
         style: {
-          borderBottom: "4px solid",
-          margin: "8px 40px",
-        },
-      },
-      {
-        style: {
           fontFamily: "\"Roboto\"",
           fontSize: "30px",
           textAlign: "center",
