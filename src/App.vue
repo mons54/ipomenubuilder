@@ -3,9 +3,14 @@
     v-if="menu">
     <NavBar/>
     <div id="container">
-      <div id="menuContainer">
-        <Menu/>
-        <ActionBar/>
+      <div id="content">
+        <div id="toolbar">
+          <Toolbar/>
+        </div>
+        <div id="menuContainer">
+          <Menu/>
+          <ActionBar/>
+        </div>
       </div>
       <SideBar/>
     </div>
@@ -18,6 +23,7 @@ import ActionBar from '@/components/ActionBar'
 import Menu from '@/components/Menu'
 import NavBar from '@/components/NavBar'
 import SideBar from '@/components/SideBar.vue'
+import Toolbar from '@/components/Toolbar.vue'
 
 export default {
   components: {
@@ -25,6 +31,7 @@ export default {
     Menu,
     NavBar,
     SideBar,
+    Toolbar,
   },
   computed: {
     ...mapState({
@@ -146,13 +153,27 @@ body {
   display: flex;
   flex: 1;
   overflow: hidden;
-  #menuContainer {
+  #content {
     position: relative;
     width: 100%;
     height: 100%;
-    touch-action: manipulation;
-    user-select: none;
-    overflow: auto;
+    overflow: hidden;
+    #toolbar {
+      position: relative;
+      height: 48px;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 1px 0 rgba(57,76,96,.15);
+    }
+    #menuContainer {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 48px);
+      touch-action: manipulation;
+      user-select: none;
+      overflow: auto;
+    }
   }
 }
 </style>

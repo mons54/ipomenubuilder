@@ -43,7 +43,6 @@ export default {
   },
   computed: {
     style() {
-      console.log(this.element)
       return this.element.style
     },
   },

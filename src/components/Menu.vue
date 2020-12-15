@@ -50,7 +50,7 @@
               @mousedown="clickElement(element)"
               @click="e => {
                 e.stopPropagation()
-                activeElement(element)
+                activeElementClick(element)
               }">
               <div
                 v-if="element.type === 'dish'"
@@ -222,7 +222,7 @@ export default {
       'selectGridArea',
     ]),
     ...mapMutations('element', [
-      'activeElement',
+      'activeElementClick',
       'activeElementText',
       'clickElement',
       'desactiveElement',

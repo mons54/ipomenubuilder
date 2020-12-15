@@ -64,10 +64,12 @@
       <div class="tab">
         <StyleDish
           v-if="dishActived"
-          :element="dishActived"/>
+          :element="dishActived"
+        />
         <StyleText
           v-else-if="textActived"
-          :element="textActived"/>
+          :element="textActived"
+        />
         <GridArea v-else-if="area"/>
         <Colors v-else-if="selected === 'color'"/>
         <Dishes v-else-if="selected === 'dish'"/>

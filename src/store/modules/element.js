@@ -1,3 +1,5 @@
+import { v4 as uid } from 'uuid'
+
 const state = () => ({
   actived: null,
   clicked: null,
@@ -17,7 +19,22 @@ const getters = {
   },
 }
 
-const actions = {}
+const actions = {
+  deleteElement({ commit, state, rootGetters }) {
+    const elements = rootGetters['menu/page'].elements
+    const index = elements.findIndex(value => value === state.actived)
+    elements.splice(index, 1)
+    commit('activeElement')
+  },
+  duplicateElement({ commit, state, rootGetters }) {
+    const element = JSON.parse(JSON.stringify(state.actived))
+    element.id = uid()
+    element.rect.top += 20
+    element.rect.left += 20
+    rootGetters['menu/page'].elements.push(element)
+    commit('activeElement', element)
+  },
+}
 
 const mutations = {
   clickElement(state, value) {
@@ -27,9 +44,12 @@ const mutations = {
       state.text = null
     }
   },
-  activeElement(state, value) {
+  activeElementClick(state, value) {
     if (state.clicked === value)
       state.actived = value
+  },
+  activeElement(state, value) {
+    state.actived = value
   },
   activeElementText(state, value) {
     state.text = value
