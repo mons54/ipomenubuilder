@@ -22,6 +22,12 @@
             v-draggable.clone="{
               type: 'image',
               ...value,
+              size: {
+                left: 0,
+                top: 0,
+                width: value.image.webformatWidth,
+                height: value.image.webformatHeight,
+              },
               rect: {
                 width: value.image.webformatWidth,
                 height: value.image.webformatHeight,

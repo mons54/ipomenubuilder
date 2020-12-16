@@ -99,11 +99,14 @@
               </div>
               <div
                 v-else-if="element.type === 'image'"
-                v-resizable-image="element.rect"
+                v-resizable-image="element"
                 :style="styleElementImage(element.rect)">
-                <img
-                  :src="element.image.fullHDURL"
-                  style="width: 100%; height: 100%;"/>
+                <div
+                  :style="styleElementImageContent(element)">
+                  <img
+                    :src="element.image.fullHDURL"
+                    style="width: 100%; height: 100%;"/>
+                </div>
               </div>
             </div>
           </div>

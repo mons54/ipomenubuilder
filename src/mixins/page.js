@@ -174,6 +174,14 @@ export default {
       return {
         width: `${value.width}px`,
         height: `${value.height}px`,
+        overflow: 'hidden',
+      }
+    },
+    styleElementImageContent(value) {
+      return {
+        width: `${value.size.width}px`,
+        height: `${value.size.height}px`,
+        transform: `translate(-${value.size.left}px, -${value.size.top}px)`,
       }
     },
   },

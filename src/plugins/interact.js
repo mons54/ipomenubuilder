@@ -207,15 +207,44 @@ export default {
       interact(el).
       resizable({
         edges: { top: true, right: true, bottom: true, left: true },
+        modifiers: [
+          interact.modifiers.aspectRatio({
+            ratio: 'preserve',
+            equalDelta: true,
+          })
+        ],
         listeners: {
           move(event) {
-            if (value.width + event.deltaRect.width > 80) {
-              value.left += event.deltaRect.left
-              value.width += event.deltaRect.width
-            }
-            if (value.height + event.deltaRect.height > 80) {
-              value.top += event.deltaRect.top
-              value.height += event.deltaRect.height
+
+            const rect = value.rect
+            const delta = event.deltaRect
+
+            if (rect.width + delta.width <= 80 || rect.height + delta.height <= 80)
+              return
+
+            const size = value.size
+
+            const { left, right, top, bottom } = event.edges
+
+            if (left && !top && !bottom) {
+              rect.left += delta.left
+              rect.width += delta.width
+              size.left += delta.left
+            } else if (right && !top && !bottom) {
+              rect.left += delta.left
+              rect.width += delta.width
+            } else if (top && !left && !right) {
+              rect.top += delta.top
+              rect.height += delta.height
+              size.top += delta.top
+            } else if (bottom && !left && !right) {
+              rect.top += delta.top
+              rect.height += delta.height
+            } else {
+              rect.top += delta.top
+              rect.left += delta.left
+              rect.width += delta.width
+              rect.height += delta.height
             }
           }
         },
