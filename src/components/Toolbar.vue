@@ -1,23 +1,39 @@
 <template>
   <div class="toolbar">
-    <ToolbarDish
-      v-if="dishActived"
-    />
+    <div
+      v-if="element"
+      class="toolbar-nav ml-auto">
+      <b-button
+        @click="duplicateElement"
+        variant="light"
+        class="toolbar-item"
+        size="sm">
+        <b-icon-stickies/>
+      </b-button >
+      <b-button
+        @click="deleteElement"
+        variant="light"
+        class="toolbar-item"
+        size="sm">
+        <b-icon-trash/>
+      </b-button>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import ToolbarDish from '@/components/ToolbarDish'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  components: {
-    ToolbarDish,
-  },
   computed: {
-    ...mapGetters('element', [
-      'dishActived',
-      'textActived',
+    ...mapState({
+      element: state => state.element.actived
+    })
+  },
+  methods: {
+    ...mapActions('element', [
+      'deleteElement',
+      'duplicateElement',
     ])
   },
 }
@@ -25,6 +41,11 @@ export default {
 
 <style lang="scss" scoped>
 .toolbar {
+  display: flex;
   width: 100%;
+  &-nav {
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

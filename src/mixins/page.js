@@ -38,7 +38,6 @@ export default {
         width: `${this.width}px`,
         height: `${this.height}px`,
         position: 'relative',
-        overflow: 'hidden',
         ...this.menu.styles.page,
       }
     },
@@ -132,9 +131,10 @@ export default {
         transform: `translate(${rect.left}px, ${rect.top}px)`,
       }
     },
-    styleElementText(scale) {
+    styleElementText(element) {
       return {
-        transform: `scale(${scale.x}, ${scale.y})`,
+        width: `${element.width}px`,
+        transform: `scale(${element.scale.x}, ${element.scale.y})`,
       }
     },
     styleElementDish(value) {

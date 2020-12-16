@@ -20,11 +20,22 @@ const getters = {
 }
 
 const actions = {
+  clickElement({ state }, value) {
+    state.clicked = value
+    if (state.actived !== state.clicked) {
+      state.actived = null
+      state.text = null
+    }
+  },
+  activeElement({ commit, state }, element) {
+    if (state.clicked === element)
+      commit('activeElement', element)
+  },
   deleteElement({ commit, state, rootGetters }) {
     const elements = rootGetters['menu/page'].elements
     const index = elements.findIndex(value => value === state.actived)
     elements.splice(index, 1)
-    commit('activeElement')
+    commit('desactiveElement')
   },
   duplicateElement({ commit, state, rootGetters }) {
     const element = JSON.parse(JSON.stringify(state.actived))
@@ -37,17 +48,6 @@ const actions = {
 }
 
 const mutations = {
-  clickElement(state, value) {
-    state.clicked = value
-    if (state.actived !== state.clicked) {
-      state.actived = null
-      state.text = null
-    }
-  },
-  activeElementClick(state, value) {
-    if (state.clicked === value)
-      state.actived = value
-  },
   activeElement(state, value) {
     state.actived = value
   },

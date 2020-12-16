@@ -46,7 +46,7 @@
         </div>
         <div
           v-else-if="element.type === 'text'"
-          :style="styleElementText(element.scale)">
+          :style="styleElementText(element)">
           <div
             v-for="(text, ti) in element.elements"
             v-html="text.html"

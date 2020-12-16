@@ -50,7 +50,7 @@
               @mousedown="clickElement(element)"
               @click="e => {
                 e.stopPropagation()
-                activeElementClick(element)
+                activeElement(element)
               }">
               <div
                 v-if="element.type === 'dish'"
@@ -86,7 +86,7 @@
               <div
                 v-else-if="element.type === 'text'"
                 v-resizable-text="element.scale"
-                :style="styleElementText(element.scale)"
+                :style="styleElementText(element)"
                 class="text">
                 <Editable
                   v-for="(text, ti) in element.elements"
@@ -221,10 +221,12 @@ export default {
     ...mapActions('menu', [
       'selectGridArea',
     ]),
-    ...mapMutations('element', [
-      'activeElementClick',
-      'activeElementText',
+    ...mapActions('element', [
+      'activeElement',
       'clickElement',
+    ]),
+    ...mapMutations('element', [
+      'activeElementText',
       'desactiveElement',
     ]),
   },

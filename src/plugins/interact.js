@@ -26,7 +26,7 @@ export default {
             )
               return event.interaction.stop()
 
-            context.$store.commit('element/clickElement', null)
+            context.$store.dispatch('element/clickElement', null)
             context.$store.commit('history/stopHistory')
 
             if (modifiers.clone) {
@@ -160,7 +160,7 @@ export default {
         },
       }).
       on('resizestart', () => {
-        context.$store.commit('element/clickElement', null)
+        context.$store.dispatch('element/clickElement', null)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {
@@ -188,7 +188,7 @@ export default {
         },
       }).
       on('resizestart', () => {
-        context.$store.commit('element/clickElement', null)
+        context.$store.dispatch('element/clickElement', null)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {
