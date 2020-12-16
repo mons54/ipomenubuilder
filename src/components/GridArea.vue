@@ -205,7 +205,7 @@ export default {
       },
       set (value) {
         if (this.filter === value)
-          Vue.delete(this.image, 'filter', value)
+          Vue.delete(this.image, 'filter')
         else
           Vue.set(this.image, 'filter', value)
       }

@@ -12,6 +12,11 @@ const getters = {
       return state.actived
     return null
   },
+  imageActived(state) {
+    if (state.actived && state.actived.type === 'image')
+      return state.actived
+    return null
+  },
   textActived(state) {
     if (state.actived && state.actived.type === 'text' && state.text)
       return state.text

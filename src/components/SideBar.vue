@@ -66,6 +66,10 @@
           v-if="dishActived"
           :element="dishActived"
         />
+        <StyleImage
+          v-else-if="imageActived"
+          :element="imageActived"
+        />
         <StyleText
           v-else-if="textActived"
           :element="textActived"
@@ -92,6 +96,7 @@ import Grids from '@/components/Grids'
 import Images from '@/components/Images'
 import Texts from '@/components/Texts'
 import StyleDish from '@/components/StyleDish'
+import StyleImage from '@/components/StyleImage'
 import StyleText from '@/components/StyleText'
 
 export default {
@@ -103,6 +108,7 @@ export default {
     Images,
     Texts,
     StyleDish,
+    StyleImage,
     StyleText,
   },
   computed: {
@@ -112,6 +118,7 @@ export default {
     }),
     ...mapGetters('element', [
       'dishActived',
+      'imageActived',
       'textActived',
     ])
   },

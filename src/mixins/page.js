@@ -182,6 +182,7 @@ export default {
         width: `${value.size.width}px`,
         height: `${value.size.height}px`,
         transform: `translate(-${value.size.left}px, -${value.size.top}px)`,
+        ...value.style,
       }
     },
   },

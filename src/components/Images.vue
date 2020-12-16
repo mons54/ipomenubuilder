@@ -32,6 +32,7 @@
                 width: value.image.webformatWidth,
                 height: value.image.webformatHeight,
               },
+              style: {},
             }"
             @dragstart="dragstart"
             @dragenter="dragenter"
