@@ -78,6 +78,8 @@ export default {
               rect.top -= dropzone.rect.top
               rect.left -= dropzone.rect.left
 
+              value = JSON.parse(JSON.stringify(value))
+
               dropzone.value.elements.push({
                 id: uid(),
                 ...value,
