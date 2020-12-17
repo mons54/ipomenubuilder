@@ -248,6 +248,7 @@ export default {
     #pageContainer {
       position: relative;
       transform-origin: top left;
+      overflow: hidden;
       .element {
         &.active {
           > div {
