@@ -74,14 +74,24 @@
           v-else-if="textActived"
           :element="textActived"
         />
-        <GridArea v-else-if="area"/>
-        <Colors v-else-if="selected === 'color'"/>
-        <Dishes v-else-if="selected === 'dish'"/>
-        <Grids v-else-if="selected === 'grid'"/>
+        <GridArea
+          v-else-if="area"
+        />
+        <Colors
+          v-else-if="selected === 'color'"
+        />
+        <Dishes
+          v-else-if="selected === 'dish'"
+        />
+        <Grids
+          v-else-if="selected === 'grid'"
+        />
         <Images
           v-else-if="selected === 'image'"
           :draggable="true"/>
-        <Texts v-else-if="selected === 'text'"/>
+        <Texts
+          v-else-if="selected === 'text'"
+        />
       </div>
     </div>
   </div>

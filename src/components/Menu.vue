@@ -27,7 +27,8 @@
                   @click="selectGridArea({ index: ai, name })"
                   :key="gai"
                   :style="styleGridArea(area, name, gai)"
-                  class="grid-area">
+                  class="grid-area"
+                  :class="{'active': gridArea === area[name]}">
                   <div
                     v-if="area[name] && area[name].image"
                     v-image-area="area[name].image"
@@ -157,6 +158,7 @@ export default {
       activedElement: state => state.element.actived,
     }),
     ...mapGetters('menu', [
+      'gridArea',
       'page',
     ]),
     areas () {
@@ -250,6 +252,7 @@ export default {
       transform-origin: top left;
       overflow: hidden;
       .element {
+        z-index: 3;
         &.active {
           > div {
             outline: 1px solid #FFC107;
@@ -269,12 +272,31 @@ export default {
       .area {
         position: relative;
         height: 100%;
+        .grid-area {
+          &.active {
+            &:after {
+              content: "";
+              position: absolute;
+              display: block;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              border: 4px solid #F44336;
+              outline-offset: -4px;
+              z-index: 2;
+            }
+          }
+        }
       }
       .bleed {
         position: absolute;
         border-color: #BDBDBD;
         border-style: dashed;
         border-width: 0;
+        z-index: 1;
       }
 
       .bleed--area {

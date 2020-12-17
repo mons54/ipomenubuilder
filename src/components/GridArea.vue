@@ -101,7 +101,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import Images from '@/components/Images'
 import InputColor from '@/components/InputColor'
 import InputRange from '@/components/InputRange'
@@ -128,10 +128,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      color: state => state.menu.gridArea,
-      selected: state => state.sidebar.selected,
-    }),
     ...mapGetters('menu', [
       'area',
       'gridArea',
