@@ -1,8 +1,11 @@
 <template>
   <div id="gridArea">
-    <Images
-      v-if="!gridArea.image"
-      v-model="image"/>
+    <div
+      v-if="!gridArea.image">
+      <h5>Sélectionner un image</h5>
+      <Images
+        v-model="image"/>
+    </div>
     <div v-else>
       <b-row>
         <b-col md="12" class="text-center mb-4">
