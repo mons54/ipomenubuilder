@@ -19,9 +19,6 @@ function imageArea (el, { value }, vnode) {
 
 export default {
   computed: {
-    areas () {
-      return this.page.areas
-    },
     bleed () {
       return this.format.bleed
     },

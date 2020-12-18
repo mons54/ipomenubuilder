@@ -3,19 +3,22 @@
     id="menu"
     @click="desactiveElement">
     <div
-      id="menuContent"
+      v-for="(page, pi) of menu.pages"
+      :key="pi"
+      class="menu-content"
       :style="styleMenuContent">
       <div
-        id="pageContainer"
+        @click="setMenuPage(pi)"
+        class="page-container"
         :style="stylePageContainer">
         <div
-          id="page"
+          class="page"
           :style="stylePage">
           <div
             :style="stylePageContent"
             v-dropzone="page">
             <div
-              v-for="(area, ai) of areas"
+              v-for="(area, ai) of page.areas"
               :key="ai"
               :style="styleArea(area)"
               class="area">
@@ -183,6 +186,7 @@ export default {
       return {
         width: `${this.fullWidth * this.scale}px`,
         height: `${this.fullHeight * this.scale}px`,
+        flex: `0 0 ${this.fullHeight * this.scale}px`,
       }
     },
     stylePageContainer () {
@@ -226,6 +230,9 @@ export default {
     ...mapActions('menu', [
       'selectGridArea',
     ]),
+    ...mapMutations('menu', [
+      'setMenuPage',
+    ]),
     ...mapActions('element', [
       'activeElement',
       'clickElement',
@@ -241,13 +248,14 @@ export default {
 <style lang="scss" scoped>
 #menu {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   padding-bottom: 40px;
   overflow: auto;
-  #menuContent {
+  .menu-content {
     margin: auto;
-    #pageContainer {
+    .page-container {
       position: relative;
       transform-origin: top left;
       overflow: hidden;

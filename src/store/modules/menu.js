@@ -13,7 +13,7 @@ const state = () => ({
   area: 0,
   gridArea: null,
   element: null,
-  scale: 1,
+  scale: 0.5,
 })
 
 const getters = {
@@ -103,6 +103,9 @@ const actions = {
 const mutations = {
   setMenuData(state, data) {
     state.data = data
+  },
+  setMenuPage(state, page) {
+    state.page = page
   },
   setMenuArea(state, index) {
     state.area = index

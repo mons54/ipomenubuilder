@@ -6,7 +6,9 @@ const colors = defaultColors[0]
 const format = formats[2]
 const grid = grids[0]
 
-const page = {
+const pages = []
+
+let page = {
   elements: [],
   areas: [],
 }
@@ -16,11 +18,27 @@ format.inside.forEach(width => {
     width,
     colors,
     grid,
-    areas: {
-
-    }
+    areas: {}
   })
 })
+
+pages.push(page)
+
+if (format.area > 1) {
+  page = {
+    elements: [],
+    areas: [],
+  }
+  format.outside.forEach(width => {
+    page.areas.push({
+      width,
+      colors,
+      grid,
+      areas: {}
+    })
+  })
+  pages.push(page)
+}
 
 export const menu = {
   name: "Test",
@@ -40,5 +58,5 @@ export const menu = {
       color: '#fff',
     },
   },
-  pages: [page],
+  pages,
 }
