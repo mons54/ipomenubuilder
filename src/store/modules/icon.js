@@ -10,7 +10,6 @@ const actions = {
   async getIconData({ commit, state }) {
     if (!state.data.length) {
       const { data } = await icon.getAll()
-      console.log(data)
       commit('setIconData', data.icons)
     }
     return state.data

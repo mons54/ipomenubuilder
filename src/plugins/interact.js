@@ -87,8 +87,6 @@ export default {
                 rect,
               })
 
-              console.log(dropzone.value)
-
               dropzone = null
             }
 
