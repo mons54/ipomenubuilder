@@ -2,6 +2,18 @@
   <div class="actionbar">
     <ul class="blue-grey lighten-1">
       <li>
+        <b-dropdown
+          :text="`${scale  * 100}%`"
+          dropup>
+          <b-dropdown-item
+            v-for="(value, key) in scales"
+            :key="key"
+            @click="setMenuScale(value)">
+            {{ value  * 100 }}%
+          </b-dropdown-item>
+        </b-dropdown>
+      </li>
+      <li>
         <b-button
           v-on:click="undoHistory"
           :disabled="!hasUndoHistory">
@@ -21,13 +33,19 @@
 
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
+  data() {
+    return {
+      scales: [0.25, 0.5, 0.75, 1, 1.25, 2, 3],
+    }
+  },
   computed: {
     ...mapState({
       id: state => state.menu.id,
       menu: state => state.menu.data,
+      scale: state => state.menu.scale,
       historyIndex: state => state.history.index,
     }),
     ...mapGetters('history', [
@@ -40,6 +58,9 @@ export default {
       'undoHistory',
       'redoHistory',
     ]),
+    ...mapMutations('menu', [
+      'setMenuScale',
+    ])
   },
 }
 </script>
