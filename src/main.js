@@ -4,11 +4,11 @@ import App from '@/App.vue'
 import store from '@/store'
 import font from '@/plugins/font'
 import interact from '@/plugins/interact'
+import i18n from '@/plugins/i18n'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/scss/_fonts.scss'
-import i18n from './i18n'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
