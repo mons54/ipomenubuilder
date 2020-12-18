@@ -103,6 +103,7 @@
               </div>
               <div
                 v-else-if="element.type === 'image'"
+                v-resizable-text="element.scale"
                 v-resizable-image="element"
                 :style="styleElementImage(element.rect)">
                 <div
@@ -111,6 +112,13 @@
                     :src="element.image.fullHDURL"
                     style="width: 100%; height: 100%;"/>
                 </div>
+              </div>
+              <div
+                v-else-if="element.type === 'icon'"
+                v-resizable-text="element.scale"
+                :style="styleElementIcon(element)"
+                v-html="element.src"
+              >
               </div>
             </div>
           </div>
@@ -293,7 +301,7 @@ export default {
               top: 0;
               right: 0;
               bottom: 0;
-              border: 4px solid #F44336;
+              border: 4px solid #FFC107;
               outline-offset: -4px;
               z-index: 2;
             }

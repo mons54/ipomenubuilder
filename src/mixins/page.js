@@ -128,10 +128,10 @@ export default {
         transform: `translate(${rect.left}px, ${rect.top}px)`,
       }
     },
-    styleElementText(element) {
+    styleElementText(value) {
       return {
-        width: `${element.width}px`,
-        transform: `scale(${element.scale.x}, ${element.scale.y})`,
+        width: `${value.width}px`,
+        transform: `scale(${value.scale.x}, ${value.scale.y})`,
       }
     },
     styleElementDish(value) {
@@ -180,6 +180,12 @@ export default {
         height: `${value.size.height}px`,
         transform: `translate(-${value.size.left}px, -${value.size.top}px)`,
         ...value.style,
+      }
+    },
+    styleElementIcon(value) {
+      return {
+        width: `${value.rect.width}px`,
+        transform: `scale(${value.scale.x}, ${value.scale.y})`,
       }
     },
   },

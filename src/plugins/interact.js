@@ -17,14 +17,15 @@ export default {
 
       interact(el).
       draggable({
+
         listeners: {
+
           start(event) {
 
             if (
               ['dish', 'text'].includes(value.type) &&
               context.$store.state.element.actived === value
-            )
-              return event.interaction.stop()
+            ) return event.interaction.stop()
 
             context.$store.dispatch('element/clickElement', null)
             context.$store.commit('history/stopHistory')
@@ -68,6 +69,8 @@ export default {
             if (data.on && data.on.dragend)
               data.on.dragend(draggable)
 
+            console.log(value)
+
             if (!value.id && dropzone) {
 
               const rect = {
@@ -85,6 +88,8 @@ export default {
                 ...value,
                 rect,
               })
+
+              console.log(dropzone.value)
 
               dropzone = null
             }
