@@ -69,8 +69,6 @@ export default {
             if (data.on && data.on.dragend)
               data.on.dragend(draggable)
 
-            console.log(value)
-
             if (!value.id && dropzone) {
 
               const rect = {

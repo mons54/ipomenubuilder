@@ -1,0 +1,37 @@
+{
+  "any": "Aucune",
+  "back": "Retour",
+  "categories": "Categories",
+  "colors": "Couleurs",
+  "dishName": "Nom du plat",
+  "dishDescription": "Description du plat",
+  "dishPrice": "Prix du plat",
+  "dishes": "Plats",
+  "download": "Télécharger",
+  "downloadTypes": {
+    "jpeg": "JPEG",
+    "png": "PNG web",
+    "pdf": "PDF impression"
+  },
+  "font": "Police",
+  "fontCategories": {
+    "display": "Fantaisie",
+    "handwriting": "Manuscrite",
+    "monospace": "Générique",
+    "serif": "Empattement",
+    "sans-serif": "Sans empattement"
+  },
+  "grids": "Grilles",
+  "icons": "Icones",
+  "images": "Images",
+  "lineHeight": "Hauteur",
+  "marksAndBleeds": "Marques de coupe et fond perdu",
+  "resize": "Redimensionner",
+  "save": "Enregistrer",
+  "saved": "Enregistré",
+  "saving": "Enregistrement",
+  "size": "Taille",
+  "spacing": "Espace",
+  "templates": "Modèles",
+  "texts": "Textes"
+}

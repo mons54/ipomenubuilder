@@ -1,6 +1,6 @@
 <template>
   <div class="style-dish">
-    <h6>Nom</h6>
+    <h6>{{ $t('dishName') }}</h6>
     <FontFamily
       v-model="styleName.fontFamily"
     />
@@ -11,7 +11,7 @@
       @textDecoration="textDecorationName"
       class="mt-2"
     />
-    <h6 class="mt-3">Description</h6>
+    <h6 class="mt-3">{{ $t('dishDescription') }}</h6>
     <FontFamily
       v-model="styleDescription.fontFamily"
     />
@@ -22,7 +22,7 @@
       @textDecoration="textDecorationDescription"
       class="mt-2"
     />
-    <h6 class="mt-3">Prix</h6>
+    <h6 class="mt-3">{{ $t('dishPrice') }}</h6>
     <FontFamily
       v-model="stylePrice.fontFamily"
     />
@@ -35,7 +35,7 @@
     />
     <b-row class="mt-4">
       <b-col md="4">
-        <label for="textColor">Espace</label>
+        <label for="textColor">{{ $t('spacing') }}</label>
       </b-col>
       <b-col md="8">
         <InputRange
@@ -47,7 +47,7 @@
     </b-row>
     <b-row>
       <b-col md="4">
-        <label for="textColor">Ligne</label>
+        <label for="textColor">{{ $t('lineHeight') }}</label>
       </b-col>
       <b-col md="8">
         <InputRange

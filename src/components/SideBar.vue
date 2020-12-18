@@ -10,7 +10,7 @@
           <div class="nav-icon">
             <b-icon-card-checklist/>
           </div>
-          Plats
+          {{ $t('dishes') }}
         </div>
         <div
           @click="selectSidebar('text')"
@@ -18,7 +18,7 @@
           <div class="nav-icon">
             <b-icon-type/>
           </div>
-          Textes
+          {{ $t('texts') }}
         </div>
         <div
           @click="selectSidebar('image')"
@@ -26,7 +26,7 @@
           <div class="nav-icon">
             <b-icon-image/>
           </div>
-          Images
+          {{ $t('images') }}
         </div>
         <div
           @click="selectSidebar('icon')"
@@ -34,7 +34,7 @@
           <div class="nav-icon">
             <b-icon-star/>
           </div>
-          Icones
+          {{ $t('icons') }}
         </div>
         <div
           @click="selectSidebar('template')"
@@ -42,7 +42,7 @@
           <div class="nav-icon">
             <b-icon-images/>
           </div>
-          Modèles
+          {{ $t('templates') }}
         </div>
         <div
           @click="selectSidebar('color')"
@@ -50,7 +50,7 @@
           <div class="nav-icon">
             <b-icon-droplet-fill/>
           </div>
-          Couleurs
+          {{ $t('colors') }}
         </div>
         <div
           @click="selectSidebar('grid')"
@@ -58,7 +58,7 @@
           <div class="nav-icon">
             <b-icon-grid1x2-fill/>
           </div>
-          Grille
+          {{ $t('grids') }}
         </div>
       </div>
       <div class="tab">

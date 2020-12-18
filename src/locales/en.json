@@ -1,0 +1,37 @@
+{
+  "any": "Any",
+  "back": "Back",
+  "categories": "Categories",
+  "colors": "Colors",
+  "dishName": "Dish name",
+  "dishDescription": "Dish description",
+  "dishPrice": "Dish price",
+  "dishes": "Dishes",
+  "download": "Download",
+  "downloadTypes": {
+    "jpeg": "JPEG",
+    "png": "PNG web",
+    "pdf": "PDF print"
+  },
+  "font": "Font",
+  "fontCategories": {
+    "display": "Display",
+    "handwriting": "Handwriting",
+    "monospace": "Monospace",
+    "serif": "Serif",
+    "sans-serif": "Sans Serif"
+  },
+  "grids": "Grids",
+  "icons": "Icons",
+  "images": "Images",
+  "lineHeight": "Line height",
+  "marksAndBleeds": "Crop marks and bleed",
+  "resize": "Resize",
+  "save": "Save",
+  "saved": "Saved",
+  "saving": "Saving",
+  "size": "Size",
+  "spacing": "Spacing",
+  "templates": "Templates",
+  "texts": "Texts"
+}

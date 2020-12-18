@@ -12,7 +12,7 @@
     />
     <b-row class="mt-4">
       <b-col md="4">
-        <label for="textColor">Ligne</label>
+        <label for="textColor">{{ $t('lineHeight') }}</label>
       </b-col>
       <b-col md="8">
         <InputRange

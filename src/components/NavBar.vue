@@ -9,10 +9,10 @@
       <b-nav-item
         href="#">
         <b-icon-arrow-left-short/>
-        Retour
+        {{ $t('back') }}
       </b-nav-item>
       <b-nav-item-dropdown
-        text="Redimensionner"
+        :text="$t('resize')"
         right>
         <b-dropdown-item
           v-for="(format, key) of formats"
@@ -25,13 +25,13 @@
     <b-navbar-nav class="ml-auto">
       <Download/>
       <b-nav-item  v-if="onSave" :disabled="true">
-        Enregistrement...
+        {{ $t('saving') }}...
       </b-nav-item>
       <b-nav-item  v-else-if="saved" :disabled="true">
-        Enregistré
+        {{ $t('saved') }}
       </b-nav-item>
       <b-nav-item v-else @click="saveMenuData">
-        Enregistrer
+        {{ $t('save') }}
       </b-nav-item>
     </b-navbar-nav>
   </b-navbar>

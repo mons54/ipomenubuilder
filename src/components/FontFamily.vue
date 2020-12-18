@@ -3,7 +3,7 @@
     <div class="selection">
       <b-form-input
         v-model="search"
-        placeholder="Police..."
+        :placeholder="`${$t('font')}...`"
         type="search"
         size="sm"
         @click="clickSearch"
@@ -14,8 +14,8 @@
         @click="clickCategories">
         <div
           class="menu-label"
-          :class="{'open': showCategories }">
-          {{ categoriesLabel }}
+          :class="{'open': showCategories }"
+          v-html="categoriesLabel">
         </div>
         <div
           v-show="showCategories"
@@ -76,11 +76,11 @@ export default {
       showFonts: false,
       category: ['serif', 'sans-serif', 'display', 'handwriting', 'monospace'],
       categories: [
-        { text: 'Serif', value: 'serif' },
-        { text: 'Sans Serif', value: 'sans-serif' },
-        { text: 'Display', value: 'display' },
-        { text: 'Handwriting', value: 'handwriting' },
-        { text: 'Monospace', value: 'monospace' },
+        { text: this.$t('fontCategories.serif'), value: 'serif' },
+        { text: this.$t('fontCategories.sans-serif'), value: 'sans-serif' },
+        { text: this.$t('fontCategories.display'), value: 'display' },
+        { text: this.$t('fontCategories.handwriting'), value: 'handwriting' },
+        { text: this.$t('fontCategories.monospace'), value: 'monospace' },
       ],
       search: '',
     }
@@ -94,12 +94,12 @@ export default {
       const categories = this.categories.filter(category => this.category.includes(category.value))
 
       if (!categories.length)
-        return 'Aucune'
+        return this.$t('any')
 
       if (categories.length !== this.categories.length)
-        return `${categories[0].text} +${categories.length - 1}`
+        return `${this.$t(`fontCategories.${categories[0].value}`)}+${categories.length - 1}`
 
-      return 'Categories'
+      return this.$t('categories')
     }
   },
   methods: {
@@ -204,7 +204,7 @@ export default {
     display: flex;
     margin-bottom: 8px;
     .menu {
-      flex: 0 0 52%;
+      flex: 0 0 65%;
       margin-left: 8px;
     }
     .menu-content {
@@ -212,6 +212,7 @@ export default {
       z-index: 10;
       width: 100%;
       overflow-x: hidden;
+      user-select: none;
     }
   }
   .font {

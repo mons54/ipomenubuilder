@@ -1,6 +1,6 @@
 <template>
   <b-nav-dropdown
-    text="Télécharger"
+    :text="$t('download')"
     right>
     <div class="download">
       <b-form-select
@@ -12,7 +12,7 @@
           id="pdfMark"
           v-model="mark"
           name="pdfMark">
-          Marques de coupe et fond perdu
+          {{ $t('marksAndBleeds') }}
         </b-form-checkbox>
       </div>
       <div v-else>
@@ -40,7 +40,7 @@
             @click="download"
             variant="success"
             class="w-100 mt-3">
-            Télécharger
+            {{ $t('download') }}
           </b-button>
         </b-col>
       </b-row>
@@ -69,7 +69,11 @@ export default {
     return {
       type: 'pdf',
       mark: true,
-      types: [{ value: 'pdf', text: 'PDF impression'}, { value: 'png', text: 'PNG web'}, { value: 'jpeg', text: 'JPEG'}],
+      types: [
+        { value: 'pdf', text: this.$t('downloadTypes.pdf') },
+        { value: 'png', text: this.$t('downloadTypes.png') },
+        { value: 'jpeg', text: this.$t('downloadTypes.jpeg') }
+      ],
       scale: 1,
       maxScaleSlider: 2,
     }
