@@ -1,10 +1,13 @@
 <template>
   <div
-    :style="stylePage">
+    :style="{
+      ...stylePage,
+      overflow: 'hidden'
+    }">
     <div
       :style="stylePageContent">
       <div
-        v-for="(area, ai) of areas"
+        v-for="(area, ai) of page.areas"
         :key="ai"
         :style="styleArea(area)">
         <div
