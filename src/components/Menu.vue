@@ -89,7 +89,7 @@
               </div>
               <div
                 v-else-if="element.type === 'text'"
-                v-resizable-text="element.scale"
+                v-resizable-scale="element.scale"
                 :style="styleElementText(element)"
                 class="text">
                 <Editable
@@ -103,7 +103,6 @@
               </div>
               <div
                 v-else-if="element.type === 'image'"
-                v-resizable-text="element.scale"
                 v-resizable-image="element"
                 :style="styleElementImage(element.rect)">
                 <div
@@ -115,7 +114,7 @@
               </div>
               <div
                 v-else-if="element.type === 'icon'"
-                v-resizable-text="element.scale"
+                v-resizable-scale="element.scale"
                 :style="styleElementIcon(element)"
                 v-html="element.src"
               >

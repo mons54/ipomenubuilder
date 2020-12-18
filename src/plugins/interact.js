@@ -141,7 +141,7 @@ export default {
       componentUpdated: _dropzone,
     })
 
-    function _resizableText (el, { value }, { context }) {
+    function _resizableScale (el, { value }, { context }) {
       interact(el).
       resizable({
         edges: { top: true, right: true, bottom: true, left: true },
@@ -176,9 +176,9 @@ export default {
       })
     }
 
-    Vue.directive('resizableText', {
-      inserted: _resizableText,
-      componentUpdated: _resizableText,
+    Vue.directive('resizableScale', {
+      inserted: _resizableScale,
+      componentUpdated: _resizableScale,
     })
 
     function _resizableDish (el, { value }, { context }) {

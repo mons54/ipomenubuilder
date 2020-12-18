@@ -33,8 +33,10 @@ const actions = {
     }
   },
   activeElement({ commit, state }, element) {
-    if (state.clicked === element)
+    if (state.clicked === element) {
       commit('activeElement', element)
+      commit('menu/setMenuGridArea', null, { root: true })
+    }
   },
   deleteElement({ commit, state, rootGetters }) {
     const elements = rootGetters['menu/page'].elements
