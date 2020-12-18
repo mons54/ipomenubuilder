@@ -183,10 +183,11 @@ export default {
       return this.spacing - this.bleed * 2
     },
     styleMenuContent () {
+      const height = `${this.fullHeight * this.scale}px`
       return {
         width: `${this.fullWidth * this.scale}px`,
-        height: `${this.fullHeight * this.scale}px`,
-        flex: `0 0 ${this.fullHeight * this.scale}px`,
+        height,
+        flex: `0 0 ${height}`,
       }
     },
     stylePageContainer () {
