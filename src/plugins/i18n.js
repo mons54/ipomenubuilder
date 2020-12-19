@@ -18,8 +18,10 @@ function loadLocaleMessages () {
 
 let locale
 
-if (window.location.pathname)
-  locale = window.location.pathname.split('/')[1]
+if (window.location.search) {
+  const urlParams = new URLSearchParams(window.location.search)
+  locale = urlParams.get('locale')
+}
 
 if (!locale)
    locale = process.env.VUE_APP_I18N_LOCALE || 'fr'
