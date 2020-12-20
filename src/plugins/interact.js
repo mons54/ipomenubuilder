@@ -226,28 +226,95 @@ export default {
               return
 
             const size = value.size
-
+            const width = value.image.webformatWidth
+            const height = value.image.webformatHeight
+            const ratio = width / height
             const { left, right, top, bottom } = event.edges
 
-            if (left && !top && !bottom) {
+            if (left) {
               rect.left += delta.left
               rect.width += delta.width
               size.left += delta.left
-            } else if (right && !top && !bottom) {
+              if (delta.left < 0 && size.width < rect.width) {
+                size.width = rect.width
+                size.height = rect.width / ratio
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              } else if (delta.left > 0 && size.width > rect.width && rect.width > width) {
+                if (ratio > rect.width / rect.height) {
+                  size.width = rect.height * ratio
+                  size.height = rect.height
+                } else {
+                  size.width = rect.width
+                  size.height = rect.width / ratio
+                }
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              }
+            }
+
+            if (right) {
               rect.left += delta.left
               rect.width += delta.width
-            } else if (top && !left && !right) {
+              if (delta.right > 0 && size.width < rect.width) {
+                size.width = rect.width
+                size.height = rect.width / ratio
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              } else if (delta.right < 0 && size.width > rect.width && rect.width > width) {
+                if (ratio > rect.width / rect.height) {
+                  size.width = rect.height * ratio
+                  size.height = rect.height
+                } else {
+                  size.width = rect.width
+                  size.height = rect.width / ratio
+                }
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              }
+            }
+
+            if (top) {
               rect.top += delta.top
               rect.height += delta.height
               size.top += delta.top
-            } else if (bottom && !left && !right) {
+              if (delta.top < 0 && size.height < rect.height) {
+                size.height = rect.height
+                size.width = rect.height * ratio
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              } else if (delta.top > 0 && size.height > rect.height && rect.height > height) {
+                if (ratio > rect.width / rect.height) {
+                  size.height = rect.height
+                  size.width = rect.height * ratio
+                } else {
+                  size.height = rect.width / ratio
+                  size.width = rect.width
+                }
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              }
+            }
+
+            if (bottom) {
               rect.top += delta.top
               rect.height += delta.height
-            } else {
-              rect.top += delta.top
-              rect.left += delta.left
-              rect.width += delta.width
-              rect.height += delta.height
+              if (delta.bottom > 0 && size.height < rect.height) {
+                size.height = rect.height
+                size.width = rect.height * ratio
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              } else if (delta.bottom < 0 && size.height > rect.height && rect.height > height) {
+                if (ratio > rect.width / rect.height) {
+                  size.height = rect.height
+                  size.width = rect.height * ratio
+                } else {
+                  size.height = rect.width / ratio
+                  size.width = rect.width
+                }
+                size.top = (size.height - rect.height) / 2
+                size.left = (size.width - rect.width) / 2
+              }
             }
           }
         },
