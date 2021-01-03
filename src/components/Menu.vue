@@ -33,7 +33,7 @@
                 <div
                   v-for="(name, gai) of gridAreas(value.grid)"
                   @click="() => {
-                    if (!isGrid) {
+                    if (!isGrid || activeArea(value)) {
                       desactiveElement()
                       selectGridArea({ index: ai, name })
                     }
