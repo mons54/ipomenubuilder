@@ -128,12 +128,6 @@ export default {
         transform: `translate(${rect.left}px, ${rect.top}px)`,
       }
     },
-    styleElementText(value) {
-      return {
-        width: `${value.width}px`,
-        transform: `scale(${value.scale.x}, ${value.scale.y})`,
-      }
-    },
     styleElementDish(value) {
       return {
         width: `${value.rect.width}px`,
@@ -184,7 +178,15 @@ export default {
     },
     styleElementIcon(value) {
       return {
-        width: `${value.rect.width}px`,
+        width: `${value.width}px`,
+        transformOrigin: 'top left',
+        transform: `scale(${value.scale.x}, ${value.scale.y})`,
+      }
+    },
+    styleElementText(value) {
+      return {
+        width: `${value.width}px`,
+        transformOrigin: 'top left',
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
       }
     },

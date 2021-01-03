@@ -66,6 +66,7 @@ export default {
       images: state => state.image.images,
       render: state => state.image.render,
       search: state => state.image.search,
+      scale: state => state.menu.scale,
     }),
     searchModel: {
       get() {
@@ -132,12 +133,13 @@ export default {
       }
       img.src = image.fullHDURL
       el.style.width = `${image.webformatWidth}px`
+      el.style.transformOrigin = `top left`
       el.style.transform = `scale(${image.previewWidth / image.webformatWidth})`
       el.style.transition = '0.5s ease-in-out'
       el.style.transformOrigin = 'top left'
     },
     dragenter(event) {
-      event.el.firstChild.style.transform = `scale(1)`
+      event.el.firstChild.style.transform = `scale(${this.scale})`
     },
     dragleave(event) {
       const image = event.value.image
