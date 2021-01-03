@@ -60,7 +60,7 @@ export default {
               data.on.dragstart(draggable)
           },
           move (event) {
-            const scale = value.id ? context.$store.state.menu.scale : 1
+            const scale = value.id ? context.$store.state.scale.value : 1
             position.left += event.dx / scale
             position.top += event.dy / scale
             el.style.transform =`translate(${position.left}px, ${position.top}px)`
@@ -72,7 +72,7 @@ export default {
 
             if (!value.id && dropzone) {
 
-              const scale = context.$store.state.menu.scale
+              const scale = context.$store.state.scale.value
 
               for (const [key, value] of Object.entries(event.rect))
                 event.rect[key] = value / scale
@@ -156,7 +156,7 @@ export default {
         listeners: {
           move(event) {
 
-            const scale = context.$store.state.menu.scale
+            const scale = context.$store.state.scale.value
             const x = (event.deltaRect.left - event.deltaRect.right) / 100 / scale
             const y = (event.deltaRect.top - event.deltaRect.bottom) / 100 / scale
 
@@ -193,7 +193,7 @@ export default {
           move(event) {
             if (value.width + event.deltaRect.width < 80)
               return
-            const scale = context.$store.state.menu.scale
+            const scale = context.$store.state.scale.value
             value.left += event.deltaRect.left / scale
             value.width += event.deltaRect.width / scale
           }

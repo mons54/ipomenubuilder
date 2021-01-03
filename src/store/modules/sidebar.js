@@ -7,7 +7,6 @@ const getters = {}
 const actions = {
   selectSidebar: ({ commit }, value) => {
     commit('selectSidebar', value)
-    commit('menu/setMenuGridArea', null, { root: true })
   },
 }
 

@@ -38,11 +38,17 @@ const actions = {
       commit('menu/setMenuGridArea', null, { root: true })
     }
   },
-  deleteElement({ commit, state, rootGetters }) {
+  desactiveElement({ commit, state }) {
+    state.clicked = null
+    state.actived = null
+    state.text = null
+    commit('menu/setMenuGridArea', null, { root: true })
+  },
+  deleteElement({ dispatch, state, rootGetters }) {
     const elements = rootGetters['menu/page'].elements
     const index = elements.findIndex(value => value === state.actived)
     elements.splice(index, 1)
-    commit('desactiveElement')
+    dispatch('desactiveElement')
   },
   duplicateElement({ commit, state, rootGetters }) {
     const element = JSON.parse(JSON.stringify(state.actived))
@@ -60,11 +66,6 @@ const mutations = {
   },
   activeElementText(state, value) {
     state.text = value
-  },
-  desactiveElement(state) {
-    state.clicked = null
-    state.actived = null
-    state.text = null
   },
 }
 

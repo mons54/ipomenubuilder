@@ -18,24 +18,34 @@
             :style="stylePageContent"
             v-dropzone="page">
             <div
-              v-for="(area, ai) of page.areas"
+              v-for="(value, ai) of page.areas"
               :key="ai"
-              :style="styleArea(area)"
+              :style="styleArea(value)"
               class="area">
               <div
-                :style="styleGrid(area.grid)"
-                class="grid">
+                @click="e => {
+                  e.stopPropagation()
+                  setMenuArea(ai)
+                }"
+                :style="styleGrid(value.grid)"
+                class="grid"
+                :class="{'active': activeArea(value)}">
                 <div
-                  v-for="(name, gai) of gridAreas(area.grid)"
-                  @click="selectGridArea({ index: ai, name })"
+                  v-for="(name, gai) of gridAreas(value.grid)"
+                  @click="() => {
+                    if (!isGrid) {
+                      desactiveElement()
+                      selectGridArea({ index: ai, name })
+                    }
+                  }"
                   :key="gai"
-                  :style="styleGridArea(area, name, gai)"
+                  :style="styleGridArea(value, name, gai)"
                   class="grid-area"
-                  :class="{'active': gridArea === area[name]}">
+                  :class="{'active': gridArea === value[name]}">
                   <div
-                    v-if="area[name] && area[name].image"
-                    v-image-area="area[name].image"
-                    :style="styleImageArea(area[name].image)"
+                    v-if="value[name] && value[name].image"
+                    v-image-area="value[name].image"
+                    :style="styleImageArea(value[name].image)"
                   />
                 </div>
               </div>
@@ -166,8 +176,10 @@ export default {
       format: state => state.menu.data.format,
       scale: state => state.scale.value,
       activedElement: state => state.element.actived,
+      sidebar: state => state.sidebar.selected,
     }),
     ...mapGetters('menu', [
+      'area',
       'gridArea',
       'page',
     ]),
@@ -188,6 +200,9 @@ export default {
     },
     bleedSpacing () {
       return this.spacing - this.bleed * 2
+    },
+    isGrid() {
+      return this.sidebar === 'grid'
     },
     styleMenuContent () {
       const height = `${this.fullHeight * this.scale}px`
@@ -239,16 +254,20 @@ export default {
       'selectGridArea',
     ]),
     ...mapMutations('menu', [
+      'setMenuArea',
       'setMenuPage',
     ]),
     ...mapActions('element', [
       'activeElement',
+      'desactiveElement',
       'clickElement',
     ]),
     ...mapMutations('element', [
       'activeElementText',
-      'desactiveElement',
     ]),
+    activeArea(value) {
+      return value === this.area && this.isGrid
+    },
   },
 }
 </script>
@@ -288,21 +307,28 @@ export default {
       .area {
         position: relative;
         height: 100%;
-        .grid-area {
+        .grid {
           &.active {
-            &:after {
-              content: "";
-              position: absolute;
-              display: block;
-              width: 100%;
-              height: 100%;
-              left: 0;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              border: 4px solid #FFC107;
-              outline-offset: -4px;
-              z-index: 2;
+            position: absolute;
+            outline: 4px solid #FFC107;
+            z-index: 2;
+          }
+          .grid-area {
+            &.active {
+              &:after {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                border: 4px solid #FFC107;
+                outline-offset: -4px;
+                z-index: 2;
+              }
             }
           }
         }

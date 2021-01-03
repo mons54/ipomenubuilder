@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import GridArea from '@/components/GridArea'
 import Colors from '@/components/Colors'
 import Dishes from '@/components/Dishes'
@@ -141,7 +141,7 @@ export default {
     ...mapActions('sidebar', [
       'selectSidebar',
     ]),
-    ...mapMutations('element', [
+    ...mapActions('element', [
       'desactiveElement',
     ]),
   },
