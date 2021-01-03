@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { dishes } from '@/helpers/dish'
 
 export default {
@@ -50,6 +50,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      scale: state => state.menu.scale,
+    }),
     ...mapGetters('menu', [
       'page',
     ]),
@@ -60,10 +63,11 @@ export default {
   methods: {
     dragstart(event) {
       event.el.firstChild.style.width = `${this.width}px`
+      event.el.firstChild.style.transformOrigin = `top left`
       event.el.firstChild.style.transform = `scale(0.75)`
     },
     dragenter(event) {
-      event.el.firstChild.style.transform = `scale(1)`
+      event.el.firstChild.style.transform = `scale(${this.scale})`
     },
     dragleave(event) {
       event.el.firstChild.style.transform = `scale(0.75)`
