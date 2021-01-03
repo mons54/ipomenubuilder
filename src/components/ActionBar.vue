@@ -8,7 +8,7 @@
           <b-dropdown-item
             v-for="(value, key) in scales"
             :key="key"
-            @click="setMenuScale(value)">
+            @click="setScale(value)">
             {{ value  * 100 }}%
           </b-dropdown-item>
         </b-dropdown>
@@ -45,7 +45,7 @@ export default {
     ...mapState({
       id: state => state.menu.id,
       menu: state => state.menu.data,
-      scale: state => state.menu.scale,
+      scale: state => state.scale.value,
       historyIndex: state => state.history.index,
     }),
     ...mapGetters('history', [
@@ -58,8 +58,8 @@ export default {
       'undoHistory',
       'redoHistory',
     ]),
-    ...mapMutations('menu', [
-      'setMenuScale',
+    ...mapMutations('scale', [
+      'setScale',
     ])
   },
 }

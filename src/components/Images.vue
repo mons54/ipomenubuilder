@@ -66,7 +66,7 @@ export default {
       images: state => state.image.images,
       render: state => state.image.render,
       search: state => state.image.search,
-      scale: state => state.menu.scale,
+      scale: state => state.scale.value,
     }),
     searchModel: {
       get() {

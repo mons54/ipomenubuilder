@@ -164,7 +164,7 @@ export default {
     ...mapState({
       menu: state => state.menu.data,
       format: state => state.menu.data.format,
-      scale: state => state.menu.scale,
+      scale: state => state.scale.value,
       activedElement: state => state.element.actived,
     }),
     ...mapGetters('menu', [

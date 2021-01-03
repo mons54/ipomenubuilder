@@ -42,7 +42,7 @@ export default {
   computed: {
     ...mapState({
       texts: state => state.text.data,
-      scale: state => state.menu.scale,
+      scale: state => state.scale.value,
     }),
   },
   methods: {

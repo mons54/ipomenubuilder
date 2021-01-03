@@ -6,6 +6,7 @@ import history from './modules/history'
 import icon from './modules/icon'
 import image from './modules/image'
 import menu from './modules/menu'
+import scale from './modules/scale'
 import sidebar from './modules/sidebar'
 import text from './modules/text'
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     icon,
     image,
     menu,
+    scale,
     sidebar,
     text,
   },

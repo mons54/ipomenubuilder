@@ -41,8 +41,10 @@ const actions = {
       const clone = {...rootState}
       delete clone.history
       delete clone.menu
+      delete clone.scale
       data.state = JSON.stringify(clone)
     }
+
 
     state.data.push(data)
     if (state.data.length > 200)

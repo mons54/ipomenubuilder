@@ -30,7 +30,7 @@ export default {
   computed: {
     ...mapState({
       icons: state => state.icon.data,
-      scale: state => state.menu.scale,
+      scale: state => state.scale.value,
     }),
   },
   methods: {

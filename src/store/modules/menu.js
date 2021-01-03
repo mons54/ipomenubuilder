@@ -13,7 +13,7 @@ const state = () => ({
   area: 0,
   gridArea: null,
   element: null,
-  scale: 1,
+  scale: 2,
 })
 
 const getters = {

@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     ...mapState({
-      scale: state => state.menu.scale,
+      scale: state => state.scale.value,
     }),
     ...mapGetters('menu', [
       'page',
