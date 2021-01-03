@@ -71,13 +71,18 @@ export default {
 
             if (!value.id && dropzone) {
 
+              const scale = context.$store.state.menu.scale
+
+              for (const [key, value] of Object.entries(event.rect))
+                event.rect[key] = value / scale
+
               const rect = {
                 ...event.rect,
                 ...value.rect,
               }
 
-              rect.top -= dropzone.rect.top
-              rect.left -= dropzone.rect.left
+              rect.top -= dropzone.rect.top / scale
+              rect.left -= dropzone.rect.left / scale
 
               value = JSON.parse(JSON.stringify(value))
 

@@ -42,6 +42,7 @@ export default {
   computed: {
     ...mapState({
       texts: state => state.text.data,
+      scale: state => state.menu.scale,
     }),
   },
   methods: {
@@ -49,10 +50,12 @@ export default {
       const content = event.el.querySelector('[data-content]')
       styleContent = content.getAttribute('style')
       content.removeAttribute('style')
+      content.style.transformOrigin = `top left`
       content.style.transform = `scale(0.5)`
+      content.style.width = `${event.value.width}px`
     },
     dragenter(event) {
-      event.el.querySelector('[data-content]').style.transform = `scale(1)`
+      event.el.querySelector('[data-content]').style.transform = `scale(${this.scale})`
     },
     dragleave(event) {
       event.el.querySelector('[data-content]').style.transform = `scale(0.5)`
