@@ -20,8 +20,8 @@ export default {
     menu: Object,
     page: Object,
     scale: {
-      type: String,
-      default: '1',
+      type: Number,
+      default: 1,
     },
   },
   computed: {

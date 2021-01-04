@@ -15,7 +15,7 @@
           {{ $t('marksAndBleeds') }}
         </b-form-checkbox>
       </div>
-      <div v-else>
+      <div v-else-if="type !== 'mobile'">
         <b-row>
           <b-col sm="3">
             <label for="scale">Taille</label>
@@ -71,6 +71,7 @@ export default {
       mark: true,
       types: [
         { value: 'pdf', text: this.$t('downloadTypes.pdf') },
+        { value: 'mobile', text: this.$t('downloadTypes.mobile') },
         { value: 'png', text: this.$t('downloadTypes.png') },
         { value: 'jpeg', text: this.$t('downloadTypes.jpeg') }
       ],
@@ -106,6 +107,10 @@ export default {
       if (this.type === 'pdf') {
         data = this.pdf()
         path = '/pdf'
+      } else if (this.type === 'mobile') {
+        data = this.mobile()
+        path = '/mobile'
+        ext = 'pdf'
       } else {
         data = this.image()
         path = `/image/${this.type}`
@@ -158,6 +163,39 @@ export default {
         pages,
       }
     },
+    mobile () {
+
+      const pages = []
+
+      this.menu.pages.forEach((page, i) => {
+
+        const component = new Vue({
+          ...Page,
+          propsData: {
+            page,
+            format: this.format,
+            menu: this.menu,
+          }
+        }).$mount()
+
+        const html = component.$el.outerHTML
+        const fonts = getFonts(html)
+
+        pages.push({
+          html,
+          fonts,
+          areas: 1 % i + 1 ? this.format.outside : this.format.inside,
+        })
+
+        component.$destroy()
+      })
+
+      return {
+        width: this.format.width,
+        height: this.format.height,
+        pages,
+      }
+    },
     image () {
 
       const images = []
@@ -188,7 +226,6 @@ export default {
       return {
         width: this.imageWidth,
         height: this.imageHeight,
-        bleed: this.format.bleed * this.scale,
         images,
       }
     },

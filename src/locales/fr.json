@@ -10,6 +10,7 @@
   "download": "Télécharger",
   "downloadTypes": {
     "jpeg": "JPEG",
+    "mobile": "PDF mobile",
     "png": "PNG web",
     "pdf": "PDF impression"
   },

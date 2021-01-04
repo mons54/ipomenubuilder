@@ -93,7 +93,7 @@ export default {
         width: '100%',
         height: '100%',
         backgroundImage: `url(${image.fullHDURL})`,
-        transform: '',
+        backgroundRepeat: 'repeat',
       }
 
       if (!isNaN(image.positionX))

@@ -127,8 +127,7 @@
                 v-resizable-scale="element.scale"
                 :style="styleElementIcon(element)"
                 v-html="element.src"
-              >
-              </div>
+              />
             </div>
           </div>
         </div>
