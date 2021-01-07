@@ -9,6 +9,7 @@ import menu from './modules/menu'
 import scale from './modules/scale'
 import sidebar from './modules/sidebar'
 import text from './modules/text'
+import translate from './modules/translate'
 
 Vue.use(Vuex)
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     scale,
     sidebar,
     text,
+    translate,
   },
 })

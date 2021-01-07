@@ -53,6 +53,9 @@ export const menu = {
   parameters: {
 
   },
+  translate: {
+    language: 'fr',
+  },
   styles: {
     page: {
       color: '#fff',

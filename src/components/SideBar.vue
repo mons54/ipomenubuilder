@@ -60,6 +60,14 @@
           </div>
           {{ $t('grids') }}
         </div>
+        <div
+          @click="selectSidebar('translate')"
+          class="nav-item">
+          <div class="nav-icon">
+            <b-icon-globe/>
+          </div>
+          {{ $t('translate') }}
+        </div>
       </div>
       <div class="tab">
         <StyleDish
@@ -95,6 +103,9 @@
         <Texts
           v-else-if="selected === 'text'"
         />
+        <Translate
+          v-else-if="selected === 'translate'"
+        />
       </div>
     </div>
   </div>
@@ -109,6 +120,7 @@ import Grids from '@/components/Grids'
 import Icons from '@/components/Icons'
 import Images from '@/components/Images'
 import Texts from '@/components/Texts'
+import Translate from '@/components/Translate'
 import StyleDish from '@/components/StyleDish'
 import StyleImage from '@/components/StyleImage'
 import StyleText from '@/components/StyleText'
@@ -122,6 +134,7 @@ export default {
     Icons,
     Images,
     Texts,
+    Translate,
     StyleDish,
     StyleImage,
     StyleText,
