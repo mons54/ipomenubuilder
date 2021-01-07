@@ -41,7 +41,8 @@
                   :key="gai"
                   :style="styleGridArea(value, name, gai)"
                   class="grid-area"
-                  :class="{'active': gridArea === value[name]}">
+                  :class="{'active': gridArea === value.areas[name]}">
+                  {{ name }} {{ gai }}
                   <div
                     v-if="value[name] && value[name].image"
                     v-image-area="value[name].image"
@@ -265,7 +266,7 @@ export default {
       'activeElementText',
     ]),
     activeArea(value) {
-      return value === this.area && this.isGrid
+      return value === this.area && (this.isGrid || this.sidebar === 'color')
     },
   },
 }

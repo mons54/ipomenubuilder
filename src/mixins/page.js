@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { getAreas } from '@/helpers/grid'
+import { getAreasSorted } from '@/helpers/grid'
 
 function imageArea (el, { value }, vnode) {
   if (!value.size)
@@ -48,19 +48,7 @@ export default {
   },
   methods: {
     gridAreas (grid) {
-      const areas = getAreas(grid.gridTemplateAreas)
-      areas.sort((a, b) => {
-        if (b === 'main')
-          return -1
-        if (a === 'main')
-          return
-        if (a === 'title')
-          return -1
-        if (b === 'title')
-          return
-        return b > a ? -1 : 1
-      })
-      return areas
+      return getAreasSorted(grid.gridTemplateAreas)
     },
     styleArea(area) {
       return {
@@ -77,9 +65,14 @@ export default {
       }
     },
     styleGridArea (area, name, index) {
+      let backgroundColor = area.colors[index]
+      if (area.areas[name] && area.areas[name].color)
+        backgroundColor = area.areas[name].color
+      if (!backgroundColor)
+        backgroundColor = area.colors[0]
       return {
         position: 'relative',
-        backgroundColor: area.colors[index],
+        backgroundColor,
         gridArea: name,
         overflow: 'hidden',
       }

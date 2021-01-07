@@ -5,6 +5,22 @@ export function getAreas (areas) {
   )
 }
 
+export function getAreasSorted(templateAreas) {
+  const areas = getAreas(templateAreas)
+  areas.sort((a, b) => {
+    if (a === 'main')
+      return -1
+    if (b === 'main')
+      return
+    if (a === 'title')
+      return -1
+    if (b === 'title')
+      return
+    return b > a ? -1 : 1
+  })
+  return areas
+}
+
 export const grids = [
   {
     gridTemplateAreas: '"main"',

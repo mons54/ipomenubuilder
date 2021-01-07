@@ -31,11 +31,11 @@ const getters = {
   gridArea(state, getters) {
     if (!state.gridArea)
       return null
-    if (!getters.area[state.gridArea])
-      Vue.set(getters.area, state.gridArea, {
+    if (!getters.area.areas[state.gridArea])
+      Vue.set(getters.area.areas, state.gridArea, {
         image: null,
       })
-    return getters.area[state.gridArea]
+    return getters.area.areas[state.gridArea]
   },
   element(state, getters) {
     return getters.page.elements.find(element => element.id === state.element)

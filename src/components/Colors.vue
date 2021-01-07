@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import InputColor from '@/components/InputColor.vue'
 import { defaultColors } from '@/helpers/color'
@@ -69,6 +70,8 @@ export default {
         return this.area.colors
       },
       set(colors) {
+        for (const [key] of Object.entries(this.area.areas))
+          Vue.delete(this.area.areas[key], 'color')
         this.area.colors = colors
       }
     },

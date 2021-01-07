@@ -2,7 +2,12 @@
   <div id="gridArea">
     <div
       v-if="!gridArea.image">
-      <h5>Sélectionner un image</h5>
+      <InputColor
+        v-model="areaColor"
+        class="input-color"
+        id="color0"
+      />
+      <hr class="mb-0"/>
       <Images
         v-model="image"/>
     </div>
@@ -104,7 +109,8 @@
 
 <script>
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+import { getAreasSorted } from '@/helpers/grid'
 import Images from '@/components/Images'
 import InputColor from '@/components/InputColor'
 import InputRange from '@/components/InputRange'
@@ -131,10 +137,29 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      gridAreaName: state => state.menu.gridArea,
+    }),
     ...mapGetters('menu', [
       'area',
       'gridArea',
     ]),
+    areaColor: {
+      get() {
+        let color = this.gridArea.color
+        if (!color) {
+          const areas = getAreasSorted(this.area.grid.gridTemplateAreas)
+          const index = areas.findIndex(name => name === this.gridAreaName)
+          color = this.area.colors[index]
+          if (!color)
+            color = this.area.colors[0]
+        }
+        return color
+      },
+      set(color) {
+        Vue.set(this.gridArea, 'color', color)
+      }
+    },
     image: {
       get() {
         return this.gridArea.image
