@@ -90,15 +90,19 @@
                       :contenteditable="activedElement === element"
                     /> €
                   </div>
-                  <Editable
-                    v-model="item.description"
-                    :style="styleElementDishDescription(element)"
-                    :contenteditable="activedElement === element"
-                  />
                   <div
-                    v-for="(value, key) in item.translation"
-                    :key="key"
-                  >{{ value }}</div>
+                    :style="styleElementDishDescription(element)">
+                    <Editable
+                      v-model="item.description"
+                      :contenteditable="activedElement === element"
+                    />
+                    <Editable
+                      v-for="(value, key) in item.translation"
+                      :key="key"
+                      v-model="item.translation[key]"
+                      :contenteditable="activedElement === element"
+                    />
+                  </div>
                 </div>
               </div>
               <div

@@ -8,10 +8,18 @@ export default {
       }
     }))
   },
-  translate (text) {
+  translate (language, texts) {
+    texts.forEach((text, key) => {
+      const data = translation[text]
+      console.log(text, translation)
+      if (data) {
+        texts[key] = data[language]
+      }
+    })
+
     return new Promise(resolve => resolve({
       data: {
-        translation: translation[text] || text,
+        translation: texts,
       }
     }))
   },

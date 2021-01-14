@@ -144,7 +144,6 @@ export default {
         ...value.styleDescription,
         ...value.grid.description,
         gridArea: 'description',
-
       }
     },
     styleElementDishPrice(value) {

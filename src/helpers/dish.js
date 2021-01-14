@@ -135,26 +135,31 @@ export const dishes = [
         name: "Thai Lime Prawn Soup",
         description: "With lemongrass, kafir lime leaves & spring onions",
         prices: ['5.75'],
+        translation: {},
       },
       {
         name: "Cream of Wild Mushroom",
         description: "With three varieties of fresh wild mushrooms",
         prices: ['4.25'],
+        translation: {},
       },
       {
         name: "French Onion",
         description: "Beef broth, caramelized onion, crostini with mozzarella",
         prices: ['5.00'],
+        translation: {},
       },
       {
         name: "Carrot Apple Ginger",
         description: "Savory puree with crostini & parsley",
         prices: ['4.25'],
+        translation: {},
       },
       {
         name: "Potato Leek",
         description: "Creamy soup with carrots, celery & leeks",
         prices: ['4.25'],
+        translation: {},
       }
     ]
   },

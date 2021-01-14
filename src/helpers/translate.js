@@ -5,8 +5,8 @@ export const languages = [
 ]
 
 export const translation = {
-  "Thai Lime Prawn Soup": {
-    fr: "Soupe thaïe aux crevettes et à la lime",
-    es: "Sopa tailandesa de gambas y lima",
+  "With lemongrass, kafir lime leaves & spring onions": {
+    fr: "Avec citronnelle, feuilles de lime kaffir et oignons nouveaux",
+    es: "Con hierba de limón, hojas de lima kaffir y cebolletas",
   },
 }

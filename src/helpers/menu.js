@@ -50,11 +50,11 @@ export const menu = {
     decimal: 2,
     space: true
   },
-  parameters: {
-
-  },
+  parameters: {},
   translate: {
     language: 'fr',
+    inline: false,
+    translation: [],
   },
   styles: {
     page: {
