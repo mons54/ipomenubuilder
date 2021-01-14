@@ -9,9 +9,9 @@ export default {
     }))
   },
   translate (language, texts) {
+
     texts.forEach((text, key) => {
       const data = translation[text]
-      console.log(text, translation)
       if (data) {
         texts[key] = data[language]
       }

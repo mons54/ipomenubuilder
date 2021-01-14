@@ -117,6 +117,7 @@ export default {
       )
     },
     async addLanguage(language) {
+
       this.menuTranslate.translation.push(language)
       this.addLanguageModel = null
 
