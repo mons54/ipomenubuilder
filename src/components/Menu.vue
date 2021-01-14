@@ -43,9 +43,9 @@
                   class="grid-area"
                   :class="{'active': gridArea === value.areas[name]}">
                   <div
-                    v-if="value[name] && value[name].image"
-                    v-image-area="value[name].image"
-                    :style="styleImageArea(value[name].image)"
+                    v-if="value.areas[name] && value.areas[name].image"
+                    v-image-area="value.areas[name].image"
+                    :style="styleImageArea(value.areas[name].image)"
                   />
                 </div>
               </div>
@@ -95,6 +95,10 @@
                     :style="styleElementDishDescription(element)"
                     :contenteditable="activedElement === element"
                   />
+                  <div
+                    v-for="(value, key) in item.translation"
+                    :key="key"
+                  >{{ value }}</div>
                 </div>
               </div>
               <div
