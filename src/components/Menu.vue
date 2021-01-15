@@ -97,9 +97,9 @@
                       :contenteditable="activedElement === element"
                     />
                     <Editable
-                      v-for="(value, key) in item.translation"
+                      v-for="(value, key) in menu.translate.translation"
                       :key="key"
-                      v-model="item.translation[key]"
+                      v-model="item.translation[value]"
                       :contenteditable="activedElement === element"
                     />
                   </div>

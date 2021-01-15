@@ -20,17 +20,32 @@
       <b-form-select
         v-model="menuTranslate.translation[key]"
         @change.native="event => {
-          deleteTranslation(key, language)
-          addLanguage(event.target.value)
+          addTranslation(event.target.value)
         }"
         :options="translationLanguages(language)"
       />
       <b-button
-        @click="deleteTranslation(key, language)"
+        @click="deleteTranslation(key)"
         variant="light"
         class="ml-3"
         size="sm">
         <b-icon-trash/>
+      </b-button>
+      <b-button
+        @click="upTranslation(key)"
+        variant="light"
+        class="ml-3"
+        size="sm"
+        :disabled="!key">
+        <b-icon-caret-up-fill/>
+      </b-button>
+      <b-button
+        @click="downTranslation(key)"
+        variant="light"
+        class="ml-3"
+        size="sm"
+        :disabled="key === menuTranslate.translation.length - 1">
+        <b-icon-caret-down-fill/>
       </b-button>
     </div>
     <b-form-select
@@ -116,24 +131,12 @@ export default {
         )
       )
     },
-    async addLanguage(language) {
+    addLanguage(language) {
 
       this.menuTranslate.translation.push(language)
       this.addLanguageModel = null
 
       this.addTranslation(language)
-
-      const texts = []
-
-      this.dishes.forEach(dish => {
-        texts.push(dish.description)
-      })
-
-      const { data } = await translate.translate(language, texts)
-
-      this.dishes.forEach((dish, key) => {
-        Vue.set(dish.translation, language, data.translation[key])
-      })
     },
     async addTranslation(language) {
 
@@ -149,13 +152,21 @@ export default {
         Vue.set(dish.translation, language, data.translation[key])
       })
     },
-    deleteTranslation(key, language) {
-      console.log(key, language)
+    deleteTranslation(key) {
       this.menuTranslate.translation.splice(key, 1)
-      this.dishes.forEach(dish => {
-        Vue.delete(dish.translation, language)
-      })
-    }
+    },
+    upTranslation(key) {
+      const translation = this.menuTranslate.translation
+      const language = translation[key]
+      Vue.set(translation, key, translation[key - 1])
+      Vue.set(translation, key - 1, language)
+    },
+    downTranslation(key) {
+      const translation = this.menuTranslate.translation
+      const language = translation[key]
+      Vue.set(translation, key, translation[key + 1])
+      Vue.set(translation, key + 1, language)
+    },
   },
   created() {
     this.getLanguages()
