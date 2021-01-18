@@ -29,6 +29,11 @@
           @click="addDish">
           Ajouter un plat
         </b-list-group-item>
+        <b-list-group-item
+          v-if="contextMenuType === 'dish' && contextMenuDish"
+          @click="deleteDish">
+          Supprimer le plat
+        </b-list-group-item>
       </b-list-group>
     </div>
   </div>
@@ -64,6 +69,7 @@ export default {
       historyIndex: state => state.history.index,
       contextMenuType: state => state.contextmenu.type,
       showContextMenu: state => state.contextmenu.show,
+      contextMenuDish: state => state.contextmenu.dish,
       activedElement: state => state.element.actived,
     }),
     json () {
@@ -97,6 +103,11 @@ export default {
     ]),
     addDish() {
       this.activedElement.items.push(itemType)
+    },
+    deleteDish() {
+      const index = this.activedElement.items.findIndex(value => value === this.contextMenuDish)
+      if (index !== -1)
+        this.activedElement.items.splice(index, 1)
     },
   },
   watch: {

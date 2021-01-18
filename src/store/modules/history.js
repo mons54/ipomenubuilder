@@ -42,6 +42,7 @@ const actions = {
       delete clone.history
       delete clone.menu
       delete clone.scale
+      delete clone.contextmenu
       data.state = JSON.stringify(clone)
     }
 

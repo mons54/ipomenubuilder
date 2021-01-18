@@ -29,7 +29,7 @@
       </li>
     </ul>
     <ul
-      v-if="!menu.translate.inline">
+      v-if="menu.translate.translation.length && !menu.translate.inline">
       <li>
         <b-button
           @click="setMenuTranslation(null)">

@@ -78,6 +78,9 @@
                   v-for="(item, index) in element.items"
                   :key="index"
                   :style="styleElementDishItem(element)"
+                  @contextmenu="e => {
+                    setContextMenuDish(item)
+                  }"
                   class="item">
                   <div
                     :style="styleElementDishName(element)">
@@ -313,7 +316,7 @@ export default {
       'activeElementText',
     ]),
     ...mapMutations('contextmenu', [
-      'setContextMenuElement',
+      'setContextMenuDish',
       'setContextMenuType',
       'setShowContextMenu',
     ]),

@@ -1,5 +1,6 @@
 const state = () => ({
   type: null,
+  dish: null,
   show: false,
 })
 
@@ -10,6 +11,9 @@ const actions = {}
 const mutations = {
   setShowContextMenu(state, value) {
     state.show = value
+  },
+  setContextMenuDish(state, value) {
+    state.dish = value
   },
   setContextMenuType(state, value) {
     state.type = value
