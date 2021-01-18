@@ -84,6 +84,7 @@ const actions = {
               width,
               colors: defaultColors[0],
               grid: grids[0],
+              areas: {},
             })
           } else {
             page.areas[i].width = width
