@@ -76,11 +76,22 @@
                   :key="index"
                   :style="styleElementDishItem(element)"
                   class="item">
-                  <Editable
-                    v-model="item.name"
-                    :style="styleElementDishName(element)"
-                    :contenteditable="activedElement === element"
-                  />
+                  <div
+                    :style="styleElementDishName(element)">
+                    <Editable
+                      v-model="item.name"
+                      :contenteditable="activedElement === element"
+                    />
+                    <div
+                      v-if="menu.translate.inline && menu.translate.dishName">
+                      <Editable
+                        v-for="(value, key) in menu.translate.translation"
+                        :key="key"
+                        v-model="item.translationName[value]"
+                        :contenteditable="activedElement === element"
+                      />
+                    </div>
+                  </div>
                   <div
                     :style="styleElementDishPrice(element)">
                     <Editable
@@ -96,12 +107,16 @@
                       v-model="item.description"
                       :contenteditable="activedElement === element"
                     />
-                    <Editable
-                      v-for="(value, key) in menu.translate.translation"
-                      :key="key"
-                      v-model="item.translation[value]"
-                      :contenteditable="activedElement === element"
-                    />
+                    <div
+                      v-if="menu.translate.inline">
+                      <Editable
+                        v-for="(value, key) in menu.translate.translation"
+                        :key="key"
+                        v-model="item.translationDescription[value]"
+                        :contenteditable="activedElement === element"
+                        style="font-style: italic;"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

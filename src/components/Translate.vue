@@ -5,6 +5,11 @@
       v-model="menuTranslate.inline">
       Traduction sur la même carte
     </b-form-checkbox>
+    <b-form-checkbox
+      id="dishName"
+      v-model="menuTranslate.dishName">
+      Traduire les titres de plats
+    </b-form-checkbox>
     <div class="mt-3">
       <label for="defaultLanguage">Langue par défaut</label>
       <b-form-select
@@ -140,17 +145,32 @@ export default {
     },
     async addTranslation(language) {
 
-      const texts = []
+      const name = []
 
       this.dishes.forEach(dish => {
-        texts.push(dish.description)
+        name.push(dish.name)
       })
 
-      const { data } = await translate.translate(language, texts)
+      const translationName = await translate.translate(language, name)
 
       this.dishes.forEach((dish, key) => {
-        Vue.set(dish.translation, language, data.translation[key])
+        Vue.set(dish.translationName, language, translationName.data.translation[key])
       })
+
+      const description = []
+
+      this.dishes.forEach(dish => {
+        description.push(dish.description)
+      })
+
+      const translationDescription = await translate.translate(language, description)
+
+
+      this.dishes.forEach((dish, key) => {
+        Vue.set(dish.translationDescription, language, translationDescription.data.translation[key])
+      })
+
+      console.log(this.dishes)
     },
     deleteTranslation(key) {
       this.menuTranslate.translation.splice(key, 1)
