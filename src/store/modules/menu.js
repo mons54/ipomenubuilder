@@ -13,6 +13,7 @@ const state = () => ({
   area: 0,
   gridArea: null,
   element: null,
+  translation: null,
 })
 
 const getters = {
@@ -123,6 +124,9 @@ const mutations = {
   },
   setMenuOnSave(state, value) {
     state.onSave = value
+  },
+  setMenuTranslation(state, value) {
+    state.translation = value
   },
 }
 

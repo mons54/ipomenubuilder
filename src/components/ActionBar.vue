@@ -30,10 +30,19 @@
     </ul>
     <ul
       v-if="!menu.translate.inline">
+      <li>
+        <b-button
+          @click="setMenuTranslation(null)">
+          <img
+            :src="getFlag(menu.translate.language)"
+            style="height: 20px">
+        </b-button>
+      </li>
       <li
         v-for="(value, key) in menu.translate.translation"
         :key="key">
-        <b-button>
+        <b-button
+          @click="setMenuTranslation(value)">
           <img
             :src="getFlag(value)"
             style="height: 20px">
@@ -69,6 +78,9 @@ export default {
     ...mapActions('history', [
       'undoHistory',
       'redoHistory',
+    ]),
+    ...mapMutations('menu', [
+      'setMenuTranslation',
     ]),
     ...mapMutations('scale', [
       'setScale',

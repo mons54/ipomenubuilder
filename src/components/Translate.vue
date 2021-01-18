@@ -2,7 +2,8 @@
   <div>
     <b-form-checkbox
       id="inline"
-      v-model="menuTranslate.inline">
+      v-model="menuTranslate.inline"
+      @change="setMenuTranslation(null)">
       Traduction sur la même carte
     </b-form-checkbox>
     <b-form-checkbox
@@ -127,6 +128,9 @@ export default {
     ...mapMutations('history', [
       'breakHistory',
     ]),
+    ...mapMutations('menu', [
+      'setMenuTranslation',
+    ]),
     translationLanguages(value) {
       return this.allLanguages.filter(language =>
         language.value !== this.defaultLanguage &&
@@ -170,7 +174,8 @@ export default {
         Vue.set(dish.translationDescription, language, translationDescription.data.translation[key])
       })
 
-      console.log(this.dishes)
+      if (!this.menuTranslate.inline)
+        this.setMenuTranslation(language)
     },
     deleteTranslation(key) {
       this.menuTranslate.translation.splice(key, 1)

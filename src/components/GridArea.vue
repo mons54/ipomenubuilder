@@ -204,7 +204,6 @@ export default {
       },
       set(value) {
         Vue.set(this.image, 'flipHorizontal', value)
-        console.log(this.image)
       },
     },
     flipVertical: {

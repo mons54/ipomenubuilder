@@ -79,7 +79,13 @@
                   <div
                     :style="styleElementDishName(element)">
                     <Editable
+                      v-if="menu.translate.inline || !menu.translate.dishName || !translation"
                       v-model="item.name"
+                      :contenteditable="activedElement === element"
+                    />
+                    <Editable
+                      v-else
+                      v-model="item.translationName[translation]"
                       :contenteditable="activedElement === element"
                     />
                     <div
@@ -104,7 +110,13 @@
                   <div
                     :style="styleElementDishDescription(element)">
                     <Editable
+                      v-if="menu.translate.inline || !translation"
                       v-model="item.description"
+                      :contenteditable="activedElement === element"
+                    />
+                    <Editable
+                      v-else
+                      v-model="item.translationDescription[translation]"
                       :contenteditable="activedElement === element"
                     />
                     <div
@@ -196,6 +208,7 @@ export default {
     ...mapState({
       menu: state => state.menu.data,
       format: state => state.menu.data.format,
+      translation: state => state.menu.translation,
       scale: state => state.scale.value,
       activedElement: state => state.element.actived,
       sidebar: state => state.sidebar.selected,
