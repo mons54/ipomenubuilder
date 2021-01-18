@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import contextmenu from './modules/contextmenu'
 import element from './modules/element'
 import format from './modules/format'
 import history from './modules/history'
@@ -15,6 +16,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    contextmenu,
     element,
     format,
     history,

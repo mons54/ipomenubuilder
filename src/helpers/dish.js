@@ -169,3 +169,11 @@ export const dishes = [
     ]
   },
 ]
+
+export const itemType = {
+  name: "Nom du plat",
+  description: "Description du plat",
+  prices: ['9.99'],
+  translationName: {},
+  translationDescription: {},
+}

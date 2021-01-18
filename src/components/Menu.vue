@@ -68,6 +68,9 @@
               }">
               <div
                 v-if="element.type === 'dish'"
+                @contextmenu="e => {
+                  contextMenuDish(e, element)
+                }"
                 v-resizable-dish="element.rect"
                 :style="styleElementDish(element)"
                 class="dish">
@@ -134,6 +137,9 @@
               </div>
               <div
                 v-else-if="element.type === 'text'"
+                @contextmenu="e => {
+                  contextMenuElement(e, element)
+                }"
                 v-resizable-scale="element.scale"
                 :style="styleElementText(element)"
                 class="text">
@@ -148,6 +154,9 @@
               </div>
               <div
                 v-else-if="element.type === 'image'"
+                @contextmenu="e => {
+                  contextMenuElement(e, element)
+                }"
                 v-resizable-image="element"
                 :style="styleElementImage(element.rect)">
                 <div
@@ -159,6 +168,9 @@
               </div>
               <div
                 v-else-if="element.type === 'icon'"
+                @contextmenu="e => {
+                  contextMenuElement(e, element)
+                }"
                 v-resizable-scale="element.scale"
                 :style="styleElementIcon(element)"
                 v-html="element.src"
@@ -300,8 +312,27 @@ export default {
     ...mapMutations('element', [
       'activeElementText',
     ]),
+    ...mapMutations('contextmenu', [
+      'setContextMenuElement',
+      'setContextMenuType',
+      'setShowContextMenu',
+    ]),
     activeArea(value) {
       return value === this.area && (this.isGrid || this.sidebar === 'color')
+    },
+    contextMenuDish(e, element) {
+      e.preventDefault()
+      this.setContextMenuType('dish')
+      this.setShowContextMenu(true)
+      this.activeElement(element)
+      return false
+    },
+    contextMenuElement(e, element) {
+      e.preventDefault()
+      this.setContextMenuType('element')
+      this.setShowContextMenu(true)
+      this.activeElement(element)
+      return false
     },
   },
 }
