@@ -28,6 +28,18 @@
         </b-button>
       </li>
     </ul>
+    <ul
+      v-if="!menu.translate.inline">
+      <li
+        v-for="(value, key) in menu.translate.translation"
+        :key="key">
+        <b-button>
+          <img
+            :src="getFlag(value)"
+            style="height: 20px">
+        </b-button>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -60,7 +72,11 @@ export default {
     ]),
     ...mapMutations('scale', [
       'setScale',
-    ])
+    ]),
+    getFlag(country) {
+      const images = require.context('../assets/flag/', false, /\.png$/)
+      return images(`./${country}.png`)
+    }
   },
 }
 </script>
