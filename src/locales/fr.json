@@ -3,6 +3,7 @@
   "back": "Retour",
   "categories": "Categories",
   "colors": "Couleurs",
+  "deleteImage": "Supprimer l'image",
   "dishName": "Nom du plat",
   "dishDescription": "Description du plat",
   "dishPrice": "Prix du plat",
@@ -23,6 +24,7 @@
     "sans-serif": "Sans empattement"
   },
   "grids": "Grilles",
+  "horizontal": "Horizontal",
   "icons": "Icones",
   "images": "Images",
   "lineHeight": "Hauteur",
@@ -31,9 +33,12 @@
   "save": "Enregistrer",
   "saved": "Enregistré",
   "saving": "Enregistrement",
+  "search": "Rechercher",
   "size": "Taille",
   "spacing": "Espace",
+  "symmetry": "Symétrie",
   "templates": "Modèles",
   "texts": "Textes",
-  "translate": "Traduction"
+  "translate": "Traduction",
+  "vertical": "Vertical"
 }

@@ -17,13 +17,13 @@
           <b-button
             variant="danger"
             @click="image = null">
-            Supprimer l'image
+            {{ $t('deleteImage') }}
           </b-button>
         </b-col>
       </b-row>
       <b-row>
         <b-col md="6">
-          <label for="size">Taille</label>
+          <label for="size">{{ $t('size') }}</label>
         </b-col>
         <b-col md="6">
           <InputRange
@@ -37,7 +37,7 @@
       </b-row>
       <b-row>
         <b-col md="6">
-          <label for="size">Horizontal</label>
+          <label for="size">{{ $t('horizontal') }}</label>
         </b-col>
         <b-col md="6">
           <InputRange
@@ -51,7 +51,7 @@
       </b-row>
       <b-row>
         <b-col md="6">
-          <label for="size">Vertical</label>
+          <label for="size">{{ $t('vertical') }}</label>
         </b-col>
         <b-col md="6">
           <InputRange
@@ -65,18 +65,18 @@
       </b-row>
       <b-row>
         <b-col md="6">
-          <label for="size">Symétrie</label>
+          <label for="size">{{ $t('symmetry') }}</label>
         </b-col>
         <b-col md="6">
           <b-button-group
             size="sm">
             <b-button
               :pressed.sync="flipHorizontal">
-              Horizontal
+              {{ $t('horizontal') }}
             </b-button>
             <b-button
               :pressed.sync="flipVertical">
-              Vertical
+              {{ $t('vertical') }}
             </b-button>
           </b-button-group>
         </b-col>

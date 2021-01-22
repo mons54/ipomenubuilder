@@ -3,6 +3,7 @@
   "back": "Back",
   "categories": "Categories",
   "colors": "Colors",
+  "deleteImage": "Delete image",
   "dishName": "Dish name",
   "dishDescription": "Dish description",
   "dishPrice": "Dish price",
@@ -23,6 +24,7 @@
     "sans-serif": "Sans Serif"
   },
   "grids": "Grids",
+  "horizontal": "Horizontal",
   "icons": "Icons",
   "images": "Images",
   "lineHeight": "Line height",
@@ -31,9 +33,12 @@
   "save": "Save",
   "saved": "Saved",
   "saving": "Saving",
+  "search": "Search",
   "size": "Size",
   "spacing": "Spacing",
+  "symmetry": "Symmetry",
   "templates": "Templates",
   "texts": "Texts",
-  "translate": "Translate"
+  "translate": "Translate",
+  "vertical": "Vertical"
 }

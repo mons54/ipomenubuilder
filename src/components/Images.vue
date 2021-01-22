@@ -5,7 +5,7 @@
         v-model="searchModel"
         @change="searchImages"
         class="mt-3"
-        placeholder="Rechercher..."
+        :placeholder="`${$t('search')}...`"
       />
     </div>
     <div

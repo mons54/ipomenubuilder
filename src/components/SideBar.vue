@@ -6,7 +6,8 @@
         @click="desactiveElement">
         <div
           @click="selectSidebar('dish')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('dish')}">
           <div class="nav-icon">
             <b-icon-card-checklist/>
           </div>
@@ -14,7 +15,8 @@
         </div>
         <div
           @click="selectSidebar('text')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('text')}">
           <div class="nav-icon">
             <b-icon-type/>
           </div>
@@ -22,7 +24,8 @@
         </div>
         <div
           @click="selectSidebar('image')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('image')}">
           <div class="nav-icon">
             <b-icon-image/>
           </div>
@@ -30,7 +33,8 @@
         </div>
         <div
           @click="selectSidebar('icon')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('icon')}">
           <div class="nav-icon">
             <b-icon-star/>
           </div>
@@ -38,7 +42,8 @@
         </div>
         <div
           @click="selectSidebar('template')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('template')}">
           <div class="nav-icon">
             <b-icon-images/>
           </div>
@@ -46,7 +51,8 @@
         </div>
         <div
           @click="selectSidebar('color')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('color')}">
           <div class="nav-icon">
             <b-icon-droplet-fill/>
           </div>
@@ -54,7 +60,8 @@
         </div>
         <div
           @click="selectSidebar('grid')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('grid')}">
           <div class="nav-icon">
             <b-icon-grid1x2-fill/>
           </div>
@@ -62,7 +69,8 @@
         </div>
         <div
           @click="selectSidebar('translate')"
-          class="nav-item">
+          class="nav-item"
+          :class="{'selected': itemSelected('translate')}">
           <div class="nav-icon">
             <b-icon-globe/>
           </div>
@@ -83,7 +91,7 @@
           :element="textActived"
         />
         <GridArea
-          v-else-if="area"
+          v-else-if="areaActived"
         />
         <Colors
           v-else-if="selected === 'color'"
@@ -99,7 +107,8 @@
         />
         <Images
           v-else-if="selected === 'image'"
-          :draggable="true"/>
+          :draggable="true"
+        />
         <Texts
           v-else-if="selected === 'text'"
         />
@@ -141,7 +150,7 @@ export default {
   },
   computed: {
     ...mapState({
-      area: state => state.menu.gridArea,
+      areaActived: state => state.menu.gridArea,
       selected: state => state.sidebar.selected,
     }),
     ...mapGetters('element', [
@@ -157,6 +166,9 @@ export default {
     ...mapActions('element', [
       'desactiveElement',
     ]),
+    itemSelected(name) {
+      return !!(this.selected === name && !this.dishActived && !this.imageActived && !this.textActived && !this.areaActived)
+    },
   },
 }
 </script>
@@ -188,6 +200,10 @@ export default {
         padding: 12px 0;
         font-size: 13px;
         cursor: pointer;
+        width: 100%;
+        &.selected {
+          background-color: #455A64;
+        }
         .nav-icon {
           font-size: 20px;
           margin-bottom: 4px;
