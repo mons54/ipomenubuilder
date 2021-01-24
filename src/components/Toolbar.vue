@@ -9,7 +9,7 @@
         class="toolbar-item"
         size="sm">
         <b-icon-stickies/>
-      </b-button >
+      </b-button>
       <b-button
         @click="deleteElement"
         variant="light"
