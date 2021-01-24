@@ -96,13 +96,12 @@ export default {
 <style lang="scss" scoped>
 .actionbar {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   position: absolute;
-  width: 100%;
   height: 0;
   text-align: center;
   bottom: 60px;
-  left: 0;
+  left: 12px;
   color: #fff;
 
   > ul {
