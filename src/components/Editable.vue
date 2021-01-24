@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       active: false,
-      innerHTML: null,
+      content: null,
     }
   },
   computed: {
@@ -46,8 +46,8 @@ export default {
       menu: state => state.menu.data,
     }),
     data() {
-      if (this.innerHTML)
-        return this.innerHTML
+      if (this.content)
+        return this.content
       return this.value
     },
     style() {
@@ -67,35 +67,39 @@ export default {
       'breakHistory',
     ]),
     onFocus () {
-      this.innerHTML = this.$el.innerHTML
+      this.content = this.$el.textContent
       this.active = true
     },
     onBlur () {
       if (this.price) {
         const price = priceFormat(
-          this.$el.innerHTML,
+          this.$el.textContent,
           this.menu.prices
         )
-        if (price !== this.$el.innerHTML)
+        if (price !== this.$el.textContent)
           this.$emit('input', price)
       }
+
       document.getSelection().empty()
-      this.active = false
-      if (this.innerHTML !== this.$el.innerHTML)
+
+      if (this.content !== this.$el.textContent)
         this.addHistory()
+
+      this.active = false
+      this.content = null
     },
     onInput () {
-      let value = this.$el.innerHTML
+      let value = this.$el.textContent
       if (this.price) {
         const newValue = priceValidator(value, this.menu.prices)
         if (value !== newValue) {
           if (newValue) {
             let selection = document.getSelection()
             const offset = selection.focusOffset - (value.length - newValue.length)
-            this.$el.innerHTML = newValue
+            this.$el.textContent = newValue
             selection.collapse(this.$el.firstChild, offset)
           } else {
-            this.$el.innerHTML = newValue
+            this.$el.textContent = newValue
             this.$el.focus()
           }
           value = newValue
