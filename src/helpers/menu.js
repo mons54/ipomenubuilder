@@ -55,6 +55,7 @@ export const menu = {
     language: 'fr',
     inline: false,
     dishName: false,
+    textes: false,
     translation: [],
   },
   styles: {

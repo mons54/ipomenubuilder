@@ -9,7 +9,8 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "Mayfair Garden",
+        value: "Mayfair Garden",
+        translation: {},
       },
       {
         style: {
@@ -18,7 +19,8 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "Indian restaurant",
+        value: "Indian restaurant",
+        translation: {},
       }
     ]
   },
@@ -32,7 +34,8 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "My Pizza",
+        value: "My Pizza",
+        translation: {},
       },
       {
         style: {
@@ -41,7 +44,8 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "Food & Drink",
+        value: "Food & Drink",
+        translation: {},
       }
     ]
   },
@@ -55,7 +59,8 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "Mayfair Garden",
+        value: "Mayfair Garden",
+        translation: {},
       },
       {
         style: {
@@ -64,7 +69,8 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "Indian restaurant",
+        value: "Indian restaurant",
+        translation: {},
       }
     ]
   },
@@ -78,17 +84,9 @@ export const texts = [
           textAlign: "center",
           lineHeight: 1.5,
         },
-        html: "My Pizza",
+        value: "My Pizza",
+        translation: {},
       },
-      {
-        style: {
-          fontFamily: "\"Merriweather\"",
-          fontSize: "24px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        html: "Food & Drink",
-      }
     ]
   },
 ]

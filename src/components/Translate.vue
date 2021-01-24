@@ -11,6 +11,12 @@
       v-model="menuTranslate.dishName">
       Traduire les titres de plats
     </b-form-checkbox>
+    <b-form-checkbox
+      v-if="!menuTranslate.inline"
+      id="textes"
+      v-model="menuTranslate.textes">
+      Traduire les textes
+    </b-form-checkbox>
     <div class="mt-3">
       <label for="defaultLanguage">Langue par défaut</label>
       <b-form-select
@@ -61,6 +67,99 @@
       :options="availableLanguages"
       class="mt-3"
     />
+    <div class="translation mt-3">
+      <b-card
+        no-body
+        class="mb-1"
+        bg-variant="transparent">
+        <b-card-header class="p-1">
+          <b-button
+            block
+            v-b-toggle.accordion-dishes>
+            Plats
+          </b-button>
+        </b-card-header>
+        <b-collapse id="accordion-dishes">
+          <b-card-body>
+            <b-card-text>
+              <b-form-group v-slot="{ ariaDescribedby }">
+                <b-form-checkbox-group
+                  id="dishes-group"
+                  v-model="dishesSelected"
+                  :options="dishesOptions"
+                  :aria-describedby="ariaDescribedby"
+                  name="dishes"
+                ></b-form-checkbox-group>
+              </b-form-group>
+            </b-card-text>
+            <b-button
+              class="mr-3"
+              variant="success"
+              @click="setDishes">
+              Traduire
+            </b-button>
+            <b-button
+              v-if="dishesSelected.length !== dishesOptions.length"
+              variant="primary"
+              @click="selectAllDishes">
+              Sélectionner
+            </b-button>
+            <b-button
+              v-else
+              variant="secondary"
+              @click="dishesSelected = []">
+              Désélectionner
+            </b-button>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+
+      <b-card
+        no-body
+        class="mb-1"
+        bg-variant="transparent">
+        <b-card-header class="p-1">
+          <b-button
+            block
+            v-b-toggle.accordion-textes>
+            Texts
+          </b-button>
+        </b-card-header>
+        <b-collapse id="accordion-textes">
+          <b-card-body>
+            <b-card-text>
+              <b-form-group v-slot="{ ariaDescribedby }">
+                <b-form-checkbox-group
+                  id="textes-group"
+                  v-model="textesSelected"
+                  :options="textesOptions"
+                  :aria-describedby="ariaDescribedby"
+                  name="textes"
+                ></b-form-checkbox-group>
+              </b-form-group>
+            </b-card-text>
+            <b-button
+              class="mr-3"
+              variant="success"
+              @click="setTextes">
+              Traduire
+            </b-button>
+            <b-button
+              v-if="textesSelected.length !== textesOptions.length"
+              variant="primary"
+              @click="selectAllTextes">
+              Tout sélectionner
+            </b-button>
+            <b-button
+              v-else
+              variant="secondary"
+              @click="textesSelected = []">
+              Désélectionner
+            </b-button>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -72,7 +171,9 @@ import translate from '@/api/translate'
 export default {
   data() {
     return {
-      addLanguageModel: null
+      addLanguageModel: null,
+      dishesSelected: [],
+      textesSelected: [],
     }
   },
   computed: {
@@ -119,7 +220,52 @@ export default {
 
       }
       return dishes
-    }
+    },
+    dishesOptions() {
+      const options = []
+      this.dishes.forEach((dish, key) => {
+        options.push({
+          text: dish.name,
+          value: {
+            key,
+            type: 'name',
+          },
+        })
+        options.push({
+          text: dish.description,
+          value: {
+            key,
+            type: 'description',
+          },
+        })
+      })
+      return options
+    },
+    textes() {
+      let textes = []
+      for (const page of this.pages) {
+        for (const element of page.elements) {
+          if (element.type !== 'text')
+            continue
+          textes = [
+            ...textes,
+            ...element.elements,
+          ]
+        }
+
+      }
+      return textes
+    },
+    textesOptions() {
+      const options = []
+      this.textes.forEach((text, key) => {
+        options.push({
+          text: text.value,
+          value: key,
+        })
+      })
+      return options
+    },
   },
   methods: {
     ...mapActions('translate', [
@@ -147,35 +293,103 @@ export default {
 
       this.addTranslation(language)
     },
-    async addTranslation(language) {
+    addTranslation(language) {
+
+      this.translateDishes(language)
+      this.translateTextes(language)
+
+      if (!this.menuTranslate.inline)
+        this.setMenuTranslation(language)
+    },
+    setDishes() {
+      this.menuTranslate.translation.forEach(language => {
+        this.translateDishes(language)
+      })
+    },
+    async translateDishes(language) {
+
+      if (!this.dishesSelected.length)
+        return
+
+      const filterName = []
+      const filterDescription = []
+
+      this.dishesSelected.forEach(({ key, type }) => {
+        if (type === 'name')
+          filterName.push(key)
+        else
+          filterDescription.push(key)
+      })
 
       const name = []
 
-      this.dishes.forEach(dish => {
-        name.push(dish.name)
+      this.dishes.forEach((dish, key) => {
+        if (filterName.includes(key))
+          name.push(dish.name)
       })
 
       const translationName = await translate.translate(language, name)
 
-      this.dishes.forEach((dish, key) => {
+      let key = 0
+
+      this.dishes.forEach(dish => {
+        if (!filterName.includes(key))
+          return
         Vue.set(dish.translationName, language, translationName.data.translation[key])
+        key++
       })
 
       const description = []
 
-      this.dishes.forEach(dish => {
-        description.push(dish.description)
+      this.dishes.forEach((dish, key) => {
+        if (filterDescription.includes(key))
+          description.push(dish.description)
       })
 
       const translationDescription = await translate.translate(language, description)
 
+      key = 0
 
-      this.dishes.forEach((dish, key) => {
+      this.dishes.forEach(dish => {
+        if (!filterDescription.includes(key))
+          return
         Vue.set(dish.translationDescription, language, translationDescription.data.translation[key])
+        key++
+      })
+    },
+    setTextes() {
+      this.menuTranslate.translation.forEach(language => {
+        this.translateTextes(language)
+      })
+    },
+    async translateTextes(language) {
+
+      if (!this.textesSelected.length)
+        return
+
+      const filter = []
+
+      this.textesSelected.forEach(key => {
+        filter.push(key)
       })
 
-      if (!this.menuTranslate.inline)
-        this.setMenuTranslation(language)
+      const textes = []
+
+      this.textes.forEach((text, key) => {
+        if (filter.includes(key))
+          textes.push(text.value)
+      })
+
+      const translation = await translate.translate(language, textes)
+
+      let key = 0
+
+      this.textes.forEach(text => {
+        if (!filter.includes(key))
+          return
+        Vue.set(text.translation, language, translation.data.translation[key])
+        key++
+      })
     },
     deleteTranslation(key) {
       this.menuTranslate.translation.splice(key, 1)
@@ -192,12 +406,23 @@ export default {
       Vue.set(translation, key, translation[key + 1])
       Vue.set(translation, key + 1, language)
     },
+    selectAllDishes() {
+      this.dishesSelected = []
+      this.dishesOptions.forEach(item => {
+        this.dishesSelected.push(item.value)
+      })
+    },
+    selectAllTextes() {
+      this.textesSelected = []
+      this.textesOptions.forEach(item => {
+        this.textesSelected.push(item.value)
+      })
+    },
   },
   created() {
     this.getLanguages()
+    this.selectAllDishes()
+    this.selectAllTextes()
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -4,7 +4,7 @@
       v-for="(value, key) in dishes"
       v-draggable.clone="{
         type: 'dish',
-        ...value,
+        ...getValue(value),
         rect: {
           width
         },
@@ -52,6 +52,7 @@ export default {
   computed: {
     ...mapState({
       scale: state => state.scale.value,
+      translation: state => state.menu.data.translate.translation,
     }),
     ...mapGetters('menu', [
       'page',
@@ -75,6 +76,15 @@ export default {
     dragend(event) {
       event.el.firstChild.style.removeProperty('width')
       event.el.firstChild.style.transform = `scale(1)`
+    },
+    getValue(value) {
+      this.translation.forEach(language => {
+        value.items.forEach(item => {
+          item.translationName[language] = item.name
+          item.translationDescription[language] = item.description
+        })
+      })
+      return value
     },
   },
 }

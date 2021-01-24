@@ -5,7 +5,7 @@
       v-for="(value, ti) in texts"
       v-draggable.clone="{
         type: 'text',
-        ...value,
+        ...getValue(value),
         scale: {
           x: 1,
           y: 1,
@@ -23,7 +23,7 @@
           v-text-content="value.width">
           <div
             v-for="(value, index) in value.elements"
-            v-html="value.html"
+            v-html="value.value"
             :style="value.style"
             :key="index">
           </div>
@@ -43,6 +43,7 @@ export default {
     ...mapState({
       texts: state => state.text.data,
       scale: state => state.scale.value,
+      translation: state => state.menu.data.translate.translation,
     }),
   },
   methods: {
@@ -62,6 +63,14 @@ export default {
     },
     dragend(event) {
       event.el.querySelector('[data-content]').setAttribute('style', styleContent)
+    },
+    getValue(value) {
+      this.translation.forEach(language => {
+        value.elements.forEach(item => {
+          item.translation[language] = item.value
+        })
+      })
+      return value
     },
   },
   directives: {

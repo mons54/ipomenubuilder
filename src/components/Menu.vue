@@ -94,8 +94,7 @@
                       v-model="item.translationName[translation]"
                       :contenteditable="activedElement === element"
                     />
-                    <div
-                      v-if="menu.translate.inline && menu.translate.dishName">
+                    <div v-if="menu.translate.inline && menu.translate.dishName">
                       <Editable
                         v-for="(value, key) in menu.translate.translation"
                         :key="key"
@@ -146,14 +145,23 @@
                 v-resizable-scale="element.scale"
                 :style="styleElementText(element)"
                 class="text">
-                <Editable
+                <div
                   v-for="(text, ti) in element.elements"
-                  @click.native="activeElementText(text)"
-                  v-model="text.html"
-                  :style="text.style"
-                  :contenteditable="activedElement === element"
                   :key="ti"
-                />
+                  :style="text.style">
+                  <Editable
+                    v-if="!menu.translate.textes || !translation"
+                    @click.native="activeElementText(text)"
+                    v-model="text.value"
+                    :contenteditable="activedElement === element"
+                  />
+                  <Editable
+                    v-else
+                    @click.native="activeElementText(text)"
+                    v-model="text.translation[translation]"
+                    :contenteditable="activedElement === element"
+                  />
+                </div>
               </div>
               <div
                 v-else-if="element.type === 'image'"

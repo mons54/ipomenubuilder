@@ -52,7 +52,7 @@
           :style="styleElementText(element)">
           <div
             v-for="(text, ti) in element.elements"
-            v-html="text.html"
+            v-html="text.value"
             :key="ti"
             :style="text.style">
           </div>
