@@ -14,63 +14,33 @@
       </div>
       <SideBar/>
     </div>
-    <div
-      v-show="showContextMenu"
-      @contextmenu="e => e.preventDefault()"
-      @mousedown="e => e.stopPropagation()"
-      @click="setShowContextMenu(false)"
-      id="contextmenu"
-      :style="`top: ${mouseY}px; left: ${mouseX}px`">
-      <b-list-group>
-        <b-list-group-item @click="duplicateElement">Dupliquer</b-list-group-item>
-        <b-list-group-item @click="deleteElement">Supprimer</b-list-group-item>
-        <b-list-group-item
-          v-if="contextMenuType === 'dish'"
-          @click="addDish">
-          Ajouter un plat
-        </b-list-group-item>
-        <b-list-group-item
-          v-if="contextMenuType === 'dish' && contextMenuDish"
-          @click="deleteDish">
-          Supprimer le plat
-        </b-list-group-item>
-      </b-list-group>
-    </div>
+    <ContextMenu/>
   </div>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
 import ActionBar from '@/components/ActionBar'
+import ContextMenu from '@/components/ContextMenu'
 import Menu from '@/components/Menu'
 import NavBar from '@/components/NavBar'
 import SideBar from '@/components/SideBar'
 import Toolbar from '@/components/Toolbar'
-import { itemType } from '@/helpers/dish'
 
 export default {
   components: {
     ActionBar,
+    ContextMenu,
     Menu,
     NavBar,
     SideBar,
     Toolbar,
-  },
-  data() {
-    return {
-      mouseX: 0,
-      mouseY: 0,
-    }
   },
   computed: {
     ...mapState({
       id: state => state.menu.id,
       menu: state => state.menu.data,
       historyIndex: state => state.history.index,
-      contextMenuType: state => state.contextmenu.type,
-      showContextMenu: state => state.contextmenu.show,
-      contextMenuDish: state => state.contextmenu.dish,
-      activedElement: state => state.element.actived,
     }),
     json () {
       return JSON.stringify(this.menu)
@@ -94,21 +64,6 @@ export default {
       'setMenuId',
       'setMenuSaved',
     ]),
-    ...mapMutations('contextmenu', [
-      'setShowContextMenu',
-    ]),
-    ...mapActions('element', [
-      'deleteElement',
-      'duplicateElement',
-    ]),
-    addDish() {
-      this.activedElement.items.push(itemType)
-    },
-    deleteDish() {
-      const index = this.activedElement.items.findIndex(value => value === this.contextMenuDish)
-      if (index !== -1)
-        this.activedElement.items.splice(index, 1)
-    },
   },
   watch: {
     json () {
@@ -125,17 +80,6 @@ export default {
     this.getFormatData()
     this.getMenuData(id)
     this.getTextData()
-
-    document.addEventListener('mousedown', () => {
-      this.setShowContextMenu(false)
-    })
-
-    document.addEventListener('mousemove', (e) => {
-      if (this.showContextMenu)
-        return
-      this.mouseX = e.pageX
-      this.mouseY = e.pageY
-    })
   },
 }
 </script>
@@ -180,14 +124,6 @@ body {
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-
-  #contextmenu {
-    position: absolute;
-    z-index: 10;
-    .list-group-item {
-      cursor: pointer;
-    }
-  }
 }
 
 #loading {
