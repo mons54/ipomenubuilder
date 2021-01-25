@@ -80,11 +80,6 @@
         </div>
         <div class="d-flex">
           <b-button
-            @click="closeDishModal"
-            class="mt-3">
-            Fermer
-          </b-button>
-          <b-button
             v-if="editDish"
             class="mt-3 ml-auto"
             variant="success"

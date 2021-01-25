@@ -50,6 +50,12 @@ export default {
         display: 'flex',
       }
     },
+    styleImage() {
+      return {
+        width: '100%',
+        height: '100%',
+      }
+    },
   },
   methods: {
     gridAreas (grid) {
@@ -188,7 +194,6 @@ export default {
       }
     },
   },
-
   directives: {
     imageArea: {
       componentUpdated: imageArea,

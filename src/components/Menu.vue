@@ -126,14 +126,16 @@
                       v-for="(price, key) in item.prices"
                       :key="key">
                       <div
-                        v-if="price"
+                        v-if="key === 0 || price || activePrice === `${index}-${key}`"
                         :style="styleElementDishPrice(element)">
                         <Editable
                           v-model="item.prices[key]"
                           :price="true"
                           :inline="true"
                           :contenteditable="activedElement === element"
-                        />€
+                          @active="activePrice = `${index}-${key}`"
+                          @unactive="activePrice = null"
+                        /> €
                       </div>
                     </div>
                   </div>
@@ -199,7 +201,8 @@
                   :style="styleElementImageContent(element)">
                   <img
                     :src="element.image.fullHDURL"
-                    style="width: 100%; height: 100%;"/>
+                    :style="styleImage"
+                  />
                 </div>
               </div>
               <div
@@ -208,9 +211,12 @@
                   contextMenuElement(e, element)
                 }"
                 v-resizable-scale="element.scale"
-                :style="styleElementIcon(element)"
-                v-html="element.src"
-              />
+                :style="styleElementIcon(element)">
+                <img
+                  :src="element.src"
+                  :style="styleImage"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -250,6 +256,7 @@ export default {
   },
   data () {
     return {
+      activePrice: null,
       spacing: 40,
     }
   },

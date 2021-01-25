@@ -1,4 +1,4 @@
-const marginItem = '12px'
+const marginItem = '8px'
 
 export const gridsDish = [
   {

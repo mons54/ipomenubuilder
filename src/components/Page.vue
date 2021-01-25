@@ -7,19 +7,19 @@
     <div
       :style="stylePageContent">
       <div
-        v-for="(area, ai) of page.areas"
+        v-for="(value, ai) of page.areas"
         :key="ai"
-        :style="styleArea(area)">
+        :style="styleArea(value)">
         <div
-          :style="styleGrid(area.grid)">
+          :style="styleGrid(value.grid)">
           <div
-            v-for="(name, gai) of gridAreas(area.grid)"
+            v-for="(name, gai) of gridAreas(value.grid)"
             :key="gai"
-            :style="styleGridArea(menu.colors, area, name, gai)">
+            :style="styleGridArea(menu.colors, value, name, gai)">
             <div
-              v-if="area[name] && area[name].image"
-              v-image-area="area[name].image"
-              :style="styleImageArea(area[name].image)"
+              v-if="value.areas[name] && value.areas[name].image"
+              v-image-area="value.areas[name].image"
+              :style="styleImageArea(value.areas[name].image)"
             />
           </div>
         </div>
@@ -39,8 +39,16 @@
             <div :style="styleElementDishName(element)">
               {{ item.name}}
             </div>
-            <div :style="styleElementDishPrice(element)">
-              {{ item.prices[0] }} €
+            <div :style="styleElementDishPrices">
+              <div
+                v-for="(price, key) in item.prices"
+                :key="key">
+                <div
+                  v-if="price"
+                  :style="styleElementDishPrice(element)">
+                  {{ price }} €
+                </div>
+              </div>
             </div>
             <div :style="styleElementDishDescription(element)">
               {{ item.description }}
@@ -62,7 +70,15 @@
           :style="styleElementImage(element.rect)">
           <img
             :src="element.image.fullHDURL"
-            style="width: 100%; height: 100%;"/>
+            :style="styleImage"/>
+        </div>
+        <div
+          v-else-if="element.type === 'icon'"
+          :style="styleElementIcon(element)">
+          <img
+            :src="element.src"
+            :style="styleImage"
+          />
         </div>
       </div>
     </div>

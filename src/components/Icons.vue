@@ -3,8 +3,6 @@
     <div
       v-for="(icon, ii) of icons"
       :key="ii"
-      v-icon
-      v-html="icon.src"
       v-draggable.clone="{
         type: 'icon',
         ...icon,
@@ -19,7 +17,9 @@
       @dragenter="dragenter"
       @dragleave="dragleave"
       @dragend="dragend"
-    />
+      class="icon">
+      <img :src="icon.src">
+    </div>
   </div>
 </template>
 
@@ -53,15 +53,6 @@ export default {
       event.el.firstChild.style.removeProperty('transform')
     },
   },
-  directives: {
-    icon: {
-      inserted (el) {
-        const rect = el.getBoundingClientRect()
-        el.style.width = rect.width + 'px'
-        el.style.height = rect.height + 'px'
-      },
-    }
-  },
   created() {
     this.getIconData()
   },
@@ -74,5 +65,11 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   row-gap: 20px;
   column-gap: 20px;
+  .icon {
+    width: 48px;
+    img {
+      width: 100%;
+    }
+  }
 }
 </style>

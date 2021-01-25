@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       active: false,
-      content: null,
+      innerHTML: false,
     }
   },
   computed: {
@@ -46,8 +46,8 @@ export default {
       menu: state => state.menu.data,
     }),
     data() {
-      if (this.content)
-        return this.content
+      if (this.innerHTML !== false)
+        return this.innerHTML
       return this.value
     },
     style() {
@@ -67,8 +67,9 @@ export default {
       'breakHistory',
     ]),
     onFocus () {
-      this.content = this.$el.innerHTML
+      this.innerHTML = this.$el.innerHTML
       this.active = true
+      this.$emit('active')
     },
     onBlur () {
       if (this.price) {
@@ -82,11 +83,12 @@ export default {
 
       document.getSelection().empty()
 
-      if (this.content !== this.$el.innerHTML)
+      if (this.innerHTML !== this.$el.innerHTML)
         this.addHistory()
 
       this.active = false
-      this.content = null
+      this.innerHTML = false
+      this.$emit('unactive')
     },
     onInput () {
       let value = this.$el.innerHTML
