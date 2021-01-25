@@ -2,6 +2,7 @@ import Vue from 'vue'
 import menu from '@/api/menu'
 import { defaultColors } from '@/helpers/color'
 import { grids } from '@/helpers/grid'
+import { addPage } from '@/helpers/menu'
 
 const state = () => ({
   id: null,
@@ -70,6 +71,11 @@ const actions = {
     })
   },
   resizeMenu({ state }, format) {
+
+    if (format.area > 1 && state.data.pages.length % 2) {
+      addPage(state.data, state.data.pages.length)
+    }
+
     if (state.data.format.area !== format.area) {
 
       state.data.pages.forEach((page, i) => {

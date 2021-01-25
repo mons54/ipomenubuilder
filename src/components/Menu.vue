@@ -16,7 +16,8 @@
           class="actions">
           <b-button
             variant="light"
-            size="sm">
+            size="sm"
+            @click="duplicatePage(pi)">
             <b-icon-stickies/>
           </b-button>
           <b-button
@@ -378,6 +379,17 @@ export default {
       if (this.menu.format.area > 1)
         index++
       addPage(this.menu, index)
+    },
+    duplicatePage(index) {
+      const page = JSON.parse(JSON.stringify(this.menu.pages[index]))
+      index++
+      if (this.menu.format.area > 1) {
+        const recto = JSON.parse(JSON.stringify(this.menu.pages[index]))
+        index++
+        this.menu.pages.splice(index, 0, page, recto)
+      } else {
+        this.menu.pages.splice(index, 0, page)
+      }
     },
     deletePage(index) {
       this.menu.pages.splice(index, 1)
