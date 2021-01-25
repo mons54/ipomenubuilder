@@ -15,7 +15,7 @@
           <div
             v-for="(name, gai) of gridAreas(area.grid)"
             :key="gai"
-            :style="styleGridArea(area, name, gai)">
+            :style="styleGridArea(menu.colors, area, name, gai)">
             <div
               v-if="area[name] && area[name].image"
               v-image-area="area[name].image"

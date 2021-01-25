@@ -138,6 +138,7 @@ export default {
   },
   computed: {
     ...mapState({
+      colors: state => state.menu.data.colors,
       gridAreaName: state => state.menu.gridArea,
     }),
     ...mapGetters('menu', [
@@ -150,9 +151,9 @@ export default {
         if (!color) {
           const areas = getAreasSorted(this.area.grid.gridTemplateAreas)
           const index = areas.findIndex(name => name === this.gridAreaName)
-          color = this.area.colors[index]
+          color = this.colors[index]
           if (!color)
-            color = this.area.colors[0]
+            color = this.colors[0]
         }
         return color
       },

@@ -29,13 +29,15 @@ const getters = {
       area = getters.page.areas[0]
     return area
   },
-  gridArea(state, getters) {
+  gridArea(state, getters, rootState) {
     if (!state.gridArea)
       return null
-    if (!getters.area.areas[state.gridArea])
+    if (!getters.area.areas[state.gridArea]) {
+      rootState.history.break = true
       Vue.set(getters.area.areas, state.gridArea, {
         image: null,
       })
+    }
     return getters.area.areas[state.gridArea]
   },
   element(state, getters) {
@@ -94,6 +96,10 @@ const actions = {
     }
 
     state.data.format = format
+  },
+  selectPageArea({ commit }, { page, index }) {
+    commit('setMenuPage', page)
+    commit('setMenuArea', index)
   },
   selectGridArea({ commit }, { index, name }) {
     commit('setMenuArea', index)

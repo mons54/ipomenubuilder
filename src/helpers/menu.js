@@ -2,46 +2,52 @@ import { defaultColors } from '@/helpers/color'
 import { formats } from '@/helpers/format'
 import { grids } from '@/helpers/grid'
 
-const colors = defaultColors[0]
-const format = formats[2]
-const grid = grids[0]
+export function addPage({ pages, format }, position = 0) {
 
-const pages = []
+  const grid = grids[0]
 
-let page = {
-  elements: [],
-  areas: [],
-}
-
-format.inside.forEach(width => {
-  page.areas.push({
-    width,
-    colors,
-    grid,
-    areas: {}
-  })
-})
-
-pages.push(page)
-
-if (format.area > 1) {
-  page = {
+  const page = {
     elements: [],
     areas: [],
   }
-  format.outside.forEach(width => {
+
+  format.inside.forEach(width => {
     page.areas.push({
       width,
-      colors,
       grid,
       areas: {}
     })
   })
-  pages.push(page)
+
+  pages.splice(position, 0, page)
+
+  if (format.area > 1) {
+    position++
+    const verso = {
+      elements: [],
+      areas: [],
+    }
+    format.outside.forEach(width => {
+      verso.areas.push({
+        width,
+        grid,
+        areas: {}
+      })
+    })
+    pages.splice(position, 0, verso)
+  }
 }
+
+const colors = defaultColors[0]
+const format = formats[2]
+
+const pages = []
+
+addPage({ pages, format })
 
 export const menu = {
   name: "Test",
+  colors,
   format,
   prices: {
     symbol: "€",

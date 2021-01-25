@@ -48,7 +48,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import InputColor from '@/components/InputColor.vue'
 import { defaultColors } from '@/helpers/color'
 
@@ -62,17 +62,20 @@ export default {
     InputColor,
   },
   computed: {
+    ...mapState({
+      menu: state => state.menu.data,
+    }),
     ...mapGetters('menu', [
       'area',
     ]),
     colors: {
       get() {
-        return this.area.colors
+        return this.menu.colors
       },
       set(colors) {
         for (const [key] of Object.entries(this.area.areas))
           Vue.delete(this.area.areas[key], 'color')
-        this.area.colors = colors
+        this.menu.colors = colors
       }
     },
   },

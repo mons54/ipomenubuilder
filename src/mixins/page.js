@@ -69,12 +69,12 @@ export default {
         overflow: 'hidden',
       }
     },
-    styleGridArea (area, name, index) {
-      let backgroundColor = area.colors[index]
+    styleGridArea (colors, area, name, index) {
+      let backgroundColor = colors[index]
       if (area.areas[name] && area.areas[name].color)
         backgroundColor = area.areas[name].color
       if (!backgroundColor)
-        backgroundColor = area.colors[0]
+        backgroundColor = colors[0]
       return {
         position: 'relative',
         backgroundColor,

@@ -43,6 +43,7 @@ export default {
       historyIndex: state => state.history.index,
     }),
     json () {
+      console.log(this.menu)
       return JSON.stringify(this.menu)
     },
   },

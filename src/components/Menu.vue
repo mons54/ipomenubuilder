@@ -12,6 +12,28 @@
         class="page-container"
         :style="stylePageContainer">
         <div
+          v-if="format.area === 1 || pi % 2 === 0"
+          class="actions">
+          <b-button
+            variant="light"
+            size="sm">
+            <b-icon-stickies/>
+          </b-button>
+          <b-button
+            variant="light"
+            size="sm"
+            @click="addPage(pi)">
+            <b-icon-plus-square/>
+          </b-button>
+          <b-button
+            v-if="hasDeletePage"
+            variant="light"
+            size="sm"
+            @click="deletePage(pi)">
+            <b-icon-trash/>
+          </b-button>
+        </div>
+        <div
           class="page"
           :style="stylePage">
           <div
@@ -25,7 +47,7 @@
               <div
                 @click="e => {
                   e.stopPropagation()
-                  setMenuArea(ai)
+                  selectPageArea({ page: pi, index: ai })
                 }"
                 :style="styleGrid(value.grid)"
                 class="grid"
@@ -33,15 +55,13 @@
                 <div
                   v-for="(name, gai) of gridAreas(value.grid)"
                   @click="() => {
-                    if (!isGrid || activeArea(value)) {
-                      desactiveElement()
-                      selectGridArea({ index: ai, name })
-                    }
+                    desactiveElement()
+                    selectGridArea({ index: ai, name })
                   }"
                   :key="gai"
-                  :style="styleGridArea(value, name, gai)"
+                  :style="styleGridArea(menu.colors, value, name, gai)"
                   class="grid-area"
-                  :class="{'active': gridArea === value.areas[name]}">
+                  :class="{'active': activeGridArea(value.areas[name]) }">
                   <div
                     v-if="value.areas[name] && value.areas[name].image"
                     v-image-area="value.areas[name].image"
@@ -219,6 +239,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import Editable from '@/components/Editable'
+import { addPage } from '@/helpers/menu'
 import page from '@/mixins/page'
 
 export default {
@@ -235,6 +256,7 @@ export default {
     ...mapState({
       menu: state => state.menu.data,
       format: state => state.menu.data.format,
+      menuPage: state => state.menu.page,
       translation: state => state.menu.translation,
       scale: state => state.scale.value,
       activedElement: state => state.element.actived,
@@ -262,9 +284,6 @@ export default {
     },
     bleedSpacing () {
       return this.spacing - this.bleed * 2
-    },
-    isGrid() {
-      return this.sidebar === 'grid'
     },
     styleMenuContent () {
       const height = `${this.fullHeight * this.scale}px`
@@ -310,13 +329,16 @@ export default {
         bottom: `${this.bleedSpacing}px`,
       }
     },
+    hasDeletePage() {
+      return this.menu.pages.length > 2 || (this.format.area === 1 && this.menu.pages.length > 1)
+    },
   },
   methods: {
     ...mapActions('menu', [
+      'selectPageArea',
       'selectGridArea',
     ]),
     ...mapMutations('menu', [
-      'setMenuArea',
       'setMenuPage',
     ]),
     ...mapActions('element', [
@@ -332,7 +354,10 @@ export default {
       'setShowContextMenu',
     ]),
     activeArea(value) {
-      return value === this.area && (this.isGrid || this.sidebar === 'color')
+      return value === this.area && this.sidebar === 'grid' && !this.gridArea
+    },
+    activeGridArea(value) {
+      return this.gridArea === value
     },
     contextMenuDish(e, element) {
       e.preventDefault()
@@ -347,6 +372,17 @@ export default {
       this.setShowContextMenu(true)
       this.activeElement(element)
       return false
+    },
+    addPage(index) {
+      index++
+      if (this.menu.format.area > 1)
+        index++
+      addPage(this.menu, index)
+    },
+    deletePage(index) {
+      this.menu.pages.splice(index, 1)
+      if (this.menu.format.area > 1)
+        this.menu.pages.splice(index, 1)
     },
   },
 }
@@ -366,6 +402,18 @@ export default {
       position: relative;
       transform-origin: top left;
       overflow: hidden;
+      .actions {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 4px 72px;
+        justify-content: flex-end;
+        display: flex;
+        button {
+          margin-left: 8px;
+        }
+      }
       .element {
         z-index: 3;
         &.active {
