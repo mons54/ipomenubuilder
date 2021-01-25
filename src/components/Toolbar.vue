@@ -3,6 +3,13 @@
     <div
       v-if="element && element.type === 'image'"
       class="toolbar-nav">
+      <b-button
+        v-b-modal.modal-crop
+        variant="light"
+        class="toolbar-item"
+        size="sm">
+        <b-icon-bounding-box/>
+      </b-button>
       <Crop :element="element"/>
     </div>
     <div

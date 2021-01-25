@@ -10,13 +10,22 @@
       <b-list-group>
         <b-list-group-item @click="duplicateElement">Dupliquer</b-list-group-item>
         <b-list-group-item
-          v-if="contextMenuType === 'dish'"
+          v-if="activedElement && activedElement.type === 'dish'"
           v-b-modal.modal-dishes>
           Modifier
+        </b-list-group-item>
+        <b-list-group-item
+          v-if="activedElement && activedElement.type === 'image'"
+          v-b-modal.modal-contextmenu-crop>
+          Rogner
         </b-list-group-item>
         <b-list-group-item @click="deleteElement">Supprimer</b-list-group-item>
       </b-list-group>
     </div>
+    <Crop
+      v-if="activedElement && activedElement.type === 'image'"
+      :element="activedElement"
+      modalId="modal-contextmenu-crop"/>
     <b-modal
       id="modal-dishes"
       title="Modifier les plats"
@@ -102,6 +111,7 @@
 <script>
 import Vue from 'vue'
 import { mapActions, mapMutations, mapState } from 'vuex'
+import Crop from '@/components/Crop'
 import Editable from '@/components/Editable'
 import { itemType } from '@/helpers/dish'
 
@@ -109,6 +119,7 @@ let dragDish
 
 export default {
   components: {
+    Crop,
     Editable,
   },
   data() {
@@ -122,7 +133,6 @@ export default {
   },
   computed: {
     ...mapState({
-      contextMenuType: state => state.contextmenu.type,
       showContextMenu: state => state.contextmenu.show,
       activedElement: state => state.element.actived,
     }),

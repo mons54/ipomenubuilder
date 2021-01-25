@@ -1,15 +1,8 @@
 <template>
   <div>
-    <b-button
-      v-b-modal.modal-crop
-      variant="light"
-      class="toolbar-item"
-      size="sm">
-      <b-icon-bounding-box/>
-    </b-button>
     <b-modal
       v-if="element"
-      id="modal-crop"
+      :id="modalId"
       ref="modal-crop"
       title="Rogner l'image"
       @shown="activeCropImage"
@@ -70,7 +63,12 @@
 
 <script>
 export default {
-  props: ['element'],
+  props: {
+    element: null,
+    modalId: {
+      default: 'modal-crop',
+    },
+  },
   data() {
     return {
       isCrop: false,

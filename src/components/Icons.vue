@@ -66,7 +66,7 @@ export default {
   row-gap: 20px;
   column-gap: 20px;
   .icon {
-    width: 48px;
+    width: 62px;
     img {
       width: 100%;
     }

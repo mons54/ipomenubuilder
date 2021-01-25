@@ -90,7 +90,7 @@
               <div
                 v-if="element.type === 'dish'"
                 @contextmenu="e => {
-                  contextMenuDish(e, element)
+                  contextMenuElement(e, element)
                 }"
                 v-resizable-dish="element.rect"
                 :style="styleElementDish(element)"
@@ -358,7 +358,6 @@ export default {
       'activeElementText',
     ]),
     ...mapMutations('contextmenu', [
-      'setContextMenuType',
       'setShowContextMenu',
     ]),
     activeArea(value) {
@@ -367,16 +366,8 @@ export default {
     activeGridArea(value) {
       return this.gridArea === value
     },
-    contextMenuDish(e, element) {
-      e.preventDefault()
-      this.setContextMenuType('dish')
-      this.setShowContextMenu(true)
-      this.activeElement(element)
-      return false
-    },
     contextMenuElement(e, element) {
       e.preventDefault()
-      this.setContextMenuType('element')
       this.setShowContextMenu(true)
       this.activeElement(element)
       return false
