@@ -4,6 +4,7 @@
       :format="format"
       :menu="menu"
       :page="page"
+      :translation="translation"
     />
   </div>
 </template>
@@ -19,6 +20,7 @@ export default {
     format: Object,
     menu: Object,
     page: Object,
+    translation: String,
     scale: {
       type: Number,
       default: 1,

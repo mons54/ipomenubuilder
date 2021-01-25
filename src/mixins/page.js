@@ -158,6 +158,11 @@ export default {
         gridArea: 'description',
       }
     },
+    styleElementDishDescriptionTranslation() {
+      return {
+        fontStyle: 'italic',
+      }
+    },
     styleElementDishPrice(value) {
       return {
         ...value.stylePrice,

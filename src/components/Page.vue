@@ -37,7 +37,19 @@
             :style="styleElementDishItem(element)"
             class="item">
             <div :style="styleElementDishName(element)">
-              {{ item.name}}
+              <span v-if="!translation">
+                {{ item.name }}
+              </span>
+              <span v-else>
+                {{ item.translationName[translation] }}
+              </span>
+              <div v-if="menu.translate.inline && menu.translate.dishName">
+                <span
+                  v-for="(value, key) in menu.translate.translation"
+                  :key="key">
+                  {{ item.translationName[value] }}
+                </span>
+              </div>
             </div>
             <div :style="styleElementDishPrices">
               <div
@@ -51,7 +63,21 @@
               </div>
             </div>
             <div :style="styleElementDishDescription(element)">
-              {{ item.description }}
+              <span v-if="!translation">
+                {{ item.description }}
+              </span>
+              <span v-else>
+                {{ item.translationDescription[translation] }}
+              </span>
+              <div
+                v-if="menu.translate.inline">
+                <span
+                  v-for="(value, key) in menu.translate.translation"
+                  :key="key"
+                  :style="styleElementDishDescriptionTranslation()">
+                  {{ item.translationDescription[value] }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -60,9 +86,14 @@
           :style="styleElementText(element)">
           <div
             v-for="(text, ti) in element.elements"
-            v-html="text.value"
             :key="ti"
             :style="text.style">
+            <span v-if="!menu.translate.textes || !translation">
+              {{ text.value }}
+            </span>
+            <span v-else>
+              {{ text.translation[translation] }}
+            </span>
           </div>
         </div>
         <div
@@ -95,6 +126,7 @@ export default {
     menu: Object,
     page: Object,
     mark: Boolean,
+    translation: String,
   },
   computed: {
     bleed () {

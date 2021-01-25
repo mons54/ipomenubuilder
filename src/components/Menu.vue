@@ -158,7 +158,7 @@
                         :key="key"
                         v-model="item.translationDescription[value]"
                         :contenteditable="activedElement === element"
-                        style="font-style: italic;"
+                        :style="styleElementDishDescriptionTranslation()"
                       />
                     </div>
                   </div>

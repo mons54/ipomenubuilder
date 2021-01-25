@@ -99,20 +99,32 @@ export default {
   },
   methods: {
     download () {
+      this.downloadDocument()
+      if (!this.menu.translate.inline) {
+        this.menu.translate.translation.forEach(language => {
+          this.downloadDocument(language)
+        })
+      }
+    },
+    downloadDocument (language) {
 
       let data
       let path
       let ext = this.type
+      let name = this.menu.name
+
+      if (language)
+        name += `-${language}`
 
       if (this.type === 'pdf') {
-        data = this.pdf()
+        data = this.pdf(language)
         path = '/pdf'
       } else if (this.type === 'mobile') {
-        data = this.mobile()
+        data = this.mobile(language)
         path = '/mobile'
         ext = 'pdf'
       } else {
-        data = this.image()
+        data = this.image(language)
         path = `/image/${this.type}`
       }
 
@@ -125,10 +137,10 @@ export default {
       then(({data, headers}) => {
         if (headers['content-type'] === 'application/zip')
           ext = 'zip'
-        download(data, `${this.menu.name}.${ext}`)
+        download(data, `${name}.${ext}`)
       })
     },
-    pdf () {
+    pdf (translation) {
 
       const pages = []
 
@@ -141,6 +153,7 @@ export default {
             format: this.format,
             menu: this.menu,
             mark: this.mark,
+            translation,
           }
         }).$mount()
 
@@ -163,7 +176,7 @@ export default {
         pages,
       }
     },
-    mobile () {
+    mobile (translation) {
 
       const pages = []
 
@@ -175,6 +188,7 @@ export default {
             page,
             format: this.format,
             menu: this.menu,
+            translation,
           }
         }).$mount()
 
@@ -196,7 +210,7 @@ export default {
         pages,
       }
     },
-    image () {
+    image (translation) {
 
       const images = []
 
@@ -209,6 +223,7 @@ export default {
             format: this.format,
             menu: this.menu,
             scale: this.scale,
+            translation,
           }
         }).$mount()
 
