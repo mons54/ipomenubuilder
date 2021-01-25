@@ -6,11 +6,15 @@
       @mousedown="e => e.stopPropagation()"
       @click="setShowContextMenu(false)"
       id="contextmenu"
-      :style="`top: ${mouseY}px; left: ${mouseX}px`">
+      :style="`top: ${y}px; left: ${x}px`">
       <b-list-group>
         <b-list-group-item @click="duplicateElement">Dupliquer</b-list-group-item>
         <b-list-group-item @click="deleteElement">Supprimer</b-list-group-item>
-        <b-list-group-item v-b-modal.modal-dishes>Modifier</b-list-group-item>
+        <b-list-group-item
+          v-if="contextMenuType === 'dish'"
+          v-b-modal.modal-dishes>
+          Modifier
+        </b-list-group-item>
       </b-list-group>
     </div>
     <b-modal
@@ -114,6 +118,8 @@ export default {
   },
   data() {
     return {
+      x: 0,
+      y: 0,
       mouseX: 0,
       mouseY: 0,
       editDish: null,
@@ -189,6 +195,14 @@ export default {
       },
     }
   },
+  watch: {
+    showContextMenu(value) {
+      if (value) {
+        this.x = this.mouseX
+        this.y = this.mouseY
+      }
+    },
+  },
   created() {
 
     document.addEventListener('mousedown', () => {
@@ -196,8 +210,6 @@ export default {
     })
 
     document.addEventListener('mousemove', (e) => {
-      if (this.showContextMenu)
-        return
       this.mouseX = e.pageX
       this.mouseY = e.pageY
     })
