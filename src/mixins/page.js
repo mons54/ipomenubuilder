@@ -45,6 +45,11 @@ export default {
         height: '100%',
       }
     },
+    styleElementDishPrices() {
+      return {
+        display: 'flex',
+      }
+    },
   },
   methods: {
     gridAreas (grid) {

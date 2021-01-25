@@ -78,9 +78,6 @@
                   v-for="(item, index) in element.items"
                   :key="index"
                   :style="styleElementDishItem(element)"
-                  @contextmenu="e => {
-                    setContextMenuDish(item)
-                  }"
                   class="item">
                   <div
                     :style="styleElementDishName(element)">
@@ -103,14 +100,21 @@
                       />
                     </div>
                   </div>
-                  <div
-                    :style="styleElementDishPrice(element)">
-                    <Editable
-                      v-model="item.prices[0]"
-                      :price="true"
-                      :inline="true"
-                      :contenteditable="activedElement === element"
-                    /> €
+                  <div :style="styleElementDishPrices">
+                    <div
+                      v-for="(price, key) in item.prices"
+                      :key="key">
+                      <div
+                        v-if="price"
+                        :style="styleElementDishPrice(element)">
+                        <Editable
+                          v-model="item.prices[key]"
+                          :price="true"
+                          :inline="true"
+                          :contenteditable="activedElement === element"
+                        />€
+                      </div>
+                    </div>
                   </div>
                   <div
                     :style="styleElementDishDescription(element)">
@@ -324,7 +328,6 @@ export default {
       'activeElementText',
     ]),
     ...mapMutations('contextmenu', [
-      'setContextMenuDish',
       'setContextMenuType',
       'setShowContextMenu',
     ]),
