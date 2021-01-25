@@ -9,12 +9,12 @@
       :style="`top: ${y}px; left: ${x}px`">
       <b-list-group>
         <b-list-group-item @click="duplicateElement">Dupliquer</b-list-group-item>
-        <b-list-group-item @click="deleteElement">Supprimer</b-list-group-item>
         <b-list-group-item
           v-if="contextMenuType === 'dish'"
           v-b-modal.modal-dishes>
           Modifier
         </b-list-group-item>
+        <b-list-group-item @click="deleteElement">Supprimer</b-list-group-item>
       </b-list-group>
     </div>
     <b-modal

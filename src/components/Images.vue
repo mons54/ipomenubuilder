@@ -44,7 +44,7 @@
           </div>
           <div
             v-else
-            @click="$emit('input', value.image)">
+            @click="$emit('input', JSON.parse(JSON.stringify(value.image)))">
             <img :src="value.image.previewURL"/>
           </div>
         </div>
