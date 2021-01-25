@@ -195,8 +195,8 @@
                 @contextmenu="e => {
                   contextMenuElement(e, element)
                 }"
-                v-resizable-image="element"
-                :style="styleElementImage(element.rect)">
+                v-resizable-scale="element.scale"
+                :style="styleElementImage(element)">
                 <div
                   :style="styleElementImageContent(element)">
                   <img

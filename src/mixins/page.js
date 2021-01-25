@@ -167,8 +167,9 @@ export default {
     },
     styleElementImage(value) {
       return {
-        width: `${value.width}px`,
-        height: `${value.height}px`,
+        width: `${value.rect.width}px`,
+        height: `${value.rect.height}px`,
+        transform: `scale(${value.scale.x}, ${value.scale.y})`,
         overflow: 'hidden',
       }
     },
@@ -176,7 +177,7 @@ export default {
       return {
         width: `${value.size.width}px`,
         height: `${value.size.height}px`,
-        transform: `translate(-${value.size.left}px, -${value.size.top}px)`,
+        transform: `translate(-${value.crop.left}px, -${value.crop.top}px)`,
         ...value.style,
       }
     },

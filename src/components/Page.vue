@@ -67,7 +67,7 @@
         </div>
         <div
           v-else-if="element.type === 'image'"
-          :style="styleElementImage(element.rect)">
+          :style="styleElementImage(element)">
           <img
             :src="element.image.fullHDURL"
             :style="styleImage"/>

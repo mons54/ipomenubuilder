@@ -23,16 +23,20 @@
               type: 'image',
               ...value,
               size: {
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
                 width: value.image.webformatWidth,
                 height: value.image.webformatHeight,
               },
               rect: {
                 width: value.image.webformatWidth,
                 height: value.image.webformatHeight,
+              },
+              crop: {
+                left: 0,
+                top: 0,
+              },
+              scale: {
+                x: 1,
+                y: 1,
               },
               style: {},
             }"

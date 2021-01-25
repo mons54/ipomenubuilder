@@ -1,6 +1,11 @@
 <template>
   <div class="toolbar">
     <div
+      v-if="element && element.type === 'image'"
+      class="toolbar-nav">
+      <Crop :element="element"/>
+    </div>
+    <div
       v-if="element"
       class="toolbar-nav ml-auto">
       <b-button
@@ -23,8 +28,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Crop from '@/components/Crop'
 
 export default {
+  components: {
+    Crop,
+  },
   computed: {
     ...mapState({
       element: state => state.element.actived
@@ -34,7 +43,7 @@ export default {
     ...mapActions('element', [
       'deleteElement',
       'duplicateElement',
-    ])
+    ]),
   },
 }
 </script>
