@@ -73,7 +73,7 @@
         </div>
         <div
           class="item-area item-area--price"
-          :style="value.price">
+          :style="value.prices">
            €
         </div>
         <div

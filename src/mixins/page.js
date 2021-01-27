@@ -45,11 +45,6 @@ export default {
         height: '100%',
       }
     },
-    styleElementDishPrices() {
-      return {
-        display: 'flex',
-      }
-    },
     styleImage() {
       return {
         width: '100%',
@@ -148,14 +143,12 @@ export default {
       return {
         ...value.styleName,
         ...value.grid.name,
-        gridArea: 'name',
       }
     },
     styleElementDishDescription(value) {
       return {
         ...value.styleDescription,
         ...value.grid.description,
-        gridArea: 'description',
       }
     },
     styleElementDishDescriptionTranslation() {
@@ -163,11 +156,15 @@ export default {
         fontStyle: 'italic',
       }
     },
+    styleElementDishPrices(value) {
+      return {
+        ...value.grid.prices,
+      }
+    },
     styleElementDishPrice(value) {
       return {
         ...value.stylePrice,
         ...value.grid.price,
-        gridArea: 'price',
       }
     },
     styleElementImage(value) {

@@ -11,6 +11,7 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
+      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -24,6 +25,7 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
+      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -37,6 +39,7 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
+      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -45,6 +48,9 @@ export const gridsDish = [
       textAlign: 'left',
     },
     name: {
+      display: 'inline-flex',
+    },
+    prices: {
       display: 'inline-flex',
     },
     price: {
@@ -59,6 +65,9 @@ export const gridsDish = [
     name: {
       display: 'inline-flex',
     },
+    prices: {
+      display: 'inline-flex',
+    },
     price: {
       display: 'inline-flex',
       marginLeft: marginItem,
@@ -69,6 +78,9 @@ export const gridsDish = [
       textAlign: 'right',
     },
     name: {
+      display: 'inline-flex',
+    },
+    prices: {
       display: 'inline-flex',
     },
     price: {
@@ -84,6 +96,10 @@ export const gridsDish = [
       gridTemplateColumns: '1fr',
       textAlign: 'center',
     },
+    price: {
+      display: 'inline-flex',
+      marginLeft: marginItem,
+    },
   },
   {
     template: {
@@ -93,6 +109,10 @@ export const gridsDish = [
       gridTemplateColumns: '1fr',
       textAlign: 'left',
     },
+    price: {
+      display: 'inline-flex',
+      marginRight: marginItem,
+    },
   },
   {
     template: {
@@ -101,6 +121,10 @@ export const gridsDish = [
       gridTemplateAreas: '"name" "description" "price"',
       gridTemplateColumns: '1fr',
       textAlign: 'right',
+    },
+    price: {
+      display: 'inline-flex',
+      marginLeft: marginItem,
     },
   },
 ]

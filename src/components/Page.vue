@@ -51,13 +51,12 @@
                 </span>
               </div>
             </div>
-            <div :style="styleElementDishPrices">
+            <div :style="styleElementDishPrices(element)">
               <div
                 v-for="(price, key) in item.prices"
-                :key="key">
-                <div
-                  v-if="price"
-                  :style="styleElementDishPrice(element)">
+                :key="key"
+                :style="styleElementDishPrice(element)">
+                <div v-if="price">
                   {{ price }} €
                 </div>
               </div>

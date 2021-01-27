@@ -121,13 +121,13 @@
                       />
                     </div>
                   </div>
-                  <div :style="styleElementDishPrices">
+                  <div :style="styleElementDishPrices(element)">
                     <div
                       v-for="(price, key) in item.prices"
-                      :key="key">
+                      :key="key"
+                      :style="styleElementDishPrice(element)">
                       <div
-                        v-if="key === 0 || price || activePrice === `${index}-${key}`"
-                        :style="styleElementDishPrice(element)">
+                        v-if="key === 0 || price || activePrice === `${index}-${key}`">
                         <Editable
                           v-model="item.prices[key]"
                           :price="true"

@@ -24,7 +24,10 @@
             :src="element.image.webformatURL"
             draggable="false"
             class="background"/>
-          <div v-crop-draggable crop-inner class="inner">
+          <div
+            v-crop-draggable
+            crop-inner
+            class="inner">
             <div crop-content class="crop-content">
               <img
                 crop-image
@@ -32,10 +35,13 @@
                 :src="element.image.webformatURL"
                 draggable="false"/>
             </div>
-            <div v-crop-resizable:top-left class="crop-resize top left"/>
-            <div v-crop-resizable:top-right class="crop-resize top right"/>
-            <div v-crop-resizable:bottom-right class="crop-resize bottom right"/>
-            <div v-crop-resizable:bottom-left class="crop-resize bottom left"/>
+            <div
+              v-if="loaded">
+              <div v-crop-resizable:top-left class="crop-resize top left"/>
+              <div v-crop-resizable:top-right class="crop-resize top right"/>
+              <div v-crop-resizable:bottom-right class="crop-resize bottom right"/>
+              <div v-crop-resizable:bottom-left class="crop-resize bottom left"/>
+            </div>
           </div>
         </div>
       </div>
@@ -71,6 +77,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       isCrop: false,
       keepRatio: false,
     }
@@ -92,7 +99,7 @@ export default {
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
 
-      image.onload = async () => {
+      image.onload = () => {
         canvas.setAttribute('width', width + 'px')
         canvas.setAttribute('height', height + 'px')
         context.drawImage(image,
@@ -115,36 +122,46 @@ export default {
       this.hideModalCrop()
     },
     activeCropImage() {
-      const crop = this.$refs.crop
-      const background = crop.querySelector('[crop-background]')
-      const inner = crop.querySelector('[crop-inner]')
-      const image = crop.querySelector('[crop-image]')
 
-      let cropWidth = background.naturalWidth
-      if (cropWidth > 800)
-        cropWidth = 800
+      const image = new Image()
 
-      const cropHeight = background.naturalHeight * (cropWidth / background.naturalWidth)
+      image.onload = () => {
 
-      crop.style.setProperty('width', cropWidth + 'px')
-      crop.style.setProperty('height', cropHeight + 'px')
+        this.loaded = true
 
-      this.cropRatio = cropWidth / background.naturalWidth
+        const crop = this.$refs.crop
+        const background = crop.querySelector('[crop-background]')
+        const inner = crop.querySelector('[crop-inner]')
+        const image = crop.querySelector('[crop-image]')
 
-      const left = this.element.crop.left * this.cropRatio
-      const top = this.element.crop.top * this.cropRatio
-      const width = this.element.rect.width * this.cropRatio
-      const height = this.element.rect.height * this.cropRatio
+        let cropWidth = background.naturalWidth
+        if (cropWidth > 800)
+          cropWidth = 800
 
-      inner.style.setProperty('left', left + 'px')
-      inner.style.setProperty('top', top + 'px')
-      inner.style.setProperty('width', width + 'px')
-      inner.style.setProperty('height', height + 'px')
+        const cropHeight = background.naturalHeight * (cropWidth / background.naturalWidth)
 
-      image.style.setProperty('width', cropWidth + 'px')
-      image.style.setProperty('height', cropHeight + 'px')
-      image.style.setProperty('left', left * -1 + 'px')
-      image.style.setProperty('top', top * -1 + 'px')
+        crop.style.setProperty('width', cropWidth + 'px')
+        crop.style.setProperty('height', cropHeight + 'px')
+
+        this.cropRatio = cropWidth / background.naturalWidth
+
+        const left = this.element.crop.left * this.cropRatio
+        const top = this.element.crop.top * this.cropRatio
+        const width = this.element.rect.width * this.cropRatio
+        const height = this.element.rect.height * this.cropRatio
+
+        inner.style.setProperty('left', left + 'px')
+        inner.style.setProperty('top', top + 'px')
+        inner.style.setProperty('width', width + 'px')
+        inner.style.setProperty('height', height + 'px')
+
+        image.style.setProperty('width', cropWidth + 'px')
+        image.style.setProperty('height', cropHeight + 'px')
+        image.style.setProperty('left', left * -1 + 'px')
+        image.style.setProperty('top', top * -1 + 'px')
+      }
+
+      image.src = this.element.image.webformatURL
     },
     async getImageType(image) {
       const response = await fetch(image)
