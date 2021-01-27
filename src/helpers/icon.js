@@ -1,6 +1,42 @@
 export const icons = [
   {
-    src: "https://image.flaticon.com/icons/png/128/1069/1069456.png",
+    src: `${window.location.href}icons/allergen/celery.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/eggs.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/fish.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/gluten.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/lupine.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/milk.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/mollusks.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/mustard.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/peanuts.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/sesame.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/shellfish.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/soy.png`,
+  },
+  {
+    src: `${window.location.href}icons/allergen/sulphites.png`,
   },
   {
     src: "https://image.flaticon.com/icons/png/128/2085/2085435.png",
