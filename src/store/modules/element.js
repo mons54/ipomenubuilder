@@ -32,11 +32,9 @@ const actions = {
       state.text = null
     }
   },
-  activeElement({ commit, state }, element) {
-    if (state.clicked === element) {
-      commit('activeElement', element)
-      commit('menu/setMenuGridArea', null, { root: true })
-    }
+  activeElement({ commit }, element) {
+    commit('activeElement', element)
+    commit('menu/setMenuGridArea', null, { root: true })
   },
   desactiveElement({ commit, state }) {
     state.clicked = null

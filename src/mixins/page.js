@@ -186,14 +186,12 @@ export default {
     styleElementIcon(value) {
       return {
         width: `${value.width}px`,
-        transformOrigin: 'top left',
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
       }
     },
     styleElementText(value) {
       return {
         width: `${value.width}px`,
-        transformOrigin: 'top left',
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
       }
     },

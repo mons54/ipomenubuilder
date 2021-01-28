@@ -85,7 +85,8 @@
               @mousedown="clickElement(element)"
               @click="e => {
                 e.stopPropagation()
-                activeElement(element)
+                if (clickedElement === element)
+                  activeElement(element)
               }">
               <div
                 v-if="element.type === 'dish'"
@@ -268,6 +269,7 @@ export default {
       translation: state => state.menu.translation,
       scale: state => state.scale.value,
       activedElement: state => state.element.actived,
+      clickedElement: state => state.element.clicked,
       sidebar: state => state.sidebar.selected,
     }),
     ...mapGetters('menu', [

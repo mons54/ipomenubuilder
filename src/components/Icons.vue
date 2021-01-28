@@ -8,8 +8,8 @@
         ...icon,
         width: 62,
         scale: {
-          x: 2,
-          y: 2,
+          x: 1,
+          y: 1,
         },
         style: {},
       }"
@@ -40,11 +40,10 @@ export default {
     dragstart(event) {
       const el = event.el.firstChild
       el.style.transformOrigin = `top left`
-      el.style.transform = `scale(1)`
       el.style.width = `${event.value.width}px`
     },
     dragenter(event) {
-      event.el.firstChild.style.transform = `scale(${this.scale * 2})`
+      event.el.firstChild.style.transform = `scale(${this.scale})`
     },
     dragleave(event) {
       event.el.firstChild.style.transform = `scale(1)`

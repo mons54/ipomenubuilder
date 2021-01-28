@@ -85,15 +85,17 @@ export default {
               rect.top -= dropzone.rect.top / scale
               rect.left -= dropzone.rect.left / scale
 
-              value = JSON.parse(JSON.stringify(value))
-
-              dropzone.value.elements.push({
+              value = JSON.parse(JSON.stringify({
                 id: uid(),
                 ...value,
                 rect,
-              })
+              }))
+
+              dropzone.value.elements.push(value)
 
               dropzone = null
+
+              context.$store.dispatch('element/activeElement', value)
             }
 
             context.$store.commit('history/startHistory')
