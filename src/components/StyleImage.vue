@@ -14,15 +14,57 @@
           class="active"/>
       </div>
     </div>
+    <b-row class="mt-4">
+      <b-col md="4">
+        <label for="textColor">{{ $t('border') }}</label>
+      </b-col>
+      <b-col md="8">
+        <InputRange
+          v-model="borderWidth"
+          :min="0"
+          :max="50"
+        />
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col md="4">
+        <label for="textColor">{{ $t('color') }}</label>
+      </b-col>
+      <b-col md="8">
+        <InputColor
+          v-model="borderColor"
+          size="sm"
+        />
+      </b-col>
+    </b-row>
+    <b-row class="mt-2">
+      <b-col md="4">
+        <label for="textColor">{{ $t('borderRadius') }}</label>
+      </b-col>
+      <b-col md="8">
+        <InputRange
+          v-model="borderRadius"
+          :min="0"
+          :max="200"
+        />
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import { mapState } from 'vuex'
+import InputColor from '@/components/InputColor'
+import InputRange from '@/components/InputRange'
 
 export default {
   props: {
     element: Object,
+  },
+  components: {
+    InputColor,
+    InputRange,
   },
   data () {
     return {
@@ -40,6 +82,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      stylePage: state => state.menu.data.styles.page,
+    }),
     style() {
       return this.element.style
     },
@@ -52,6 +97,31 @@ export default {
           Vue.delete(this.style, 'filter')
         else
           Vue.set(this.style, 'filter', value)
+      }
+    },
+    borderWidth: {
+      get () {
+        return parseInt(this.style.borderWidth) || 0
+      },
+      set (value) {
+        Vue.set(this.style, 'borderWidth', `${value}px`)
+      }
+    },
+    borderColor: {
+      get () {
+        console.log(this.stylePage)
+        return this.style.borderColor || this.stylePage.color
+      },
+      set (value) {
+        Vue.set(this.style, 'borderColor', value)
+      }
+    },
+    borderRadius: {
+      get () {
+        return parseInt(this.style.borderRadius) || 0
+      },
+      set (value) {
+        Vue.set(this.style, 'borderRadius', `${value}px`)
       }
     },
   },

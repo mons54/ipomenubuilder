@@ -66,7 +66,7 @@ export const menu = {
   },
   styles: {
     page: {
-      color: '#fff',
+      color: '#ffffff',
     },
   },
   pages,

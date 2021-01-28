@@ -173,6 +173,9 @@ export default {
         height: `${value.rect.height}px`,
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
         overflow: 'hidden',
+        borderWidth: 0,
+        borderStyle: 'solid',
+        ...value.style,
       }
     },
     styleElementImageContent(value) {
@@ -180,7 +183,6 @@ export default {
         width: `${value.size.width}px`,
         height: `${value.size.height}px`,
         transform: `translate(-${value.crop.left}px, -${value.crop.top}px)`,
-        ...value.style,
       }
     },
     styleElementIcon(value) {
@@ -193,6 +195,7 @@ export default {
       return {
         width: `${value.width}px`,
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
+        wordBreak: 'break-word',
       }
     },
   },

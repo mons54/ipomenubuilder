@@ -79,16 +79,16 @@
       </div>
       <div class="tab">
         <StyleDish
-          v-if="dishActived"
-          :element="dishActived"
+          v-if="activedDish"
+          :element="activedDish"
         />
         <StyleImage
-          v-else-if="imageActived"
-          :element="imageActived"
+          v-else-if="activedImage"
+          :element="activedImage"
         />
         <StyleText
-          v-else-if="textActived"
-          :element="textActived"
+          v-else-if="activedText"
+          :element="activedText"
         />
         <GridArea
           v-else-if="areaActived"
@@ -154,9 +154,9 @@ export default {
       selected: state => state.sidebar.selected,
     }),
     ...mapGetters('element', [
-      'dishActived',
-      'imageActived',
-      'textActived',
+      'activedDish',
+      'activedImage',
+      'activedText',
     ])
   },
   methods: {
@@ -167,7 +167,7 @@ export default {
       'desactiveElement',
     ]),
     itemSelected(name) {
-      return !!(this.selected === name && !this.dishActived && !this.imageActived && !this.textActived && !this.areaActived)
+      return !!(this.selected === name && !this.activedDish && !this.activedImage && !this.activedText && !this.areaActived)
     },
   },
 }

@@ -81,12 +81,12 @@
               :key="element.id"
               :style="styleElement(element.rect)"
               class="element"
-              :class="{'active': activedElement === element}"
-              @mousedown="clickElement(element)"
+              :class="{'active': activedElement === element.id}"
+              @mousedown="clickElement(element.id)"
               @click="e => {
                 e.stopPropagation()
-                if (clickedElement === element)
-                  activeElement(element)
+                if (clickedElement === element.id)
+                  activeElement(element.id)
               }">
               <div
                 v-if="element.type === 'dish'"
@@ -106,19 +106,19 @@
                     <Editable
                       v-if="menu.translate.inline || !menu.translate.dishName || !translation"
                       v-model="item.name"
-                      :contenteditable="activedElement === element"
+                      :contenteditable="activedElement === element.id"
                     />
                     <Editable
                       v-else
                       v-model="item.translationName[translation]"
-                      :contenteditable="activedElement === element"
+                      :contenteditable="activedElement === element.id"
                     />
                     <div v-if="menu.translate.inline && menu.translate.dishName">
                       <Editable
                         v-for="(value, key) in menu.translate.translation"
                         :key="key"
                         v-model="item.translationName[value]"
-                        :contenteditable="activedElement === element"
+                        :contenteditable="activedElement === element.id"
                       />
                     </div>
                   </div>
@@ -133,7 +133,7 @@
                           v-model="item.prices[key]"
                           :price="true"
                           :inline="true"
-                          :contenteditable="activedElement === element"
+                          :contenteditable="activedElement === element.id"
                           @active="activePrice = `${index}-${key}`"
                           @unactive="activePrice = null"
                         /> €
@@ -145,12 +145,12 @@
                     <Editable
                       v-if="menu.translate.inline || !translation"
                       v-model="item.description"
-                      :contenteditable="activedElement === element"
+                      :contenteditable="activedElement === element.id"
                     />
                     <Editable
                       v-else
                       v-model="item.translationDescription[translation]"
-                      :contenteditable="activedElement === element"
+                      :contenteditable="activedElement === element.id"
                     />
                     <div
                       v-if="menu.translate.inline">
@@ -158,7 +158,7 @@
                         v-for="(value, key) in menu.translate.translation"
                         :key="key"
                         v-model="item.translationDescription[value]"
-                        :contenteditable="activedElement === element"
+                        :contenteditable="activedElement === element.id"
                         :style="styleElementDishDescriptionTranslation()"
                       />
                     </div>
@@ -179,15 +179,15 @@
                   :style="text.style">
                   <Editable
                     v-if="!menu.translate.textes || !translation"
-                    @click.native="activeElementText(text)"
+                    @click.native="activeElementText(text.id)"
                     v-model="text.value"
-                    :contenteditable="activedElement === element"
+                    :contenteditable="activedElement === element.id"
                   />
                   <Editable
                     v-else
-                    @click.native="activeElementText(text)"
+                    @click.native="activeElementText(text.id)"
                     v-model="text.translation[translation]"
-                    :contenteditable="activedElement === element"
+                    :contenteditable="activedElement === element.id"
                   />
                 </div>
               </div>
@@ -371,7 +371,7 @@ export default {
     contextMenuElement(e, element) {
       e.preventDefault()
       this.setShowContextMenu(true)
-      this.activeElement(element)
+      this.activeElement(element.id)
       return false
     },
     addPage(index) {

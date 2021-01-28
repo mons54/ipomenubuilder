@@ -1,7 +1,10 @@
 {
   "any": "Any",
   "back": "Back",
+  "border": "Border",
+  "borderRadius": "Round",
   "categories": "Categories",
+  "color": "Color",
   "colors": "Colors",
   "deleteImage": "Delete image",
   "dishName": "Dish name",

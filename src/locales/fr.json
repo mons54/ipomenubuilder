@@ -1,7 +1,10 @@
 {
   "any": "Aucune",
   "back": "Retour",
+  "border": "Bordure",
+  "borderRadius": "Arrondi",
   "categories": "Categories",
+  "color": "Couleur",
   "colors": "Couleurs",
   "deleteImage": "Supprimer l'image",
   "dishName": "Nom du plat",

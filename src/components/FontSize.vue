@@ -6,9 +6,8 @@
         class="menu-label"
         :class="{'open': show }"
         @click="click">
-        <b-form-input
+        <InputNumber
           v-model="size"
-          type="number"
           size="sm"
           autocomplete="off"
         />
@@ -30,9 +29,14 @@
 </template>
 
 <script>
+import InputNumber from '@/components/InputNumber'
+
 export default {
   props: {
     value: String,
+  },
+  components: {
+    InputNumber,
   },
   data () {
     return {

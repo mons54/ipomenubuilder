@@ -3,23 +3,27 @@ import { v4 as uid } from 'uuid'
 const state = () => ({
   actived: null,
   clicked: null,
-  text: null,
+  activedText: null,
 })
 
 const getters = {
-  dishActived(state) {
-    if (state.actived && state.actived.type === 'dish')
-      return state.actived
+  actived(state, getters, rootState, rootGetters) {
+    const elements = rootGetters['menu/page'].elements
+    return elements.find(element => element.id === state.actived)
+  },
+  activedDish(state, getters) {
+    if (getters.actived && getters.actived.type === 'dish')
+      return getters.actived
     return null
   },
-  imageActived(state) {
-    if (state.actived && state.actived.type === 'image')
-      return state.actived
+  activedImage(state, getters) {
+    if (getters.actived && getters.actived.type === 'image')
+      return getters.actived
     return null
   },
-  textActived(state) {
-    if (state.actived && state.actived.type === 'text' && state.text)
-      return state.text
+  activedText(state, getters) {
+    if (getters.actived)
+      return getters.actived.elements.find(element => element.id === state.activedText)
     return null
   },
 }
@@ -44,12 +48,12 @@ const actions = {
   },
   deleteElement({ dispatch, state, rootGetters }) {
     const elements = rootGetters['menu/page'].elements
-    const index = elements.findIndex(value => value === state.actived)
+    const index = elements.findIndex(value => value.id === state.actived)
     elements.splice(index, 1)
     dispatch('desactiveElement')
   },
-  duplicateElement({ commit, state, rootGetters }) {
-    const element = JSON.parse(JSON.stringify(state.actived))
+  duplicateElement({ commit, getters, rootGetters }) {
+    const element = JSON.parse(JSON.stringify(getters.actived))
     element.id = uid()
     element.rect.top += 20
     element.rect.left += 20
@@ -59,11 +63,12 @@ const actions = {
 }
 
 const mutations = {
-  activeElement(state, value) {
-    state.actived = value
+  activeElement(state, id) {
+    state.actived = id
   },
-  activeElementText(state, value) {
-    state.text = value
+  activeElementText(state, id) {
+    console.log(id)
+    state.activedText = id
   },
 }
 

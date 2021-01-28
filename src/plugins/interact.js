@@ -91,6 +91,11 @@ export default {
                 rect,
               }))
 
+              if (value.elements)
+                value.elements.forEach(item => {
+                  item.id = uid()
+                })
+
               dropzone.value.elements.push(value)
 
               dropzone = null
