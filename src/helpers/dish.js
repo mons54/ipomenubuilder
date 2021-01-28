@@ -161,6 +161,7 @@ export const dishes = [
         prices: ['5.75'],
         translationName: {},
         translationDescription: {},
+        allergens: [],
       },
       {
         name: "Cream of Wild Mushroom",
@@ -168,6 +169,7 @@ export const dishes = [
         prices: ['4.25'],
         translationName: {},
         translationDescription: {},
+        allergens: [],
       },
       {
         name: "French Onion",
@@ -175,6 +177,7 @@ export const dishes = [
         prices: ['5.00'],
         translationName: {},
         translationDescription: {},
+        allergens: [],
       },
       {
         name: "Carrot Apple Ginger",
@@ -182,6 +185,7 @@ export const dishes = [
         prices: ['4.25'],
         translationName: {},
         translationDescription: {},
+        allergens: [],
       },
       {
         name: "Potato Leek",
@@ -189,6 +193,7 @@ export const dishes = [
         prices: ['4.25'],
         translationName: {},
         translationDescription: {},
+        allergens: [],
       }
     ]
   },

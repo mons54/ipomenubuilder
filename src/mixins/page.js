@@ -136,6 +136,10 @@ export default {
     styleElementDishItem(value) {
       return {
         ...value.styleItem,
+      }
+    },
+    styleElementDishItemGrid(value) {
+      return {
         ...value.grid.template,
       }
     },
@@ -165,6 +169,18 @@ export default {
       return {
         ...value.stylePrice,
         ...value.grid.price,
+      }
+    },
+    styleElementDishAllergens() {
+      return {
+        display: 'flex',
+        marginTop: '8px',
+      }
+    },
+    styleElementDishAllergen() {
+      return {
+        width: '24px',
+        marginRight: '8px',
       }
     },
     styleElementImage(value) {

@@ -1,5 +1,21 @@
 {
   "addDish": "Ajouter un plat",
+  "allergens": {
+    "celery": "Céleri",
+    "eggs": "Oeufs",
+    "fish": "Poisson",
+    "fruits": "Fruits",
+    "gluten": "Gluten",
+    "lupine": "Lupin",
+    "milk": "Lait",
+    "mollusks": "Mollusques",
+    "mustard": "Moutarde",
+    "peanuts": "Cacahuètes",
+    "sesame": "Sésame",
+    "shellfish": "Fruits de mer",
+    "soy": "Soja",
+    "sulphites": "Sulfites"
+  },
   "any": "Aucune",
   "back": "Retour",
   "border": "Bordure",

@@ -1,5 +1,21 @@
 {
   "addDish": "Add dish",
+  "allergens": {
+    "celery": "Celery",
+    "eggs": "Eggs",
+    "fish": "Fish",
+    "fruits": "Fruits",
+    "gluten": "Gluten",
+    "lupine": "Lupine",
+    "milk": "Milk",
+    "mollusks": "Mollusks",
+    "mustard": "Mustard",
+    "peanuts": "Peanuts",
+    "sesame": "Sesame",
+    "shellfish": "Shellfish",
+    "soy": "Soy",
+    "sulphites": "Sulphites"
+  },
   "any": "Any",
   "back": "Back",
   "border": "Border",

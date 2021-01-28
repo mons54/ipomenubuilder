@@ -65,6 +65,20 @@
               class="edit-dish"
             />
           </div>
+          <div class="dish-allergen">
+            <b-form-checkbox-group
+              id="checkbox-allergens"
+              v-model="allergensModel"
+              name="allergens">
+              <b-form-checkbox
+                v-for="(allergen, key) of allergens"
+                :key="key"
+                :value="allergen.name">
+                {{ $t(`allergens.${allergen.name}`)}}
+                <img :src="allergen.image"/>
+              </b-form-checkbox>
+            </b-form-checkbox-group>
+          </div>
         </div>
         <div v-else>
           <div
@@ -135,15 +149,30 @@ export default {
   },
   computed: {
     ...mapState({
+      allergens: state => state.allergen.data,
       showContextMenu: state => state.contextmenu.show,
     }),
     ...mapGetters('element', [
       'actived',
     ]),
+    allergensModel: {
+      get() {
+        return this.editDish.allergens.map(value => value.name)
+      },
+      set(value) {
+        this.editDish.allergens = []
+        value.forEach(item => {
+          this.editDish.allergens.push(this.allergens.find(value => value.name === item))
+        })
+      },
+    },
   },
   methods: {
     ...mapMutations('contextmenu', [
       'setShowContextMenu',
+    ]),
+    ...mapActions('allergen', [
+      'getAllergenData',
     ]),
     ...mapActions('element', [
       'deleteElement',
@@ -214,6 +243,8 @@ export default {
   },
   created() {
 
+    this.getAllergenData()
+
     document.addEventListener('mousedown', () => {
       this.setShowContextMenu(false)
     })
@@ -265,6 +296,12 @@ export default {
     &:first-child {
       margin-left: 0;
     }
+  }
+}
+
+.dish-allergen {
+  img {
+    width: 24px;
   }
 }
 </style>
