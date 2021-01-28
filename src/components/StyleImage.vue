@@ -109,7 +109,6 @@ export default {
     },
     borderColor: {
       get () {
-        console.log(this.stylePage)
         return this.style.borderColor || this.stylePage.color
       },
       set (value) {
