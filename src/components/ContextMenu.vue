@@ -10,12 +10,12 @@
       <b-list-group>
         <b-list-group-item @click="duplicateElement">Dupliquer</b-list-group-item>
         <b-list-group-item
-          v-if="activedElement && activedElement.type === 'dish'"
+          v-if="actived && actived.type === 'dish'"
           v-b-modal.modal-dishes>
           Modifier
         </b-list-group-item>
         <b-list-group-item
-          v-if="activedElement && activedElement.type === 'image'"
+          v-if="actived && actived.type === 'image'"
           v-b-modal.modal-contextmenu-crop>
           Rogner
         </b-list-group-item>
@@ -23,8 +23,8 @@
       </b-list-group>
     </div>
     <Crop
-      v-if="activedElement && activedElement.type === 'image'"
-      :element="activedElement"
+      v-if="actived && actived.type === 'image'"
+      :element="actived"
       modalId="modal-contextmenu-crop"/>
     <b-modal
       id="modal-dishes"
@@ -32,7 +32,7 @@
       hide-footer
       @close="closeDishModal">
       <div
-        v-if="activedElement"
+        v-if="actived"
         v-droppable-dishes>
         <div v-if="editDish">
           <Editable
@@ -66,7 +66,7 @@
         </div>
         <div v-else>
           <div
-            v-for="(item, key) in activedElement.items"
+            v-for="(item, key) in actived.items"
             :key="key"
             class="dish"
             draggable="true"
@@ -82,7 +82,7 @@
               @click="deleteDish(key)"
               variant="light"
               size="sm"
-              :disabled="activedElement.items.length < 2">
+              :disabled="actived.items.length < 2">
               <b-icon-trash/>
             </b-button>
           </div>
@@ -110,7 +110,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapActions, mapMutations, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import Crop from '@/components/Crop'
 import Editable from '@/components/Editable'
 import { itemType } from '@/helpers/dish'
@@ -134,8 +134,10 @@ export default {
   computed: {
     ...mapState({
       showContextMenu: state => state.contextmenu.show,
-      activedElement: state => state.element.actived,
     }),
+    ...mapGetters('element', [
+      'actived',
+    ]),
   },
   methods: {
     ...mapMutations('contextmenu', [
@@ -146,10 +148,10 @@ export default {
       'duplicateElement',
     ]),
     addDish() {
-      this.activedElement.items.push(itemType)
+      this.actived.items.push(itemType)
     },
     deleteDish(key) {
-      this.activedElement.items.splice(key, 1)
+      this.actived.items.splice(key, 1)
     },
     closeDishModal() {
       this.editDish = null
@@ -191,9 +193,9 @@ export default {
           if (dragDish === index)
             return
 
-          const dish = context.activedElement.items[index]
-          Vue.set(context.activedElement.items, index, context.activedElement.items[dragDish])
-          Vue.set(context.activedElement.items, dragDish, dish)
+          const dish = context.actived.items[index]
+          Vue.set(context.actived.items, index, context.actived.items[dragDish])
+          Vue.set(context.actived.items, dragDish, dish)
 
           dragDish = index
         })

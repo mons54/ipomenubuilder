@@ -59,7 +59,7 @@ const actions = {
     element.rect.top += 20
     element.rect.left += 20
     rootGetters['menu/page'].elements.push(element)
-    commit('activeElement', element)
+    commit('activeElement', element.id)
   },
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar">
     <div
-      v-if="element && element.type === 'image'"
+      v-if="actived && actived.type === 'image'"
       class="toolbar-nav">
       <b-button
         v-b-modal.modal-crop
@@ -10,10 +10,10 @@
         size="sm">
         <b-icon-bounding-box/>
       </b-button>
-      <Crop :element="element"/>
+      <Crop :element="actived"/>
     </div>
     <div
-      v-if="element"
+      v-if="actived"
       class="toolbar-nav ml-auto">
       <b-button
         @click="duplicateElement"
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Crop from '@/components/Crop'
 
 export default {
@@ -42,9 +42,9 @@ export default {
     Crop,
   },
   computed: {
-    ...mapState({
-      element: state => state.element.actived
-    })
+    ...mapGetters('element', [
+      'actived',
+    ]),
   },
   methods: {
     ...mapActions('element', [

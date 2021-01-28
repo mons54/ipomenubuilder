@@ -24,7 +24,7 @@ export default {
 
             if (
               ['dish', 'text'].includes(value.type) &&
-              context.$store.state.element.actived === value
+              context.$store.state.element.actived === value.id
             ) return event.interaction.stop()
 
             context.$store.dispatch('element/clickElement', null)
