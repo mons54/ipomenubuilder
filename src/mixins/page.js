@@ -174,13 +174,13 @@ export default {
     styleElementDishAllergens() {
       return {
         display: 'flex',
-        marginTop: '8px',
       }
     },
     styleElementDishAllergen() {
       return {
         width: '24px',
         marginRight: '8px',
+        marginTop: '4px',
       }
     },
     styleElementImage(value) {
