@@ -8,16 +8,18 @@
       id="contextmenu"
       :style="`top: ${y}px; left: ${x}px`">
       <b-list-group>
-        <b-list-group-item @click="duplicateElement">Dupliquer</b-list-group-item>
+        <b-list-group-item @click="duplicateElement">
+          {{ $t('duplicate') }}
+        </b-list-group-item>
         <b-list-group-item
           v-if="actived && actived.type === 'dish'"
           v-b-modal.modal-dishes>
-          Modifier
+          {{ $t('edit') }}
         </b-list-group-item>
         <b-list-group-item
           v-if="actived && actived.type === 'image'"
           v-b-modal.modal-contextmenu-crop>
-          Rogner
+          {{ $t('crop') }}
         </b-list-group-item>
         <b-list-group-item @click="deleteElement">Supprimer</b-list-group-item>
       </b-list-group>
@@ -28,7 +30,7 @@
       modalId="modal-contextmenu-crop"/>
     <b-modal
       id="modal-dishes"
-      title="Modifier les plats"
+      :title="$t('editDishes')"
       hide-footer
       @close="closeDishModal">
       <div
@@ -93,14 +95,14 @@
             class="mt-3 ml-auto"
             variant="success"
             @click="editDish = null">
-            Valider
+            {{ $t('validate') }}
           </b-button>
           <b-button
             v-else
             class="mt-3 ml-auto"
             variant="success"
             @click="addDish">
-            Ajouter un plat
+            {{ $t('addDish') }}
           </b-button>
         </div>
       </div>
@@ -260,7 +262,7 @@ export default {
   .edit-dish {
     flex: 1;
     margin-left: 8px;
-    :first-child {
+    &:first-child {
       margin-left: 0;
     }
   }

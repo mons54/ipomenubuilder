@@ -1,4 +1,5 @@
 {
+  "addDish": "Ajouter un plat",
   "any": "Aucune",
   "back": "Retour",
   "border": "Bordure",
@@ -6,6 +7,7 @@
   "categories": "Categories",
   "color": "Couleur",
   "colors": "Couleurs",
+  "crop": "Rogner",
   "deleteImage": "Supprimer l'image",
   "dishName": "Nom du plat",
   "dishDescription": "Description du plat",
@@ -18,6 +20,9 @@
     "png": "PNG web",
     "pdf": "PDF impression"
   },
+  "duplicate": "Dupliquer",
+  "edit": "Modifier",
+  "editDishes": "Modifier les plats",
   "font": "Police",
   "fontCategories": {
     "display": "Fantaisie",
@@ -43,5 +48,6 @@
   "templates": "Modèles",
   "texts": "Textes",
   "translate": "Traduction",
+  "validate": "Valider",
   "vertical": "Vertical"
 }

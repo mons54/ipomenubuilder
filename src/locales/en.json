@@ -1,4 +1,5 @@
 {
+  "addDish": "Add dish",
   "any": "Any",
   "back": "Back",
   "border": "Border",
@@ -6,6 +7,7 @@
   "categories": "Categories",
   "color": "Color",
   "colors": "Colors",
+  "crop": "Crop",
   "deleteImage": "Delete image",
   "dishName": "Dish name",
   "dishDescription": "Dish description",
@@ -18,6 +20,9 @@
     "png": "PNG web",
     "pdf": "PDF print"
   },
+  "duplicate": "Duplicate",
+  "edit": "Edit",
+  "editDishes": "Edit dishes",
   "font": "Font",
   "fontCategories": {
     "display": "Display",
@@ -43,5 +48,6 @@
   "templates": "Templates",
   "texts": "Texts",
   "translate": "Translate",
+  "validate": "Validate",
   "vertical": "Vertical"
 }
