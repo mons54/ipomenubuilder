@@ -105,16 +105,32 @@
                     class="item">
                     <div
                       :style="styleElementDishName(element)">
-                      <Editable
-                        v-if="menu.translate.inline || !menu.translate.dishName || !translation"
-                        v-model="item.name"
-                        :contenteditable="activedElement === element.id"
-                      />
-                      <Editable
-                        v-else
-                        v-model="item.translationName[translation]"
-                        :contenteditable="activedElement === element.id"
-                      />
+                      <div>
+                        <Editable
+                          v-if="menu.translate.inline || !menu.translate.dishName || !translation"
+                          v-model="item.name"
+                          :contenteditable="activedElement === element.id"
+                          style="flex: 1"
+                        />
+                        <Editable
+                          v-else
+                          v-model="item.translationName[translation]"
+                          :contenteditable="activedElement === element.id"
+                          style="flex: 1"
+                        />
+                      </div>
+                      <div
+                        v-if="item.allergens.length"
+                        :style="styleElementDishAllergens()">
+                        <div
+                          v-for="(allergen, key) of item.allergens"
+                          :key="key"
+                          :style="styleElementDishAllergen()">
+                          <img
+                            :src="allergen.image"
+                            :style="styleImage"/>
+                        </div>
+                      </div>
                       <div v-if="menu.translate.inline && menu.translate.dishName">
                         <Editable
                           v-for="(value, key) in menu.translate.translation"
@@ -127,10 +143,10 @@
                     <div :style="styleElementDishPrices(element)">
                       <div
                         v-for="(price, key) in item.prices"
-                        :key="key"
-                        :style="styleElementDishPrice(element)">
+                        :key="key">
                         <div
-                          v-if="key === 0 || price || activePrice === `${index}-${key}`">
+                          v-if="price || activePrice === `${index}-${key}`"
+                          :style="styleElementDishPrice(element)">
                           <Editable
                             v-model="item.prices[key]"
                             :price="true"
@@ -164,17 +180,6 @@
                           :style="styleElementDishDescriptionTranslation()"
                         />
                       </div>
-                    </div>
-                  </div>
-                  <div
-                    :style="styleElementDishAllergens()">
-                    <div
-                      v-for="(allergen, key) of item.allergens"
-                      :key="key"
-                      :style="styleElementDishAllergen()">
-                      <img
-                        :src="allergen.image"
-                        :style="styleImage"/>
                     </div>
                   </div>
                 </div>

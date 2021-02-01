@@ -34,48 +34,62 @@
           <div
             v-for="(item, index) in element.items"
             :key="index"
-            :style="styleElementDishItem(element)"
-            class="item">
-            <div :style="styleElementDishName(element)">
-              <span v-if="!translation">
-                {{ item.name }}
-              </span>
-              <span v-else>
-                {{ item.translationName[translation] }}
-              </span>
-              <div v-if="menu.translate.inline && menu.translate.dishName">
-                <span
-                  v-for="(value, key) in menu.translate.translation"
-                  :key="key">
-                  {{ item.translationName[value] }}
+            :style="styleElementDishItem(element)">
+            <div :style="styleElementDishItemGrid(element)">
+              <div :style="styleElementDishName(element)">
+                <span v-if="!translation">
+                  {{ item.name }}
                 </span>
-              </div>
-            </div>
-            <div :style="styleElementDishPrices(element)">
-              <div
-                v-for="(price, key) in item.prices"
-                :key="key"
-                :style="styleElementDishPrice(element)">
-                <div v-if="price">
-                  {{ price }} €
+                <span v-else>
+                  {{ item.translationName[translation] }}
+                </span>
+                <div
+                  v-if="item.allergens.length"
+                  :style="styleElementDishAllergens()">
+                  <div
+                    v-for="(allergen, key) of item.allergens"
+                    :key="key"
+                    :style="styleElementDishAllergen()">
+                    <img
+                      :src="allergen.image"
+                      :style="styleImage"/>
+                  </div>
+                </div>
+                <div v-if="menu.translate.inline && menu.translate.dishName">
+                  <span
+                    v-for="(value, key) in menu.translate.translation"
+                    :key="key">
+                    {{ item.translationName[value] }}
+                  </span>
                 </div>
               </div>
-            </div>
-            <div :style="styleElementDishDescription(element)">
-              <span v-if="!translation">
-                {{ item.description }}
-              </span>
-              <span v-else>
-                {{ item.translationDescription[translation] }}
-              </span>
-              <div
-                v-if="menu.translate.inline">
-                <span
-                  v-for="(value, key) in menu.translate.translation"
-                  :key="key"
-                  :style="styleElementDishDescriptionTranslation()">
-                  {{ item.translationDescription[value] }}
+              <div :style="styleElementDishPrices(element)">
+                <div
+                  v-for="(price, key) in item.prices"
+                  :key="key">
+                  <div
+                    v-if="price"
+                    :style="styleElementDishPrice(element)">
+                    {{ price }} €
+                  </div>
+                </div>
+              </div>
+              <div :style="styleElementDishDescription(element)">
+                <span v-if="!translation">
+                  {{ item.description }}
                 </span>
+                <span v-else>
+                  {{ item.translationDescription[translation] }}
+                </span>
+                <div
+                  v-if="menu.translate.inline">
+                  <span
+                    v-for="(value, key) in menu.translate.translation"
+                    :key="key"
+                    :style="styleElementDishDescriptionTranslation()">
+                    {{ item.translationDescription[value] }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

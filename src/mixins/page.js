@@ -145,6 +145,8 @@ export default {
     },
     styleElementDishName(value) {
       return {
+        display: 'flex',
+        alignItems: 'center',
         ...value.styleName,
         ...value.grid.name,
       }
@@ -162,25 +164,28 @@ export default {
     },
     styleElementDishPrices(value) {
       return {
+        display: 'flex',
         ...value.grid.prices,
+        ...value.stylePrice,
       }
     },
     styleElementDishPrice(value) {
       return {
-        ...value.stylePrice,
         ...value.grid.price,
       }
     },
     styleElementDishAllergens() {
       return {
         display: 'flex',
+        marginLeft: '8px',
       }
     },
     styleElementDishAllergen() {
       return {
-        width: '24px',
-        marginRight: '8px',
-        marginTop: '4px',
+        display: 'flex',
+        width: '16px',
+        height: '16px',
+        marginRight: '4px',
       }
     },
     styleElementImage(value) {

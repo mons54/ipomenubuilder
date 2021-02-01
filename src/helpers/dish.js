@@ -11,7 +11,6 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -25,7 +24,6 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -39,7 +37,6 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -54,7 +51,6 @@ export const gridsDish = [
       display: 'inline-flex',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -69,7 +65,6 @@ export const gridsDish = [
       display: 'inline-flex',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -97,7 +92,6 @@ export const gridsDish = [
       textAlign: 'center',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
@@ -110,7 +104,6 @@ export const gridsDish = [
       textAlign: 'left',
     },
     price: {
-      display: 'inline-flex',
       marginRight: marginItem,
     },
   },
@@ -123,7 +116,6 @@ export const gridsDish = [
       textAlign: 'right',
     },
     price: {
-      display: 'inline-flex',
       marginLeft: marginItem,
     },
   },
