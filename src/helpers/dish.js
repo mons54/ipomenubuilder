@@ -197,4 +197,5 @@ export const itemType = {
   prices: ['9.99'],
   translationName: {},
   translationDescription: {},
+  allergens: [],
 }

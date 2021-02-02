@@ -180,7 +180,7 @@ export default {
       'duplicateElement',
     ]),
     addDish() {
-      this.actived.items.push(itemType)
+      this.actived.items.push(JSON.parse(JSON.stringify(itemType)))
     },
     deleteDish(key) {
       this.actived.items.splice(key, 1)
