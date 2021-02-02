@@ -73,9 +73,10 @@
               <b-form-checkbox
                 v-for="(allergen, key) of allergens"
                 :key="key"
-                :value="allergen.name">
-                {{ $t(`allergens.${allergen.name}`)}}
+                :value="allergen.name"
+                class="checkbox-allergen">
                 <img :src="allergen.image"/>
+                {{ $t(`allergens.${allergen.name}`) }}
               </b-form-checkbox>
             </b-form-checkbox-group>
           </div>
@@ -300,8 +301,17 @@ export default {
 }
 
 .dish-allergen {
-  img {
-    width: 24px;
+  #checkbox-allergens {
+    display: flex;
+    flex-wrap: wrap;
+    .checkbox-allergen {
+      flex: 0 0 33%;
+      margin: 0 !important;
+      img {
+        margin-right: 2px;
+        width: 20px;
+      }
+    }
   }
 }
 </style>
