@@ -77,11 +77,14 @@
             </div>
             <div
               v-for="element of page.elements"
-              v-draggable="element"
+              v-draggable="{
+                ...element,
+                disabled: element.type === 'text' && activedElement === element.id,
+              }"
               :key="element.id"
               :style="styleElement(element.rect)"
               class="element"
-              :class="{'active': activedElement === element.id}"
+              :class="{'active': activedElement === element.id }"
               @mousedown="clickElement(element.id)"
               @click="e => {
                 e.stopPropagation()
@@ -189,7 +192,10 @@
                 @contextmenu="e => {
                   contextMenuElement(e, element)
                 }"
-                v-resizable-scale="element.scale"
+                v-resizable-scale="{
+                  active: activedElement === element.id,
+                  scale: element.scale,
+                }"
                 :style="styleElementText(element)"
                 class="text">
                 <div
@@ -215,7 +221,10 @@
                 @contextmenu="e => {
                   contextMenuElement(e, element)
                 }"
-                v-resizable-scale="element.scale"
+                v-resizable-scale="{
+                  active: activedElement === element.id,
+                  scale: element.scale,
+                }"
                 :style="styleElementImage(element)">
                 <div
                   :style="styleElementImageContent(element)">
@@ -230,7 +239,10 @@
                 @contextmenu="e => {
                   contextMenuElement(e, element)
                 }"
-                v-resizable-scale="element.scale"
+                v-resizable-scale="{
+                  active: activedElement === element.id,
+                  scale: element.scale,
+                }"
                 :style="styleElementIcon(element)">
                 <img
                   :src="element.src"
@@ -453,7 +465,9 @@ export default {
             outline: 1px solid #FFC107;
             &.dish,
             &.text {
-              cursor: default !important;
+              * {
+                cursor: inherit !important;
+              }
             }
           }
         }

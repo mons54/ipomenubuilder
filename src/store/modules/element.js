@@ -4,6 +4,7 @@ const state = () => ({
   actived: null,
   clicked: null,
   activedText: null,
+  onResize: false,
 })
 
 const getters = {
@@ -42,6 +43,8 @@ const actions = {
     commit('menu/setMenuGridArea', null, { root: true })
   },
   desactiveElement({ commit, state }) {
+    if (state.onResize)
+      return
     state.clicked = null
     state.actived = null
     state.text = null
@@ -68,8 +71,10 @@ const mutations = {
     state.actived = id
   },
   activeElementText(state, id) {
-    console.log(id)
     state.activedText = id
+  },
+  onResize(state, value) {
+    state.onResize = value
   },
 }
 

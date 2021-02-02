@@ -13,6 +13,9 @@ export default {
 
     function _draggable (el, { value, modifiers }, { data, context }) {
 
+      if (value.disabled)
+        return interact(el).unset()
+
       el.style.touchAction = 'none'
 
       interact(el).
@@ -151,9 +154,20 @@ export default {
     })
 
     function _resizableScale (el, { value }, { context }) {
+
+      const { active, scale } = value
+
+      if (!active)
+        return interact(el).unset()
+
       interact(el).
       resizable({
-        edges: { top: true, right: true, bottom: true, left: true },
+        edges: {
+          top: true,
+          right: true,
+          bottom: true,
+          left: true
+        },
         modifiers: [
           interact.modifiers.aspectRatio({
             ratio: 'preserve',
@@ -163,27 +177,31 @@ export default {
         listeners: {
           move(event) {
 
-            const scale = context.$store.state.scale.value
-            const x = (event.deltaRect.left - event.deltaRect.right) / 100 / scale
-            const y = (event.deltaRect.top - event.deltaRect.bottom) / 100 / scale
+            const scaleState = context.$store.state.scale.value
 
-            if (x && value.x - x > 0.2) {
-              value.x -= x
-              value.y = value.x
-            } else if (y && value.y - y > 0.2) {
-              value.y -= y
-              value.x = value.y
+            const x = (event.deltaRect.left - event.deltaRect.right) / 200 / scaleState
+            const y = (event.deltaRect.top - event.deltaRect.bottom) / 200 / scaleState
+
+            if (x && scale.x - x > 0.2) {
+              scale.x -= x
+              scale.y = scale.x
+            } else if (y && scale.y - y > 0.2) {
+              scale.y -= y
+              scale.x = scale.y
             }
           }
         },
       }).
       on('resizestart', () => {
-        context.$store.dispatch('element/clickElement', null)
+        if (document.activeElement)
+          document.activeElement.blur()
+        context.$store.commit('element/onResize', true)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {
         context.$store.commit('history/startHistory')
         context.$store.dispatch('history/addHistory')
+        setTimeout(() => context.$store.commit('element/onResize', false))
       })
     }
 
@@ -219,134 +237,6 @@ export default {
     Vue.directive('resizableDish', {
       inserted: _resizableDish,
       componentUpdated: _resizableDish,
-    })
-
-    function _resizableImage (el, { value }, { context }) {
-
-      interact(el).
-      resizable({
-        edges: { top: true, right: true, bottom: true, left: true },
-        modifiers: [
-          interact.modifiers.aspectRatio({
-            ratio: 'preserve',
-            equalDelta: true,
-          })
-        ],
-        listeners: {
-          move(event) {
-
-            const rect = value.rect
-            const delta = event.deltaRect
-
-            if (rect.width + delta.width <= 80 || rect.height + delta.height <= 80)
-              return
-
-            const size = value.size
-            const width = value.image.webformatWidth
-            const height = value.image.webformatHeight
-            const ratio = width / height
-            const { left, right, top, bottom } = event.edges
-
-            if (left) {
-              rect.left += delta.left
-              rect.width += delta.width
-              size.left += delta.left
-              if (delta.left < 0 && size.width < rect.width) {
-                size.width = rect.width
-                size.height = rect.width / ratio
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              } else if (delta.left > 0 && size.width > rect.width && rect.width > width) {
-                if (ratio > rect.width / rect.height) {
-                  size.width = rect.height * ratio
-                  size.height = rect.height
-                } else {
-                  size.width = rect.width
-                  size.height = rect.width / ratio
-                }
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              }
-            }
-
-            if (right) {
-              rect.left += delta.left
-              rect.width += delta.width
-              if (delta.right > 0 && size.width < rect.width) {
-                size.width = rect.width
-                size.height = rect.width / ratio
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              } else if (delta.right < 0 && size.width > rect.width && rect.width > width) {
-                if (ratio > rect.width / rect.height) {
-                  size.width = rect.height * ratio
-                  size.height = rect.height
-                } else {
-                  size.width = rect.width
-                  size.height = rect.width / ratio
-                }
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              }
-            }
-
-            if (top) {
-              rect.top += delta.top
-              rect.height += delta.height
-              size.top += delta.top
-              if (delta.top < 0 && size.height < rect.height) {
-                size.height = rect.height
-                size.width = rect.height * ratio
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              } else if (delta.top > 0 && size.height > rect.height && rect.height > height) {
-                if (ratio > rect.width / rect.height) {
-                  size.height = rect.height
-                  size.width = rect.height * ratio
-                } else {
-                  size.height = rect.width / ratio
-                  size.width = rect.width
-                }
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              }
-            }
-
-            if (bottom) {
-              rect.top += delta.top
-              rect.height += delta.height
-              if (delta.bottom > 0 && size.height < rect.height) {
-                size.height = rect.height
-                size.width = rect.height * ratio
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              } else if (delta.bottom < 0 && size.height > rect.height && rect.height > height) {
-                if (ratio > rect.width / rect.height) {
-                  size.height = rect.height
-                  size.width = rect.height * ratio
-                } else {
-                  size.height = rect.width / ratio
-                  size.width = rect.width
-                }
-                size.top = (size.height - rect.height) / 2
-                size.left = (size.width - rect.width) / 2
-              }
-            }
-          }
-        },
-      }).
-      on('resizestart', () => {
-        context.$store.commit('history/stopHistory')
-      }).
-      on('resizeend', () => {
-        context.$store.commit('history/startHistory')
-        context.$store.dispatch('history/addHistory')
-      })
-    }
-
-    Vue.directive('resizableImage', {
-      inserted: _resizableImage,
-      componentUpdated: _resizableImage,
     })
   }
 }
