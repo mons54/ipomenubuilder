@@ -33,9 +33,7 @@
       :title="$t('editDishes')"
       hide-footer
       @close="closeDishModal">
-      <div
-        v-if="actived"
-        v-droppable-dishes>
+      <div v-if="actived">
         <div v-if="editDish">
           <Editable
             v-model="editDish.name"
@@ -81,7 +79,8 @@
             </b-form-checkbox-group>
           </div>
         </div>
-        <div v-else>
+        <div
+          v-else>
           <div
             v-for="(item, key) in actived.items"
             :key="key"
@@ -133,6 +132,17 @@ import Editable from '@/components/Editable'
 import { itemType } from '@/helpers/dish'
 
 let dragDish
+
+function dragenterDish(el, index, items) {
+  el.addEventListener('dragenter', () => {
+    if (dragDish === index)
+      return
+    const dish = items[index]
+    Vue.set(items, index, items[dragDish])
+    Vue.set(items, dragDish, dish)
+    dragDish = index
+  })
+}
 
 export default {
   components: {
@@ -192,7 +202,7 @@ export default {
   },
   directives: {
     draggableDish: {
-      inserted (el, { value }) {
+      inserted (el, { value }, { context }) {
         el.addEventListener('dragstart', () => {
           dragDish = value
         })
@@ -200,39 +210,13 @@ export default {
         el.addEventListener('dragend', () => {
           dragDish = null
         })
+
+        dragenterDish(el, value, context.actived.items)
+      },
+      componentUpdated (el, { value }, { context }) {
+        dragenterDish(el, value, context.actived.items)
       },
     },
-    droppableDishes: {
-      inserted (el, bindings, { context }) {
-
-        el.addEventListener('dragenter', e => {
-
-          const { y } = e
-
-          let diff
-          let index
-
-          el.childNodes.forEach((item, i) => {
-
-            const rect = item.getBoundingClientRect()
-            const newDiff = Math.abs(y - rect.y)
-            if (!diff || diff > newDiff) {
-              index = i
-              diff = newDiff
-            }
-          })
-
-          if (dragDish === index)
-            return
-
-          const dish = context.actived.items[index]
-          Vue.set(context.actived.items, index, context.actived.items[dragDish])
-          Vue.set(context.actived.items, dragDish, dish)
-
-          dragDish = index
-        })
-      },
-    }
   },
   watch: {
     showContextMenu(value) {
@@ -276,6 +260,7 @@ export default {
   border-radius: 4px;
   padding: 4px 12px;
   margin-bottom: 8px;
+  cursor: move;
   .dish-name {
     flex: 1;
   }
