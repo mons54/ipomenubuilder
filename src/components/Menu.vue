@@ -447,6 +447,7 @@ export default {
       }
       .element {
         z-index: 3;
+        pointer-events: none;
         &.active {
           > div {
             outline: 1px solid #FFC107;
@@ -461,6 +462,9 @@ export default {
           > .text {
             outline: 1px solid #FFC107;
           }
+        }
+        > :first-child {
+          pointer-events: auto;
         }
       }
       .area {
