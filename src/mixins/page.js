@@ -35,6 +35,7 @@ export default {
         width: `${this.width}px`,
         height: `${this.height}px`,
         position: 'relative',
+        overflow: 'hidden',
         ...this.menu.styles.page,
       }
     },
