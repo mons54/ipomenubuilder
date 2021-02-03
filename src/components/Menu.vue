@@ -46,18 +46,15 @@
               :style="styleArea(value)"
               class="area">
               <div
-                @click="e => {
-                  e.stopPropagation()
-                  selectPageArea({ page: pi, index: ai })
-                }"
+                @click="selectPageArea({ page: pi, index: ai })"
                 :style="styleGrid(value.grid)"
                 class="grid"
                 :class="{'active': activeArea(value)}">
                 <div
                   v-for="(name, gai) of gridAreas(value.grid)"
                   @click="() => {
-                    desactiveElement()
-                    selectGridArea({ index: ai, name })
+                    if (!activeElement)
+                      selectGridArea({ index: ai, name })
                   }"
                   :key="gai"
                   :style="styleGridArea(menu.colors, value, name, gai)"
@@ -79,24 +76,24 @@
               v-for="element of page.elements"
               v-draggable="{
                 ...element,
-                disabled: element.type === 'text' && activedElement === element.id,
+                disabled: clickedElement === element.id,
               }"
               :key="element.id"
               :style="styleElement(element.rect)"
               class="element"
               :class="{'active': activedElement === element.id }"
-              @mousedown="clickElement(element.id)"
+              @mousedown="activeElement(element.id)"
               @click="e => {
                 e.stopPropagation()
-                if (clickedElement === element.id)
-                  activeElement(element.id)
+                if (element.type === 'dish' || element.type === 'text')
+                  clickElement(element.id)
               }">
               <div
                 v-if="element.type === 'dish'"
                 @contextmenu="e => {
                   contextMenuElement(e, element)
                 }"
-                v-resizable-dish="element.rect"
+                v-resizable-dish="element"
                 :style="styleElementDish(element)"
                 class="dish">
                 <div
@@ -112,14 +109,12 @@
                         <Editable
                           v-if="menu.translate.inline || !menu.translate.dishName || !translation"
                           v-model="item.name"
-                          :contenteditable="activedElement === element.id"
-                          style="flex: 1"
+                          :contenteditable="clickedElement === element.id"
                         />
                         <Editable
                           v-else
                           v-model="item.translationName[translation]"
-                          :contenteditable="activedElement === element.id"
-                          style="flex: 1"
+                          :contenteditable="clickedElement === element.id"
                         />
                       </div>
                       <div
@@ -139,7 +134,7 @@
                           v-for="(value, key) in menu.translate.translation"
                           :key="key"
                           v-model="item.translationName[value]"
-                          :contenteditable="activedElement === element.id"
+                          :contenteditable="clickedElement === element.id"
                         />
                       </div>
                     </div>
@@ -154,7 +149,7 @@
                             v-model="item.prices[key]"
                             :price="true"
                             :inline="true"
-                            :contenteditable="activedElement === element.id"
+                            :contenteditable="clickedElement === element.id"
                             @active="activePrice = `${index}-${key}`"
                             @unactive="activePrice = null"
                           /> €
@@ -166,12 +161,12 @@
                       <Editable
                         v-if="menu.translate.inline || !translation"
                         v-model="item.description"
-                        :contenteditable="activedElement === element.id"
+                        :contenteditable="clickedElement === element.id"
                       />
                       <Editable
                         v-else
                         v-model="item.translationDescription[translation]"
-                        :contenteditable="activedElement === element.id"
+                        :contenteditable="clickedElement === element.id"
                       />
                       <div
                         v-if="menu.translate.inline">
@@ -179,7 +174,7 @@
                           v-for="(value, key) in menu.translate.translation"
                           :key="key"
                           v-model="item.translationDescription[value]"
-                          :contenteditable="activedElement === element.id"
+                          :contenteditable="clickedElement === element.id"
                           :style="styleElementDishDescriptionTranslation()"
                         />
                       </div>
@@ -193,8 +188,8 @@
                   contextMenuElement(e, element)
                 }"
                 v-resizable-scale="{
-                  active: activedElement === element.id,
-                  scale: element.scale,
+                  disabled: clickedElement !== element.id,
+                  element,
                 }"
                 :style="styleElementText(element)"
                 class="text">
@@ -206,13 +201,13 @@
                     v-if="!menu.translate.textes || !translation"
                     @click.native="activeElementText(text.id)"
                     v-model="text.value"
-                    :contenteditable="activedElement === element.id"
+                    :contenteditable="!resizedElement && clickedElement === element.id"
                   />
                   <Editable
                     v-else
                     @click.native="activeElementText(text.id)"
                     v-model="text.translation[translation]"
-                    :contenteditable="activedElement === element.id"
+                    :contenteditable="!resizedElement && clickedElement === element.id"
                   />
                 </div>
               </div>
@@ -222,8 +217,7 @@
                   contextMenuElement(e, element)
                 }"
                 v-resizable-scale="{
-                  active: activedElement === element.id,
-                  scale: element.scale,
+                  element,
                 }"
                 :style="styleElementImage(element)">
                 <div
@@ -240,8 +234,7 @@
                   contextMenuElement(e, element)
                 }"
                 v-resizable-scale="{
-                  active: activedElement === element.id,
-                  scale: element.scale,
+                  element,
                 }"
                 :style="styleElementIcon(element)">
                 <img
@@ -301,6 +294,7 @@ export default {
       scale: state => state.scale.value,
       activedElement: state => state.element.actived,
       clickedElement: state => state.element.clicked,
+      resizedElement: state => state.element.resized,
       sidebar: state => state.sidebar.selected,
     }),
     ...mapGetters('menu', [

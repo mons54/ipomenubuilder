@@ -3,8 +3,9 @@ import { v4 as uid } from 'uuid'
 const state = () => ({
   actived: null,
   clicked: null,
+  draged: null,
+  resized: null,
   activedText: null,
-  onResize: false,
 })
 
 const getters = {
@@ -31,23 +32,25 @@ const getters = {
 }
 
 const actions = {
-  clickElement({ state }, value) {
-    state.clicked = value
-    if (state.actived !== state.clicked) {
-      state.actived = null
-      state.text = null
-    }
-  },
-  activeElement({ commit }, element) {
-    commit('activeElement', element)
+  activeElement({ commit }, id) {
+    commit('activeElement', id)
     commit('menu/setMenuGridArea', null, { root: true })
   },
-  desactiveElement({ commit, state }) {
-    if (state.onResize)
+  clickElement({ commit, state }, id) {
+    if (state.resized === id || state.draged === id)
       return
-    state.clicked = null
-    state.actived = null
-    state.text = null
+    commit('clickElement', id)
+  },
+  dragElement({ commit }, id) {
+    commit('dragElement', id)
+    commit('clickElement', null)
+  },
+  desactiveElement({ commit, state }) {
+    if (state.resized)
+      return
+    commit('activeElement', null)
+    commit('clickElement', null)
+    commit('activeElementText', null)
     commit('menu/setMenuGridArea', null, { root: true })
   },
   deleteElement({ dispatch, state, rootGetters }) {
@@ -70,11 +73,17 @@ const mutations = {
   activeElement(state, id) {
     state.actived = id
   },
+  clickElement(state, id) {
+    state.clicked = id
+  },
+  dragElement(state, id) {
+    state.draged = id
+  },
+  resizeElement(state, id) {
+    state.resized = id
+  },
   activeElementText(state, id) {
     state.activedText = id
-  },
-  onResize(state, value) {
-    state.onResize = value
   },
 }
 

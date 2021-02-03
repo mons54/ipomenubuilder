@@ -23,14 +23,9 @@ export default {
 
         listeners: {
 
-          start(event) {
+          start() {
 
-            if (
-              ['dish', 'text'].includes(value.type) &&
-              context.$store.state.element.actived === value.id
-            ) return event.interaction.stop()
-
-            context.$store.dispatch('element/clickElement', null)
+            context.$store.dispatch('element/dragElement', value.id)
             context.$store.commit('history/stopHistory')
 
             if (modifiers.clone) {
@@ -106,6 +101,8 @@ export default {
               context.$store.dispatch('element/activeElement', value)
             }
 
+            setTimeout(() => context.$store.dispatch('element/dragElement', null))
+
             context.$store.commit('history/startHistory')
             context.$store.dispatch('history/addHistory')
 
@@ -155,9 +152,9 @@ export default {
 
     function _resizableScale (el, { value }, { context }) {
 
-      const { active, scale } = value
+      const { disabled, element } = value
 
-      if (!active)
+      if (disabled)
         return interact(el).unset()
 
       interact(el).
@@ -177,31 +174,29 @@ export default {
         listeners: {
           move(event) {
 
-            const scaleState = context.$store.state.scale.value
+            const scale = context.$store.state.scale.value
 
-            const x = (event.deltaRect.left - event.deltaRect.right) / 200 / scaleState
-            const y = (event.deltaRect.top - event.deltaRect.bottom) / 200 / scaleState
+            const x = (event.deltaRect.left - event.deltaRect.right) / 200 / scale
+            const y = (event.deltaRect.top - event.deltaRect.bottom) / 200 / scale
 
-            if (x && scale.x - x > 0.2) {
-              scale.x -= x
-              scale.y = scale.x
-            } else if (y && scale.y - y > 0.2) {
-              scale.y -= y
-              scale.x = scale.y
+            if (x && element.scale.x - x > 0.2) {
+              element.scale.x -= x
+              element.scale.y = element.scale.x
+            } else if (y && element.scale.y - y > 0.2) {
+              element.scale.y -= y
+              element.scale.x = element.scale.y
             }
           }
         },
       }).
       on('resizestart', () => {
-        if (document.activeElement)
-          document.activeElement.blur()
-        context.$store.commit('element/onResize', true)
+        context.$store.commit('element/resizeElement', element.id)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {
         context.$store.commit('history/startHistory')
         context.$store.dispatch('history/addHistory')
-        setTimeout(() => context.$store.commit('element/onResize', false))
+        setTimeout(() => context.$store.commit('element/resizeElement', null))
       })
     }
 
@@ -216,21 +211,22 @@ export default {
         edges: { right: true, left: true },
         listeners: {
           move(event) {
-            if (value.width + event.deltaRect.width < 80)
+            if (value.rect.width + event.deltaRect.width < 80)
               return
             const scale = context.$store.state.scale.value
-            value.left += event.deltaRect.left / scale
-            value.width += event.deltaRect.width / scale
+            value.rect.left += event.deltaRect.left / scale
+            value.rect.width += event.deltaRect.width / scale
           }
         },
       }).
       on('resizestart', () => {
-        context.$store.dispatch('element/clickElement', null)
+        context.$store.commit('element/resizeElement', value.id)
         context.$store.commit('history/stopHistory')
       }).
       on('resizeend', () => {
         context.$store.commit('history/startHistory')
         context.$store.dispatch('history/addHistory')
+        setTimeout(() => context.$store.commit('element/resizeElement', null))
       })
     }
 
