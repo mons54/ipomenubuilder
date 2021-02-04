@@ -13,7 +13,7 @@ export default {
 
     function _draggable (el, { value, modifiers }, { data, context }) {
 
-      if (value.disabled)
+      if (el.getAttribute('clicked'))
         return interact(el).unset()
 
       el.style.touchAction = 'none'
@@ -70,6 +70,8 @@ export default {
 
             if (!value.id && dropzone) {
 
+              const elements = dropzone.value.elements
+
               const scale = context.$store.state.scale.value
 
               for (const [key, value] of Object.entries(event.rect))
@@ -83,8 +85,18 @@ export default {
               rect.top -= dropzone.rect.top / scale
               rect.left -= dropzone.rect.left / scale
 
+              let position
+
+              if (elements.length)
+                position = Math.max(...elements.map((element) => element.position))
+              else
+                position = 0
+
+              position++
+
               value = JSON.parse(JSON.stringify({
                 id: uid(),
+                position,
                 ...value,
                 rect,
               }))
@@ -94,14 +106,16 @@ export default {
                   item.id = uid()
                 })
 
-              dropzone.value.elements.push(value)
+              elements.push(value)
 
               dropzone = null
-
-              context.$store.dispatch('element/activeElement', value)
             }
 
-            setTimeout(() => context.$store.dispatch('element/dragElement', null))
+            setTimeout(() => {
+              context.$store.dispatch('element/activeElement')
+              context.$store.dispatch('element/activeElement', value.id)
+              context.$store.dispatch('element/dragElement', null)
+            })
 
             context.$store.commit('history/startHistory')
             context.$store.dispatch('history/addHistory')

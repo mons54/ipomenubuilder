@@ -27,7 +27,7 @@
       <div
         v-for="element of page.elements"
         :key="element.id"
-        :style="styleElement(element.rect)">
+        :style="styleElement(element)">
         <div
           v-if="element.type === 'dish'"
           :style="styleElementDish(element)">

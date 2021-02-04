@@ -122,11 +122,12 @@ export default {
 
       return style
     },
-    styleElement(rect) {
+    styleElement({ rect, position }) {
       return {
         position: 'absolute',
         width: 'fit-content',
         transform: `translate(${rect.left}px, ${rect.top}px)`,
+        zIndex: position + 9,
       }
     },
     styleElementDish(value) {

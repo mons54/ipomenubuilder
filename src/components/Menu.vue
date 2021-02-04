@@ -74,12 +74,9 @@
             </div>
             <div
               v-for="element of page.elements"
-              v-draggable="{
-                ...element,
-                disabled: clickedElement === element.id,
-              }"
+              v-draggable="element"
               :key="element.id"
-              :style="styleElement(element.rect)"
+              :style="styleElement(element)"
               class="element"
               :class="{'active': activedElement === element.id }"
               @mousedown="activeElement(element.id)"
@@ -87,7 +84,9 @@
                 e.stopPropagation()
                 if (element.type === 'dish' || element.type === 'text')
                   clickElement(element.id)
-              }">
+              }"
+              :id="element.id"
+              :clicked="clickedElement === element.id">
               <div
                 v-if="element.type === 'dish'"
                 @contextmenu="e => {
