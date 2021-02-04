@@ -33,6 +33,11 @@
       <b-nav-item v-else @click="saveMenuData">
         {{ $t('save') }}
       </b-nav-item>
+      <b-nav-item
+        href="#"
+        @click="remove">
+        Supprimer
+      </b-nav-item>
     </b-navbar-nav>
   </b-navbar>
 </template>
@@ -57,6 +62,10 @@ export default {
       'resizeMenu',
       'saveMenuData',
     ]),
+    remove() {
+      localStorage.removeItem(1)
+      document.location.reload()
+    }
   },
 }
 </script>
