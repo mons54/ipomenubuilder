@@ -28,6 +28,26 @@
         <b-icon icon="type-underline" aria-hidden="true"></b-icon>
       </b-button>
     </b-button-group>
+    <b-button-group size="sm">
+      <b-button
+        v-on:click="value.textAlign = 'left'"
+        :class="{'active': value.textAlign === 'left' }"
+        title="Gauche">
+        <b-icon icon="text-left" aria-hidden="true"></b-icon>
+      </b-button>
+      <b-button
+        v-on:click="value.textAlign = 'center'"
+        :class="{'active': value.textAlign === 'center' }"
+        title="Centre">
+        <b-icon icon="text-center" aria-hidden="true"></b-icon>
+      </b-button>
+      <b-button
+        v-on:click="value.textAlign = 'right'"
+        :class="{'active': value.textAlign === 'right' }"
+        title="Droite">
+        <b-icon icon="text-right" aria-hidden="true"></b-icon>
+      </b-button>
+    </b-button-group>
   </div>
 </template>
 
@@ -62,13 +82,13 @@ export default {
   display: flex;
   align-items: center;
   > * {
-    margin-left: 8px;
+    margin-left: 4px;
   }
   > :first-child {
     margin-left: 0;
   }
   .color {
-    flex: 0 0 28%;
+    flex: 0 0 14%;
   }
 }
 </style>

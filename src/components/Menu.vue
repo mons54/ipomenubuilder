@@ -195,7 +195,8 @@
                 <div
                   v-for="(text, ti) in element.elements"
                   :key="ti"
-                  :style="text.style">
+                  :style="text.style"
+                  :class="{'active': activedText === text }">
                   <Editable
                     v-if="!menu.translate.textes || !translation"
                     @click.native="activeElementText(text.id)"
@@ -300,6 +301,9 @@ export default {
       'area',
       'gridArea',
       'page',
+    ]),
+    ...mapGetters('element', [
+      'activedText',
     ]),
     areas () {
       return this.page.areas
@@ -461,13 +465,22 @@ export default {
               * {
                 cursor: inherit !important;
               }
+              > .active {
+                outline: 1px solid #FFC107;
+              }
             }
+          }
+          > .text {
+            outline-style: dashed;
           }
         }
         &:hover {
           > .dish,
           > .text {
             outline: 1px solid #FFC107;
+          }
+          > .text {
+            outline-style: dashed;
           }
         }
         > :first-child {
