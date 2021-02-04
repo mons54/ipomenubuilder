@@ -32,8 +32,10 @@ const getters = {
 }
 
 const actions = {
-  activeElement({ commit }, id) {
+  activeElement({ commit, state }, id) {
     commit('activeElement', id)
+    if (state.clicked !== id)
+      commit('clickElement', null)
     commit('menu/setMenuGridArea', null, { root: true })
   },
   clickElement({ commit, state }, id) {
