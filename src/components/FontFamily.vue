@@ -3,7 +3,7 @@
     <div class="selection">
       <b-form-input
         v-model="search"
-        :placeholder="`${$t('font')}...`"
+        :placeholder="`${$t('search')}...`"
         type="search"
         size="sm"
         @click="clickSearch"
