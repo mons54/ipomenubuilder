@@ -52,9 +52,11 @@
                 :class="{'active': activeArea(value)}">
                 <div
                   v-for="(name, gai) of gridAreas(value.grid)"
-                  @click="() => {
-                    if (!activeElement)
-                      selectGridArea({ index: ai, name })
+                  @click="e => {
+                    if (activedElement)
+                      return
+                    e.stopPropagation()
+                    selectGridArea({ index: ai, name })
                   }"
                   :key="gai"
                   :style="styleGridArea(menu.colors, value, name, gai)"
