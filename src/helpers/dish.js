@@ -91,8 +91,14 @@ export const gridsDish = [
       gridTemplateColumns: '1fr',
       textAlign: 'center',
     },
+    name: {
+      justifyContent: 'center',
+    },
     price: {
       marginLeft: marginItem,
+    },
+    prices: {
+      justifyContent: 'center',
     },
   },
   {
@@ -103,8 +109,14 @@ export const gridsDish = [
       gridTemplateColumns: '1fr',
       textAlign: 'left',
     },
+    name: {
+      justifyContent: 'flex-start',
+    },
     price: {
       marginRight: marginItem,
+    },
+    prices: {
+      justifyContent: 'flex-start',
     },
   },
   {
@@ -115,8 +127,14 @@ export const gridsDish = [
       gridTemplateColumns: '1fr',
       textAlign: 'right',
     },
+    name: {
+      justifyContent: 'flex-end',
+    },
     price: {
       marginLeft: marginItem,
+    },
+    prices: {
+      justifyContent: 'flex-end',
     },
   },
 ]
