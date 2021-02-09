@@ -30,7 +30,6 @@ export default {
     },
     stylePage () {
       return {
-        padding: `${this.bleed}px`,
         background: '#607D8B',
         width: `${this.width}px`,
         height: `${this.height}px`,

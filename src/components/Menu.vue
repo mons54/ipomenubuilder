@@ -35,7 +35,6 @@
           </b-button>
         </div>
         <div
-          class="page"
           :style="stylePage">
           <div
             :style="stylePageContent"
@@ -44,12 +43,12 @@
               v-for="(value, ai) of page.areas"
               :key="ai"
               :style="styleArea(value)"
-              class="area">
+              class="area"
+              :class="{'active': activeArea(value)}">
               <div
                 @click="selectPageArea({ page: pi, index: ai })"
                 :style="styleGrid(value.grid)"
-                class="grid"
-                :class="{'active': activeArea(value)}">
+                class="grid">
                 <div
                   v-for="(name, gai) of gridAreas(value.grid)"
                   @click="e => {
@@ -495,12 +494,16 @@ export default {
       .area {
         position: relative;
         height: 100%;
-        .grid {
-          &.active {
+        &.active {
+          outline: 4px solid #FF9800;
+          outline-offset: -4px;
+          z-index: 1;
+          .grid {
             position: absolute;
-            outline: 4px solid #FFC107;
-            z-index: 2;
+            z-index: -1;
           }
+        }
+        .grid {
           .grid-area {
             &.active {
               &:after {
