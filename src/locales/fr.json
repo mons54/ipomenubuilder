@@ -1,5 +1,6 @@
 {
   "addDish": "Ajouter un plat",
+  "allergen": "Allergène",
   "allergens": {
     "celery": "Céleri",
     "eggs": "Oeufs",
@@ -53,6 +54,7 @@
   "images": "Images",
   "lineHeight": "Hauteur",
   "marksAndBleeds": "Marques de coupe et fond perdu",
+  "price": "Prix",
   "resize": "Redimensionner",
   "save": "Enregistrer",
   "saved": "Enregistré",

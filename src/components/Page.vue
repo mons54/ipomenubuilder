@@ -49,7 +49,7 @@
                   <div
                     v-for="(allergen, key) of item.allergens"
                     :key="key"
-                    :style="styleElementDishAllergen()">
+                    :style="styleElementDishAllergen(element)">
                     <img
                       :src="allergen.image"
                       :style="styleImage"/>

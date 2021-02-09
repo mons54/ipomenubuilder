@@ -58,6 +58,30 @@
         />
       </b-col>
     </b-row>
+    <b-row>
+      <b-col md="4">
+        <label for="textColor">{{ $t('allergen') }}</label>
+      </b-col>
+      <b-col md="8">
+        <InputRange
+          v-model="allergen"
+          :min="6"
+          :max="100"
+        />
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col md="4">
+        <label for="textColor">{{ $t('price') }}</label>
+      </b-col>
+      <b-col md="8">
+        <InputRange
+          v-model="element.priceWidth"
+          :min="8"
+          :max="200"
+        />
+      </b-col>
+    </b-row>
     <div class="grid mt-4">
       <div
         v-for="(value, index) of gridsDish"
@@ -120,12 +144,23 @@ export default {
     stylePrice() {
       return this.element.stylePrice
     },
+    styleAllergen() {
+      return this.element.styleAllergen
+    },
     marginItem: {
       get() {
         return parseInt(this.styleItem.marginBottom)
       },
       set(value) {
         this.styleItem.marginBottom = `${value}px`
+      }
+    },
+    allergen: {
+      get() {
+        return parseInt(this.styleAllergen.width)
+      },
+      set(value) {
+        this.styleAllergen.width = `${value}px`
       }
     },
     grid: {

@@ -108,11 +108,13 @@
                         <Editable
                           v-if="menu.translate.inline || !menu.translate.dishName || !translation"
                           v-model="item.name"
+                          :inline="true"
                           :contenteditable="clickedElement === element.id"
                         />
                         <Editable
                           v-else
                           v-model="item.translationName[translation]"
+                          :inline="true"
                           :contenteditable="clickedElement === element.id"
                         />
                       </div>
@@ -122,7 +124,7 @@
                         <div
                           v-for="(allergen, key) of item.allergens"
                           :key="key"
-                          :style="styleElementDishAllergen()">
+                          :style="styleElementDishAllergen(element)">
                           <img
                             :src="allergen.image"
                             :style="styleImage"/>
@@ -133,6 +135,7 @@
                           v-for="(value, key) in menu.translate.translation"
                           :key="key"
                           v-model="item.translationName[value]"
+                          :inline="true"
                           :contenteditable="clickedElement === element.id"
                         />
                       </div>
@@ -143,7 +146,7 @@
                         :key="key">
                         <div
                           v-if="price || activePrice === `${index}-${key}`"
-                          :style="styleElementDishPrice(element)">
+                          :style="styleElementDishPrice(element, item.prices)">
                           <Editable
                             v-model="item.prices[key]"
                             :price="true"

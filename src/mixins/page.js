@@ -161,11 +161,11 @@ export default {
         columnGap: '6px',
       }
     },
-    styleElementDishAllergen() {
+    styleElementDishAllergen(value) {
       return {
         display: 'flex',
-        width: '16px',
-        height: '16px',
+        height: '100%',
+        ...value.styleAllergen,
       }
     },
     styleElementDishDescription(value) {
@@ -186,9 +186,15 @@ export default {
         ...value.stylePrice,
       }
     },
-    styleElementDishPrice(value) {
+    styleElementDishPrice(value, prices) {
+      prices = prices.filter(price => price !== null)
+      let width = `${value.priceWidth}px`
+      if (prices.length === 1)
+        width = null
       return {
         ...value.grid.price,
+        textAlign: 'right',
+        width,
       }
     },
     styleElementImage(value) {

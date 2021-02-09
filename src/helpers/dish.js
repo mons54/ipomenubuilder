@@ -1,5 +1,3 @@
-const marginItem = '8px'
-
 export const gridsDish = [
   {
     template: {
@@ -7,11 +5,8 @@ export const gridsDish = [
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name price" "description description"',
       gridTemplateColumns: '1fr auto',
-      alignItems: 'baseline',
+      alignItems: 'center',
       textAlign: 'left',
-    },
-    price: {
-      marginLeft: marginItem,
     },
   },
   {
@@ -20,11 +15,8 @@ export const gridsDish = [
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name price" "description auto"',
       gridTemplateColumns: '1fr auto',
-      alignItems: 'baseline',
+      alignItems: 'center',
       textAlign: 'left',
-    },
-    price: {
-      marginLeft: marginItem,
     },
   },
   {
@@ -33,11 +25,8 @@ export const gridsDish = [
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name name" "description price"',
       gridTemplateColumns: '1fr auto',
-      alignItems: 'baseline',
+      alignItems: 'center',
       textAlign: 'left',
-    },
-    price: {
-      marginLeft: marginItem,
     },
   },
   {
@@ -49,9 +38,6 @@ export const gridsDish = [
     },
     prices: {
       display: 'inline-flex',
-    },
-    price: {
-      marginLeft: marginItem,
     },
   },
   {
@@ -63,9 +49,6 @@ export const gridsDish = [
     },
     prices: {
       display: 'inline-flex',
-    },
-    price: {
-      marginLeft: marginItem,
     },
   },
   {
@@ -78,10 +61,6 @@ export const gridsDish = [
     prices: {
       display: 'inline-flex',
     },
-    price: {
-      display: 'inline-flex',
-      marginLeft: marginItem,
-    },
   },
   {
     template: {
@@ -93,9 +72,6 @@ export const gridsDish = [
     },
     name: {
       justifyContent: 'center',
-    },
-    price: {
-      marginLeft: marginItem,
     },
     prices: {
       justifyContent: 'center',
@@ -111,9 +87,6 @@ export const gridsDish = [
     },
     name: {
       justifyContent: 'flex-start',
-    },
-    price: {
-      marginRight: marginItem,
     },
     prices: {
       justifyContent: 'flex-start',
@@ -129,9 +102,6 @@ export const gridsDish = [
     },
     name: {
       justifyContent: 'flex-end',
-    },
-    price: {
-      marginLeft: marginItem,
     },
     prices: {
       justifyContent: 'flex-end',
@@ -163,6 +133,10 @@ export const dishes = [
       fontFamily: '"Open Sans"',
       fontSize: '12px',
     },
+    styleAllergen: {
+      width: '16px',
+    },
+    priceWidth: 48,
     grid,
     items: [
       {
