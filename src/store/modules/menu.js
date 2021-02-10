@@ -81,22 +81,24 @@ const actions = {
       state.data.pages.forEach((page, i) => {
 
         // Remove use less area
-        page.areas.splice(format.area)
+        page.areas.splice(0, state.data.format.area - format.area)
 
 
         let size = i % 2 ? format.outside : format.inside
 
         size.forEach((width, i) => {
           if (!page.areas[i]) {
-            page.areas.push({
+            page.areas.unshift({
               width,
               colors: defaultColors[0],
               grid: grids[0],
               areas: {},
             })
-          } else {
-            page.areas[i].width = width
           }
+        })
+
+        size.forEach((width, i) => {
+          page.areas[i].width = width
         })
       })
     }
