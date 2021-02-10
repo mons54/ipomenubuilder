@@ -12,27 +12,35 @@
         class="page-container"
         :style="stylePageContainer">
         <div
-          v-if="format.area === 1 || pi % 2 === 0"
-          class="actions">
-          <b-button
-            variant="light"
-            size="sm"
-            @click="duplicatePage(pi)">
-            <b-icon-stickies/>
-          </b-button>
-          <b-button
-            variant="light"
-            size="sm"
-            @click="addPage(pi)">
-            <b-icon-plus-square/>
-          </b-button>
-          <b-button
-            v-if="hasDeletePage"
-            variant="light"
-            size="sm"
-            @click="deletePage(pi)">
-            <b-icon-trash/>
-          </b-button>
+          class="page-head">
+          <div class="name">
+            <span v-if="format.area === 1">Page {{ pi + 1 }}</span>
+            <span v-else-if="pi % 2 === 0">Recto</span>
+            <span v-else>Verso</span>
+          </div>
+          <div
+            v-if="format.area === 1 || pi % 2 === 0"
+            class="actions">
+            <b-button
+              variant="light"
+              size="sm"
+              @click="duplicatePage(pi)">
+              <b-icon-stickies/>
+            </b-button>
+            <b-button
+              variant="light"
+              size="sm"
+              @click="addPage(pi)">
+              <b-icon-plus-square/>
+            </b-button>
+            <b-button
+              v-if="hasDeletePage"
+              variant="light"
+              size="sm"
+              @click="deletePage(pi)">
+              <b-icon-trash/>
+            </b-button>
+          </div>
         </div>
         <div
           :style="stylePage">
@@ -45,6 +53,11 @@
               :style="styleArea(value)"
               class="area"
               :class="{'active': activeArea(value)}">
+              <div
+                v-if="format.area > 1"
+                class="name">
+                {{ getAreaName(pi, ai) }}
+              </div>
               <div
                 @click="selectPageArea({ page: pi, index: ai })"
                 :style="styleGrid(value.grid)"
@@ -428,6 +441,37 @@ export default {
       if (this.menu.format.area > 1)
         this.menu.pages.splice(index, 1)
     },
+    getAreaName(pi, ai) {
+      if (this.format.area === 3) {
+        if (pi % 2 === 0) {
+          if (ai === 0)
+            return "Volet intérieur"
+          else if (ai === 1)
+            return "Dos de couverture"
+          else
+            return "1ére de couverture"
+        } else {
+          if (ai === 0)
+            return "Volet gauche"
+          else if (ai === 1)
+            return "Volet central"
+          else
+            return "Volet droit"
+        }
+      } else {
+        if (pi % 2 === 0) {
+          if (ai === 0)
+            return "Dos de couverture"
+          else
+            return "1ére de couverture"
+        } else {
+          if (ai === 0)
+            return "Volet gauche"
+          else
+            return "Volet droit"
+        }
+      }
+    },
   },
 }
 </script>
@@ -446,16 +490,23 @@ export default {
       position: relative;
       transform-origin: top left;
       overflow: hidden;
-      .actions {
+      .page-head {
         position: absolute;
+        display: flex;
         top: 0;
         left: 0;
         right: 0;
         padding: 4px 72px;
-        justify-content: flex-end;
-        display: flex;
-        button {
-          margin-left: 8px;
+        .name {
+          display: flex;
+          align-items: center;
+        }
+        .actions {
+          justify-content: flex-end;
+          margin-left: auto;
+          button {
+            margin-left: 8px;
+          }
         }
       }
       .element {
@@ -494,6 +545,14 @@ export default {
       .area {
         position: relative;
         height: 100%;
+        .name {
+          position: absolute;
+          z-index: 2;
+          font-size: 10px;
+          width: 100%;
+          text-align: center;
+          top: -1px;
+        }
         &.active {
           outline: 4px solid #FF9800;
           outline-offset: -4px;

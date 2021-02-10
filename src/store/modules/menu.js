@@ -80,6 +80,12 @@ const actions = {
 
       state.data.pages.forEach((page, i) => {
 
+        const diff = state.data.format.width - format.width
+        page.elements.forEach(element => {
+          element.rect.left -= diff
+        })
+
+
         // Remove use less area
         page.areas.splice(0, state.data.format.area - format.area)
 
