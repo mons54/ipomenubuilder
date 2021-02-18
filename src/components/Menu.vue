@@ -168,7 +168,7 @@
                             :contenteditable="clickedElement === element.id"
                             @active="activePrice = `${index}-${key}`"
                             @unactive="activePrice = null"
-                          /> €
+                          /> {{ menu.prices.currency }}
                         </div>
                       </div>
                     </div>

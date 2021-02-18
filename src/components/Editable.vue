@@ -20,7 +20,7 @@ import { priceFormat, priceValidator } from '@/helpers/price.js'
 
 export default {
   props: {
-    value: String,
+    value: [String, Number],
     id: String,
     inline: {
       type: Boolean,
@@ -46,9 +46,15 @@ export default {
       menu: state => state.menu.data,
     }),
     data() {
+      let data = this.value
       if (this.innerHTML !== false)
-        return this.innerHTML
-      return this.value
+        data = this.innerHTML
+      if (this.price)
+        data = priceFormat(
+          data,
+          this.menu.prices
+        )
+      return data
     },
     style() {
       const style = {}
@@ -72,14 +78,6 @@ export default {
       this.$emit('active')
     },
     onBlur () {
-      if (this.price) {
-        const price = priceFormat(
-          this.$el.innerHTML,
-          this.menu.prices
-        )
-        if (price !== this.$el.innerHTML)
-          this.$emit('input', price)
-      }
 
       document.getSelection().empty()
 

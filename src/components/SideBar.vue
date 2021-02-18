@@ -76,6 +76,15 @@
           </div>
           {{ $t('translate') }}
         </div>
+        <div
+          @click="selectSidebar('parameters')"
+          class="nav-item"
+          :class="{'selected': itemSelected('parameters')}">
+          <div class="nav-icon">
+            <b-icon-gear/>
+          </div>
+          Paramètres
+        </div>
       </div>
       <div class="tab">
         <StyleDish
@@ -115,6 +124,9 @@
         <Translate
           v-else-if="selected === 'translate'"
         />
+        <Parameters
+          v-else-if="selected === 'parameters'"
+        />
       </div>
     </div>
   </div>
@@ -128,6 +140,7 @@ import Dishes from '@/components/Dishes'
 import Grids from '@/components/Grids'
 import Icons from '@/components/Icons'
 import Images from '@/components/Images'
+import Parameters from '@/components/Parameters'
 import Texts from '@/components/Texts'
 import Translate from '@/components/Translate'
 import StyleDish from '@/components/StyleDish'
@@ -142,6 +155,7 @@ export default {
     Grids,
     Icons,
     Images,
+    Parameters,
     Texts,
     Translate,
     StyleDish,

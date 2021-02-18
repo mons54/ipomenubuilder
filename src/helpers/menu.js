@@ -50,11 +50,10 @@ export const menu = {
   colors,
   format,
   prices: {
-    symbol: "€",
+    currency: "€",
     separator: ",",
     forceDecimal: true,
     decimal: 2,
-    space: true
   },
   parameters: {},
   translate: {
