@@ -5,6 +5,7 @@
     />
     <FontStyle
       v-model="style"
+      :textAlign="true"
       @fontWeight="fontWeight"
       @fontStyle="fontStyle"
       @textDecoration="textDecoration"

@@ -2,7 +2,7 @@
   <div class="style-dish">
     <h6>{{ $t('dishName') }}</h6>
     <FontFamily
-      v-model="styleName.fontFamily"
+      v-model="fontFamilyName"
     />
     <FontStyle
       v-model="styleName"
@@ -13,7 +13,7 @@
     />
     <h6 class="mt-3">{{ $t('dishDescription') }}</h6>
     <FontFamily
-      v-model="styleDescription.fontFamily"
+      v-model="fontFamilyDescription"
     />
     <FontStyle
       v-model="styleDescription"
@@ -24,7 +24,7 @@
     />
     <h6 class="mt-3">{{ $t('dishPrice') }}</h6>
     <FontFamily
-      v-model="stylePrice.fontFamily"
+      v-model="fontFamilyPrice"
     />
     <FontStyle
       v-model="stylePrice"
@@ -112,6 +112,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import FontFamily from '@/components/FontFamily'
 import FontStyle from '@/components/FontStyle'
 import InputRange from '@/components/InputRange'
@@ -132,6 +133,21 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      pages: state => state.menu.data.pages,
+    }),
+    dishes() {
+      let dishes = []
+      for (const page of this.pages) {
+        for (const element of page.elements) {
+          if (element.type !== 'dish')
+            continue
+          dishes.push(element)
+        }
+
+      }
+      return dishes
+    },
     styleItem() {
       return this.element.styleItem
     },
@@ -146,6 +162,36 @@ export default {
     },
     styleAllergen() {
       return this.element.styleAllergen
+    },
+    fontFamilyName: {
+      get() {
+        return this.styleName.fontFamily
+      },
+      set(value) {
+        this.dishes.forEach(dish => {
+          dish.styleName.fontFamily = value
+        })
+      }
+    },
+    fontFamilyDescription: {
+      get() {
+        return this.styleDescription.fontFamily
+      },
+      set(value) {
+        this.dishes.forEach(dish => {
+          dish.styleDescription.fontFamily = value
+        })
+      }
+    },
+    fontFamilyPrice: {
+      get() {
+        return this.stylePrice.fontFamily
+      },
+      set(value) {
+        this.dishes.forEach(dish => {
+          dish.stylePrice.fontFamily = value
+        })
+      }
     },
     marginItem: {
       get() {
@@ -174,31 +220,49 @@ export default {
   },
   methods: {
     fontWeightName(value) {
-      Vue.set(this.styleName, 'fontWeight', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.styleName, 'fontWeight', value)
+      })
     },
     fontStyleName(value) {
-      Vue.set(this.styleName, 'fontStyle', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.styleName, 'fontStyle', value)
+      })
     },
     textDecorationName(value) {
-      Vue.set(this.styleName, 'textDecoration', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.styleName, 'textDecoration', value)
+      })
     },
     fontWeightDescription(value) {
-      Vue.set(this.styleDescription, 'fontWeight', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.styleDescription, 'fontWeight', value)
+      })
     },
     fontStyleDescription(value) {
-      Vue.set(this.styleDescription, 'fontStyle', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.styleDescription, 'fontStyle', value)
+      })
     },
     textDecorationDescription(value) {
-      Vue.set(this.styleDescription, 'textDecoration', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.styleDescription, 'textDecoration', value)
+      })
     },
     fontWeightPrice(value) {
-      Vue.set(this.stylePrice, 'fontWeight', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.stylePrice, 'fontWeight', value)
+      })
     },
     fontStylePrice(value) {
-      Vue.set(this.stylePrice, 'fontStyle', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.stylePrice, 'fontStyle', value)
+      })
     },
     textDecorationPrice(value) {
-      Vue.set(this.stylePrice, 'textDecoration', value)
+      this.dishes.forEach(dish => {
+        Vue.set(dish.stylePrice, 'textDecoration', value)
+      })
     }
   }
 }

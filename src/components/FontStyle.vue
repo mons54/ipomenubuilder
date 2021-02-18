@@ -7,6 +7,7 @@
       v-model="value.color"
       class="color input-color"
       size="sm"
+      :style="textAlign ? 'flex: 0 0 14%' : null"
     />
     <b-button-group size="sm">
       <b-button
@@ -28,7 +29,9 @@
         <b-icon icon="type-underline" aria-hidden="true"></b-icon>
       </b-button>
     </b-button-group>
-    <b-button-group size="sm">
+    <b-button-group
+      size="sm"
+      v-if="textAlign">
       <b-button
         v-on:click="value.textAlign = 'left'"
         :class="{'active': value.textAlign === 'left' }"
@@ -57,6 +60,7 @@ import InputColor from '@/components/InputColor'
 
 export default {
   props: {
+    textAlign: Boolean,
     value: Object,
   },
   components: {
@@ -86,9 +90,6 @@ export default {
   }
   > :first-child {
     margin-left: 0;
-  }
-  .color {
-    flex: 0 0 14%;
   }
 }
 </style>
