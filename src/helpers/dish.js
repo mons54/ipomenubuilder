@@ -5,7 +5,7 @@ export const gridsDish = [
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name price" "description description"',
       gridTemplateColumns: '1fr auto',
-      alignItems: 'center',
+      alignItems: 'baseline',
       textAlign: 'left',
     },
     prices: {
@@ -18,7 +18,7 @@ export const gridsDish = [
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name price" "description auto"',
       gridTemplateColumns: '1fr auto',
-      alignItems: 'center',
+      alignItems: 'baseline',
       textAlign: 'left',
     },
     prices: {
@@ -31,7 +31,7 @@ export const gridsDish = [
       breakInside: 'avoid-column',
       gridTemplateAreas: '"name name" "description price"',
       gridTemplateColumns: '1fr auto',
-      alignItems: 'center',
+      alignItems: 'baseline',
       textAlign: 'left',
     },
     prices: {
