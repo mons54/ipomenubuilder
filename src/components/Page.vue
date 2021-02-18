@@ -69,7 +69,7 @@
                   :key="key">
                   <div
                     v-if="price"
-                    :style="styleElementDishPrice(element, item.prices)">
+                    :style="styleElementDishPrice(element)">
                     {{ price|price(menu.prices) }} {{ menu.prices.currency }}
                   </div>
                 </div>

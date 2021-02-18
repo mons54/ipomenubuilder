@@ -185,15 +185,10 @@ export default {
         ...value.stylePrice,
       }
     },
-    styleElementDishPrice(value, prices) {
-      prices = prices.filter(price => price !== null)
-      let width = `${value.priceWidth}px`
-      if (prices.length === 1)
-        width = null
+    styleElementDishPrice(value) {
       return {
         ...value.grid.price,
-        textAlign: 'right',
-        width,
+        width: `${value.priceWidth}px`,
       }
     },
     styleElementImage(value) {

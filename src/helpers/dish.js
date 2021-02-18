@@ -8,6 +8,9 @@ export const gridsDish = [
       alignItems: 'center',
       textAlign: 'left',
     },
+    prices: {
+      textAlign: 'right',
+    },
   },
   {
     template: {
@@ -17,6 +20,9 @@ export const gridsDish = [
       gridTemplateColumns: '1fr auto',
       alignItems: 'center',
       textAlign: 'left',
+    },
+    prices: {
+      textAlign: 'right',
     },
   },
   {
@@ -28,6 +34,9 @@ export const gridsDish = [
       alignItems: 'center',
       textAlign: 'left',
     },
+    prices: {
+      textAlign: 'right',
+    },
   },
   {
     template: {
@@ -38,6 +47,7 @@ export const gridsDish = [
     },
     prices: {
       display: 'inline-flex',
+      textAlign: 'right',
     },
   },
   {

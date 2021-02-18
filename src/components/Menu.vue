@@ -160,7 +160,7 @@
                         :key="key">
                         <div
                           v-if="price || activePrice === `${index}-${key}`"
-                          :style="styleElementDishPrice(element, item.prices)">
+                          :style="styleElementDishPrice(element)">
                           <Editable
                             v-model="item.prices[key]"
                             :price="true"
