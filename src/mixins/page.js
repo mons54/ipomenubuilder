@@ -56,6 +56,19 @@ export default {
     gridAreas (grid) {
       return getAreasSorted(grid.gridTemplateAreas)
     },
+    styleBackground(pi) {
+      let backgroundImage
+      if (pi % 2)
+        backgroundImage = `url(${this.menu.background.verso})`
+      else
+        backgroundImage = `url(${this.menu.background.recto})`
+      return {
+        backgroundImage,
+        width: '100%',
+        height: '100%',
+        backgroundSize: 'cover',
+      }
+    },
     styleArea(area) {
       return {
         width: `${area.width}px`

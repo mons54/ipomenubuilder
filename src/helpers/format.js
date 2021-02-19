@@ -1,5 +1,6 @@
 export const formats = [
   {
+    ref: '1v',
     name: "1 volet",
     area: 1,
     width: 793.7007874015749,
@@ -10,6 +11,7 @@ export const formats = [
     safeZone: 22.67716535433071,
   },
   {
+    ref: '2v',
     name: "2 volet",
     area: 2,
     width: 793.7007874015749,
@@ -20,6 +22,7 @@ export const formats = [
     safeZone: 22.67716535433071,
   },
   {
+    ref: '3v',
     name: "3 volet",
     area: 3,
     width: 1213.2283464566933,

@@ -48,43 +48,49 @@
             :style="stylePageContent"
             v-dropzone="page">
             <div
-              v-for="(value, ai) of page.areas"
-              :key="ai"
-              :style="styleArea(value)"
-              class="area"
-              :class="{'active': activeArea(value)}">
+              v-if="menu.background"
+              :style="styleBackground(pi)">
+            </div>
+            <div v-else>
               <div
-                v-if="format.area > 1"
-                class="name">
-                {{ getAreaName(pi, ai) }}
-              </div>
-              <div
-                @click="selectPageArea({ page: pi, index: ai })"
-                :style="styleGrid(value.grid)"
-                class="grid">
+                v-for="(value, ai) of page.areas"
+                :key="ai"
+                :style="styleArea(value)"
+                class="area"
+                :class="{'active': activeArea(value)}">
                 <div
-                  v-for="(name, gai) of gridAreas(value.grid)"
-                  @click="e => {
-                    if (activedElement)
-                      return
-                    e.stopPropagation()
-                    selectGridArea({ index: ai, name })
-                  }"
-                  :key="gai"
-                  :style="styleGridArea(menu.colors, value, name, gai)"
-                  class="grid-area"
-                  :class="{'active': activeGridArea(value.areas[name]) }">
-                  <div
-                    v-if="value.areas[name] && value.areas[name].image"
-                    v-image-area="value.areas[name].image"
-                    :style="styleImageArea(value.areas[name].image)"
-                  />
+                  v-if="format.area > 1"
+                  class="name">
+                  {{ getAreaName(pi, ai) }}
                 </div>
+                <div
+                  @click="selectPageArea({ page: pi, index: ai })"
+                  :style="styleGrid(value.grid)"
+                  class="grid">
+                  <div
+                    v-for="(name, gai) of gridAreas(value.grid)"
+                    @click="e => {
+                      if (activedElement)
+                        return
+                      e.stopPropagation()
+                      selectGridArea({ index: ai, name })
+                    }"
+                    :key="gai"
+                    :style="styleGridArea(menu.colors, value, name, gai)"
+                    class="grid-area"
+                    :class="{'active': activeGridArea(value.areas[name]) }">
+                    <div
+                      v-if="value.areas[name] && value.areas[name].image"
+                      v-image-area="value.areas[name].image"
+                      :style="styleImageArea(value.areas[name].image)"
+                    />
+                  </div>
+                </div>
+                <div
+                  v-if="ai + 1 !== areas.length"
+                  class="bleed bleed--area"
+                />
               </div>
-              <div
-                v-if="ai + 1 !== areas.length"
-                class="bleed bleed--area"
-              />
             </div>
             <div
               v-for="element of page.elements"

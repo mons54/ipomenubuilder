@@ -2,7 +2,10 @@
   <div class="grids">
     <div
       v-for="(value, index) of grids"
-      @click="grid = value"
+      @click="() => {
+        menu.background = null
+        grid = value
+      }"
       :key="index"
       :style="value"
       :class="{'active': isActive(value)}"
@@ -18,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { grids, getAreas } from '@/helpers/grid'
 
 export default {
@@ -28,6 +31,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      menu: state => state.menu.data,
+    }),
     ...mapGetters('menu', [
       'area',
     ]),

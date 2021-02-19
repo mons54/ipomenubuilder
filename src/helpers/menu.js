@@ -49,6 +49,7 @@ export const menu = {
   name: "Test",
   colors,
   format,
+  background: null,
   prices: {
     currency: "€",
     separator: ",",

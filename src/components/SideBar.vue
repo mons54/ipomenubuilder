@@ -68,6 +68,15 @@
           {{ $t('grids') }}
         </div>
         <div
+          @click="selectSidebar('background')"
+          class="nav-item"
+          :class="{'selected': itemSelected('background')}">
+          <div class="nav-icon">
+            <b-icon-file-image/>
+          </div>
+          Fonds
+        </div>
+        <div
           @click="selectSidebar('translate')"
           class="nav-item"
           :class="{'selected': itemSelected('translate')}">
@@ -102,6 +111,9 @@
         <GridArea
           v-else-if="areaActived"
         />
+        <Background
+          v-else-if="selected === 'background'"
+        />
         <Colors
           v-else-if="selected === 'color'"
         />
@@ -135,6 +147,7 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 import GridArea from '@/components/GridArea'
+import Background from '@/components/Background'
 import Colors from '@/components/Colors'
 import Dishes from '@/components/Dishes'
 import Grids from '@/components/Grids'
@@ -150,6 +163,7 @@ import StyleText from '@/components/StyleText'
 export default {
   components: {
     GridArea,
+    Background,
     Colors,
     Dishes,
     Grids,
