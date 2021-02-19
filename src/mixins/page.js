@@ -220,6 +220,7 @@ export default {
         width: `${value.width}px`,
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
         wordBreak: 'break-word',
+        ...value.style,
       }
     },
   },

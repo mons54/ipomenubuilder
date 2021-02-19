@@ -24,9 +24,8 @@ const getters = {
     return null
   },
   activedText(state, getters) {
-    const { actived } = getters
-    if (actived && actived.elements)
-      return actived.elements.find(element => element.id === state.activedText)
+    if (getters.actived && getters.actived.type === 'text')
+      return getters.actived
     return null
   },
 }

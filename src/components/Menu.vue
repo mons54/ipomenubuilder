@@ -203,30 +203,18 @@
                 @contextmenu="e => {
                   contextMenuElement(e, element)
                 }"
-                v-resizable-scale="{
-                  disabled: clickedElement !== element.id,
-                  element,
-                }"
                 :style="styleElementText(element)"
                 class="text">
-                <div
-                  v-for="(text, ti) in element.elements"
-                  :key="ti"
-                  :style="text.style"
-                  :class="{'active': activedText === text }">
-                  <Editable
-                    v-if="!menu.translate.textes || !translation"
-                    @click.native="activeElementText(text.id)"
-                    v-model="text.value"
-                    :contenteditable="!resizedElement && clickedElement === element.id"
-                  />
-                  <Editable
-                    v-else
-                    @click.native="activeElementText(text.id)"
-                    v-model="text.translation[translation]"
-                    :contenteditable="!resizedElement && clickedElement === element.id"
-                  />
-                </div>
+                <Editable
+                  v-if="!menu.translate.textes || !translation"
+                  v-model="element.html"
+                  :contenteditable="!resizedElement && clickedElement === element.id"
+                />
+                <Editable
+                  v-else
+                  v-model="element.translation[translation]"
+                  :contenteditable="!resizedElement && clickedElement === element.id"
+                />
               </div>
               <div
                 v-else-if="element.type === 'image'"
@@ -401,9 +389,6 @@ export default {
       'desactiveElement',
       'clickElement',
     ]),
-    ...mapMutations('element', [
-      'activeElementText',
-    ]),
     ...mapMutations('contextmenu', [
       'setShowContextMenu',
     ]),
@@ -525,17 +510,11 @@ export default {
               }
             }
           }
-          > .text {
-            outline-style: dashed;
-          }
         }
         &:hover {
           > .dish,
           > .text {
             outline: 1px solid #FFC107;
-          }
-          > .text {
-            outline-style: dashed;
           }
         }
         > :first-child {

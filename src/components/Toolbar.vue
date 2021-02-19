@@ -111,6 +111,9 @@ export default {
     },
     isOverlap(id1, id2) {
 
+      if (!document.getElementById(id1))
+        return
+
       const rect1 = document.getElementById(id1).firstChild.getBoundingClientRect()
       const rect2 = document.getElementById(id2).firstChild.getBoundingClientRect()
 

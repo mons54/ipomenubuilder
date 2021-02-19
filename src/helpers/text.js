@@ -1,92 +1,52 @@
 export const texts = [
   {
-    width: 300,
-    elements: [
-      {
-        style: {
-          fontFamily: "\"Lobster\"",
-          fontSize: "40px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "Mayfair Garden",
-        translation: {},
-      },
-      {
-        style: {
-          fontFamily: "\"Roboto\"",
-          fontSize: "30px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "Indian restaurant",
-        translation: {},
-      }
-    ]
+    style: {
+      fontFamily: "\"Lobster\"",
+      fontSize: "40px",
+      textAlign: "center",
+      lineHeight: 1.5,
+    },
+    html: "Mayfair Garden",
+    translation: {},
   },
   {
-    width: 300,
-    elements: [
-      {
-        style: {
-          fontFamily: "\"Architects Daughter\"",
-          fontSize: "48px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "My Pizza",
-        translation: {},
-      },
-      {
-        style: {
-          fontFamily: "\"Lato\"",
-          fontSize: "30px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "Food & Drink",
-        translation: {},
-      }
-    ]
+    style: {
+      fontFamily: "\"Architects Daughter\"",
+      fontSize: "48px",
+      textAlign: "center",
+      lineHeight: 1.5,
+    },
+    html: "My Pizza",
+    translation: {},
   },
   {
-    width: 300,
-    elements: [
-      {
-        style: {
-          fontFamily: "\"Proza Libre\"",
-          fontSize: "48px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "Mayfair Garden",
-        translation: {},
-      },
-      {
-        style: {
-          fontFamily: "\"Open Sans\"",
-          fontSize: "24px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "Indian restaurant",
-        translation: {},
-      }
-    ]
+    style: {
+      fontFamily: "\"Open Sans\"",
+      fontSize: "24px",
+      textAlign: "center",
+      lineHeight: 1.5,
+    },
+    html: "Indian restaurant",
+    translation: {},
   },
   {
-    width: 300,
-    elements: [
-      {
-        style: {
-          fontFamily: "\"Lora\"",
-          fontSize: "36px",
-          textAlign: "center",
-          lineHeight: 1.5,
-        },
-        value: "My Pizza",
-        translation: {},
-      },
-    ]
+    style: {
+      fontFamily: "\"Lora\"",
+      fontSize: "36px",
+      textAlign: "center",
+      lineHeight: 1.5,
+    },
+    html: "Food & Drink",
+    translation: {},
+  },
+  {
+    style: {
+      fontFamily: "\"Lora\"",
+      fontSize: "14px",
+      textAlign: "center",
+      lineHeight: 1.5,
+    },
+    html: "25cl&nbsp;&nbsp;&nbsp;&nbsp;33cl&nbsp;&nbsp;&nbsp;&nbsp;50cl",
+    translation: {},
   },
 ]

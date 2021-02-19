@@ -17,26 +17,16 @@
       @dragend="dragend"
       :key="ti"
       class="text">
-      <div v-text-container>
-        <div
-          data-content
-          v-text-content="value.width">
-          <div
-            v-for="(value, index) in value.elements"
-            v-html="value.value"
-            :style="value.style"
-            :key="index">
-          </div>
-        </div>
-      </div>
+      <div
+        v-html="value.html"
+        :style="value.style"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-
-let styleContent
 
 export default {
   computed: {
@@ -48,21 +38,18 @@ export default {
   },
   methods: {
     dragstart(event) {
-      const content = event.el.querySelector('[data-content]')
-      styleContent = content.getAttribute('style')
-      content.removeAttribute('style')
-      content.style.transformOrigin = `top left`
-      content.style.transform = `scale(0.5)`
-      content.style.width = `${event.value.width}px`
+      event.el.firstChild.style.transformOrigin = `top left`
+      event.el.firstChild.style.transform = `scale(0.5)`
     },
     dragenter(event) {
-      event.el.querySelector('[data-content]').style.transform = `scale(${this.scale})`
+      event.el.firstChild.style.transform = `scale(${this.scale})`
     },
     dragleave(event) {
-      event.el.querySelector('[data-content]').style.transform = `scale(0.5)`
+      event.el.firstChild.style.transform = `scale(0.5)`
     },
     dragend(event) {
-      event.el.querySelector('[data-content]').setAttribute('style', styleContent)
+      event.el.firstChild.style.removeProperty('width')
+      event.el.firstChild.style.transform = `scale(1)`
     },
     getValue(value) {
       this.translation.forEach(language => {
@@ -73,36 +60,18 @@ export default {
       return value
     },
   },
-  directives: {
-    textContainer: {
-      inserted (el) {
-        const rect = el.getBoundingClientRect()
-        el.style.height = rect.width + 'px'
-      },
-    },
-    textContent: {
-      inserted (el, { value }) {
-        const rect = el.parentElement.getBoundingClientRect()
-        el.style.transform = `scale(${rect.width / value})`
-        el.style.width = `${value}px`
-      },
-    },
-  },
 }
 </script>
 
 <style lang="scss" scoped>
 .texts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
   .text {
     background-color: #263238;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
     width: 100%;
     overflow: hidden;
+    margin-bottom: 8px;
+    padding: 16px 0;
     > div {
       width: 100%;
       display: flex;
