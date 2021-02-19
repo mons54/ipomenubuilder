@@ -19,6 +19,16 @@
             <span v-else>Verso</span>
           </div>
           <div
+            class="area-name"
+            v-if="format.area > 1">
+            <div
+              v-for="(value, ai) of page.areas"
+              :key="ai"
+              class="name">
+              {{ getAreaName(pi, ai) }}
+            </div>
+          </div>
+          <div
             v-if="format.area === 1 || pi % 2 === 0"
             class="actions">
             <b-button
@@ -53,11 +63,6 @@
               :style="styleArea(value)"
               class="area"
               :class="{'active': activeArea(value)}">
-              <div
-                v-if="format.area > 1"
-                class="name">
-                {{ getAreaName(pi, ai) }}
-              </div>
               <div
                 v-if="!menu.background"
                 @click="selectPageArea({ page: pi, index: ai })"
@@ -487,6 +492,20 @@ export default {
           display: flex;
           align-items: center;
         }
+        .area-name {
+          display: flex;
+          flex: 1;
+          align-items: center;
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          .name {
+            font-size: 12px;
+            flex: inherit;
+            justify-content: center;
+            margin-top: 12px;
+          }
+        }
         .actions {
           justify-content: flex-end;
           margin-left: auto;
@@ -525,14 +544,6 @@ export default {
       .area {
         position: relative;
         height: 100%;
-        .name {
-          position: absolute;
-          z-index: 2;
-          font-size: 10px;
-          width: 100%;
-          text-align: center;
-          top: -1px;
-        }
         &.active {
           outline: 4px solid #FF9800;
           outline-offset: -4px;
