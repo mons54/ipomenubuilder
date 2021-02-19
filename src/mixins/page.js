@@ -38,13 +38,6 @@ export default {
         ...this.menu.styles.page,
       }
     },
-    stylePageContent() {
-      return {
-        display: 'flex',
-        width: '100%',
-        height: '100%',
-      }
-    },
     styleImage() {
       return {
         width: '100%',
@@ -56,17 +49,20 @@ export default {
     gridAreas (grid) {
       return getAreasSorted(grid.gridTemplateAreas)
     },
-    styleBackground(pi) {
+    stylePageContent(pi) {
       let backgroundImage
-      if (pi % 2)
-        backgroundImage = `url(${this.menu.background.verso})`
-      else
-        backgroundImage = `url(${this.menu.background.recto})`
+      if (this.menu.background) {
+        if (pi % 2)
+          backgroundImage = `url(${this.menu.background.verso})`
+        else
+          backgroundImage = `url(${this.menu.background.recto})`
+      }
       return {
-        backgroundImage,
+        display: 'flex',
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
+        backgroundImage,
       }
     },
     styleArea(area) {
