@@ -144,12 +144,13 @@ export default {
 
       const pages = []
 
-      this.menu.pages.forEach(page => {
+      this.menu.pages.forEach((page, pi) => {
 
         const component = new Vue({
           ...Page,
           propsData: {
             page,
+            pi,
             format: this.format,
             menu: this.menu,
             mark: this.mark,
@@ -180,12 +181,13 @@ export default {
 
       const pages = []
 
-      this.menu.pages.forEach((page, i) => {
+      this.menu.pages.forEach((page, pi) => {
 
         const component = new Vue({
           ...Page,
           propsData: {
             page,
+            pi,
             format: this.format,
             menu: this.menu,
             translation,
@@ -198,7 +200,7 @@ export default {
         pages.push({
           html,
           fonts,
-          areas: 1 % i + 1 ? this.format.outside : this.format.inside,
+          areas: 1 % pi + 1 ? this.format.outside : this.format.inside,
         })
 
         component.$destroy()
@@ -214,12 +216,13 @@ export default {
 
       const images = []
 
-      this.menu.pages.forEach(page => {
+      this.menu.pages.forEach((page, pi) => {
 
         const component = new Vue({
           ...Image,
           propsData: {
             page,
+            pi,
             format: this.format,
             menu: this.menu,
             scale: this.scale,
