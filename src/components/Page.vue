@@ -5,12 +5,13 @@
       overflow: 'hidden'
     }">
     <div
-      :style="stylePageContent">
+      :style="stylePageContent(pi)">
       <div
         v-for="(value, ai) of page.areas"
         :key="ai"
         :style="styleArea(value)">
         <div
+          v-if="!menu.background"
           :style="styleGrid(value.grid)">
           <div
             v-for="(name, gai) of gridAreas(value.grid)"
