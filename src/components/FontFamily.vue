@@ -50,8 +50,8 @@
           :key="font.family"
           class="font">
           <div
-            class="family"
-            :style="`font-family: ${font.family}`">
+            v-font="font.family"
+            class="family">
             {{ font.family|fontFamily }}
           </div>
           <div
@@ -66,6 +66,9 @@
 </template>
 
 <script>
+
+const loaded = []
+
 export default {
   props: {
     value: String,
@@ -100,7 +103,7 @@ export default {
         return `${this.$t(`fontCategories.${categories[0].value}`)}+${categories.length - 1}`
 
       return this.$t('categories')
-    }
+    },
   },
   methods: {
     clickSearch (e) {
@@ -132,6 +135,24 @@ export default {
     hideCategories () {
       this.showCategories = false
     },
+  },
+  directives: {
+    font: {
+      async inserted (el, { value }) {
+
+        function loadFontFamily(fontFamily) {
+          return new Promise(resolve =>  {
+            setTimeout(() => {
+              resolve(fontFamily)
+            })
+          })
+        }
+
+        if (!loaded.includes(value))
+          value = await loadFontFamily(value)
+        el.style.fontFamily = value
+      }
+    }
   },
   filters: {
     fontFamily (value) {
