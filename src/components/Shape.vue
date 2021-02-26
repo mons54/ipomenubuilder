@@ -27,7 +27,6 @@
         />
       </div>
     </div>
-    Shapes
   </div>
 </template>
 
@@ -38,15 +37,15 @@ export default {
   data() {
     return {
       shapes: [
-        /*{
+        {
           name: 'shape-ellipse',
-          color: 'rgb(230, 74, 25)',
+          color: 'rgb(155, 155, 22)',
           borderWidth: 0,
           borderColor: 'rgb(255, 255, 255)',
           borderStyle: 'solid',
           boxShadowWidth: 0,
           boxShadowColor: 'rgb(0, 0, 0)',
-        },*/
+        },
         {
           name: 'shape-rectangle',
           color: 'rgb(230, 74, 25)',
@@ -100,13 +99,14 @@ export default {
 <style lang="scss" scoped>
 .shapes {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
+  padding: 20px 40px;
+  grid-row-gap: 40px;
   .shape {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 8px;
     padding-top: calc(100% - 16px);
     > div {
       display: flex;
