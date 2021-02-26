@@ -48,7 +48,6 @@ export default {
       event.el.firstChild.style.transform = `scale(0.5)`
     },
     dragend(event) {
-      event.el.firstChild.style.removeProperty('width')
       event.el.firstChild.style.transform = `scale(1)`
     },
     getValue(value) {

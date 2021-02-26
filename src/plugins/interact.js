@@ -248,5 +248,45 @@ export default {
       inserted: _resizableDish,
       componentUpdated: _resizableDish,
     })
+
+    function _resizableShape (el, { value }, { context }) {
+
+      const { disabled, element } = value
+
+      if (disabled)
+        return interact(el).unset()
+
+      interact(el).
+      resizable({
+        edges: { top: true, bottom: true, right: true, left: true },
+        listeners: {
+          move(event) {
+            if (element.width + event.deltaRect.width < 20)
+              return
+            if (element.height + event.deltaRect.height < 20)
+              return
+            const scale = context.$store.state.scale.value
+            element.rect.left += event.deltaRect.left / scale
+            element.width += event.deltaRect.width / scale
+            element.rect.top += event.deltaRect.top / scale
+            element.height += event.deltaRect.height / scale
+          }
+        },
+      }).
+      on('resizestart', () => {
+        context.$store.commit('element/resizeElement', value.id)
+        context.$store.commit('history/stopHistory')
+      }).
+      on('resizeend', () => {
+        context.$store.commit('history/startHistory')
+        context.$store.dispatch('history/addHistory')
+        setTimeout(() => context.$store.commit('element/resizeElement', null))
+      })
+    }
+
+    Vue.directive('resizableShape', {
+      inserted: _resizableShape,
+      componentUpdated: _resizableShape,
+    })
   }
 }

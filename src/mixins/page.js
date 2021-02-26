@@ -224,6 +224,13 @@ export default {
         transform: `scale(${value.scale.x}, ${value.scale.y})`,
       }
     },
+    styleElementShape(value) {
+      return {
+        width: `${value.width}px`,
+        height: `${value.height}px`,
+        transform: `scale(${value.scale.x}, ${value.scale.y})`,
+      }
+    },
     styleElementText(value) {
       return {
         width: `${value.width}px`,

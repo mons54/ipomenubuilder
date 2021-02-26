@@ -41,6 +41,15 @@
           {{ $t('icons') }}
         </div>
         <div
+          @click="selectSidebar('shape')"
+          class="nav-item"
+          :class="{'selected': itemSelected('shape')}">
+          <div class="nav-icon">
+            <b-icon-circle-square/>
+          </div>
+          Formes
+        </div>
+        <div
           @click="selectSidebar('template')"
           class="nav-item"
           :class="{'selected': itemSelected('template')}">
@@ -130,6 +139,9 @@
           v-else-if="selected === 'image'"
           :draggable="true"
         />
+        <Shape
+          v-else-if="selected === 'shape'"
+        />
         <Texts
           v-else-if="selected === 'text'"
         />
@@ -156,6 +168,7 @@ import Images from '@/components/Images'
 import Parameters from '@/components/Parameters'
 import Texts from '@/components/Texts'
 import Translate from '@/components/Translate'
+import Shape from '@/components/Shape'
 import StyleDish from '@/components/StyleDish'
 import StyleImage from '@/components/StyleImage'
 import StyleText from '@/components/StyleText'
@@ -172,6 +185,7 @@ export default {
     Parameters,
     Texts,
     Translate,
+    Shape,
     StyleDish,
     StyleImage,
     StyleText,

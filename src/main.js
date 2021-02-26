@@ -7,6 +7,7 @@ import font from '@/plugins/font'
 import interact from '@/plugins/interact'
 import i18n from '@/plugins/i18n'
 import price from '@/plugins/price'
+import shape from '@/plugins/shape'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -18,6 +19,7 @@ Vue.use(crop)
 Vue.use(font)
 Vue.use(interact)
 Vue.use(price)
+Vue.use(shape)
 
 Vue.config.productionTip = false
 

@@ -253,6 +253,21 @@
                   :style="styleImage"
                 />
               </div>
+              <div
+                v-else-if="element.type === 'shape'"
+                @contextmenu="e => {
+                  contextMenuElement(e, element)
+                }"
+                v-resizable-shape="{
+                  element,
+                  disabled: activedElement !== element.id
+                }"
+                :style="styleElementShape(element)">
+                <component
+                  v-bind:is="element.shape.name"
+                  v-bind="element.shape"
+                />
+              </div>
             </div>
           </div>
         </div>
