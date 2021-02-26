@@ -23,6 +23,7 @@
           autocomplete="off"
           class="mr-2"
           :min="0"
+          style="flex: 0 0 40%"
         />
         <InputColor
           v-model="element.shape.borderColor"
@@ -42,6 +43,7 @@
           autocomplete="off"
           class="mr-2"
           :min="0"
+          style="flex: 0 0 40%"
         />
         <InputColor
           v-model="element.shape.boxShadowColor"

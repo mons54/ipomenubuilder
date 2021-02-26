@@ -20,26 +20,11 @@ export default {
     }
   },
   props: {
-    borderColor: {
-      type: String,
-      required: true,
-    },
-    borderStyle: {
-      type: String,
-      required: true,
-    },
-    boxShadowColor: {
-      type: String,
-      required: true,
-    },
-    borderWidth: {
-      type: Number,
-      required: true,
-    },
-    boxShadowWidth: {
-      type: Number,
-      required: true,
-    },
+    borderColor: String,
+    borderStyle: String,
+    boxShadowColor: String,
+    borderWidth: [String, Number],
+    boxShadowWidth: [String, Number],
   },
 }
 </script>
