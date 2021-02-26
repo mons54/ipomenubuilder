@@ -10,8 +10,8 @@
           type: 'shape',
           shape,
           opacity: 100,
-          width: 200,
-          height: 200,
+          width: 400,
+          height: 400,
           scale: {
             x: 1,
             y: 1,
@@ -39,31 +39,22 @@ export default {
       shapes: [
         {
           name: 'shape-ellipse',
-          color: 'rgb(155, 155, 22)',
+          color: '#417505',
           borderWidth: 0,
-          borderColor: 'rgb(255, 255, 255)',
+          borderColor: '#000',
           borderStyle: 'solid',
           boxShadowWidth: 0,
-          boxShadowColor: 'rgb(0, 0, 0)',
+          boxShadowColor: '#000',
         },
         {
           name: 'shape-rectangle',
-          color: 'rgb(230, 74, 25)',
+          color: '#4A90E2',
           borderWidth: 0,
-          borderColor: 'rgb(255, 255, 255)',
+          borderColor: '#000',
           borderStyle: 'solid',
           boxShadowWidth: 0,
-          boxShadowColor: 'rgb(0, 0, 0)',
+          boxShadowColor: '#000',
         },
-        /*{
-          name: 'shape-polygon',
-          color: 'rgb(25, 118, 210)',
-          sides: 6,
-        },
-        {
-          name: 'shape-star',
-          color: 'rgb(251, 192, 45)',
-        },*/
       ]
     }
   },

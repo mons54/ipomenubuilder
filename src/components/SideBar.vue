@@ -113,6 +113,10 @@
           v-else-if="activedImage"
           :element="activedImage"
         />
+        <StyleShape
+          v-else-if="activedShape"
+          :element="activedShape"
+        />
         <StyleText
           v-else-if="activedText"
           :element="activedText"
@@ -171,6 +175,7 @@ import Translate from '@/components/Translate'
 import Shape from '@/components/Shape'
 import StyleDish from '@/components/StyleDish'
 import StyleImage from '@/components/StyleImage'
+import StyleShape from '@/components/StyleShape'
 import StyleText from '@/components/StyleText'
 
 export default {
@@ -188,6 +193,7 @@ export default {
     Shape,
     StyleDish,
     StyleImage,
+    StyleShape,
     StyleText,
   },
   computed: {
@@ -198,6 +204,7 @@ export default {
     ...mapGetters('element', [
       'activedDish',
       'activedImage',
+      'activedShape',
       'activedText',
     ])
   },

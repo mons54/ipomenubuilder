@@ -23,6 +23,11 @@ const getters = {
       return getters.actived
     return null
   },
+  activedShape(state, getters) {
+    if (getters.actived && getters.actived.type === 'shape')
+      return getters.actived
+    return null
+  },
   activedText(state, getters) {
     if (getters.actived && getters.actived.type === 'text')
       return getters.actived

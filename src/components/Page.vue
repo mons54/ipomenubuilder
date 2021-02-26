@@ -125,6 +125,14 @@
             :style="styleImage"
           />
         </div>
+        <div
+          v-else-if="element.type === 'shape'"
+          :style="styleElementShape(element)">
+          <component
+            v-bind:is="element.shape.name"
+            v-bind="element.shape"
+          />
+        </div>
       </div>
     </div>
   </div>
