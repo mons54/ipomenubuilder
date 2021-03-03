@@ -7,7 +7,7 @@
     <div
       :style="stylePageContent(pi)">
       <div
-        v-for="(value, ai) of page.areas"
+        v-for="(value, ai) of areas(page.areas)"
         :key="ai"
         :style="styleArea(value)">
         <div

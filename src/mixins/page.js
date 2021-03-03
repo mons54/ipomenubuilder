@@ -46,6 +46,16 @@ export default {
     },
   },
   methods: {
+    areas(areas) {
+
+      areas = JSON.parse(JSON.stringify(areas))
+
+      areas.forEach((area, i) => {
+        if (i === 0 || i === areas.length - 1)
+          areas[i].width += this.bleed
+      })
+      return areas
+    },
     gridAreas (grid) {
       return getAreasSorted(grid.gridTemplateAreas)
     },
@@ -131,10 +141,11 @@ export default {
       return style
     },
     styleElement({ rect, position }) {
+      const bleed = this.format.bleed - this.bleed
       return {
         position: 'absolute',
         width: 'fit-content',
-        transform: `translate(${rect.left}px, ${rect.top}px)`,
+        transform: `translate(${rect.left - bleed}px, ${rect.top - bleed}px)`,
         zIndex: position + 9,
       }
     },

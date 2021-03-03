@@ -22,7 +22,7 @@
             class="area-name"
             v-if="format.area > 1">
             <div
-              v-for="(value, ai) of page.areas"
+              v-for="(value, ai) of areas(page.areas)"
               :key="ai"
               class="name">
               {{ getAreaName(pi, ai) }}
@@ -58,7 +58,7 @@
             :style="stylePageContent(pi)"
             v-dropzone="page">
             <div
-              v-for="(value, ai) of page.areas"
+              v-for="(value, ai) of areas(page.areas)"
               :key="ai"
               :style="styleArea(value)"
               class="area"
@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div
-                v-if="ai + 1 !== areas.length"
+                v-if="ai + 1 !== page.areas.length"
                 class="bleed bleed--area"
               />
             </div>
@@ -331,9 +331,6 @@ export default {
     ...mapGetters('element', [
       'activedText',
     ]),
-    areas () {
-      return this.page.areas
-    },
     safeZone () {
       return this.format.safeZone
     },
