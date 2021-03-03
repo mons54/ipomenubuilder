@@ -108,9 +108,12 @@
         <div
           v-else-if="element.type === 'image'"
           :style="styleElementImage(element)">
-          <img
-            :src="element.image.fullHDURL"
-            :style="styleImage"/>
+          <div
+            :style="styleElementImageContent(element)">
+            <img
+              :src="element.image.fullHDURL"
+              :style="styleImage"/>
+          </div>
         </div>
         <div
           v-else-if="element.type === 'icon'"
