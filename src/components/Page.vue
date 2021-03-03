@@ -98,17 +98,12 @@
         <div
           v-else-if="element.type === 'text'"
           :style="styleElementText(element)">
-          <div
-            v-for="(text, ti) in element.elements"
-            :key="ti"
-            :style="text.style">
-            <span v-if="!menu.translate.textes || !translation">
-              {{ text.value }}
-            </span>
-            <span v-else>
-              {{ text.translation[translation] }}
-            </span>
-          </div>
+          <span v-if="!menu.translate.textes || !translation">
+            {{ element.html }}
+          </span>
+          <span v-else>
+            {{ element.translation[translation] }}
+          </span>
         </div>
         <div
           v-else-if="element.type === 'image'"
@@ -147,6 +142,7 @@ export default {
     format: Object,
     menu: Object,
     page: Object,
+    pi: Number,
     mark: Boolean,
     translation: String,
   },
