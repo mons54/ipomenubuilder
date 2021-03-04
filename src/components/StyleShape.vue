@@ -23,11 +23,14 @@
           autocomplete="off"
           class="mr-2"
           :min="0"
-          style="flex: 0 0 40%"
         />
         <InputColor
           v-model="element.shape.borderColor"
-          class="color input-color"
+          class="mr-2"
+          size="sm"
+        />
+        <BorderStyle
+          v-model="element.shape.borderStyle"
           size="sm"
         />
       </b-col>
@@ -43,7 +46,7 @@
           autocomplete="off"
           class="mr-2"
           :min="0"
-          style="flex: 0 0 40%"
+          style="flex: 0 0 35%"
         />
         <InputColor
           v-model="element.shape.boxShadowColor"
@@ -56,6 +59,7 @@
 </template>
 
 <script>
+import BorderStyle from '@/components/BorderStyle'
 import InputColor from '@/components/InputColor'
 import InputNumber from '@/components/InputNumber'
 
@@ -64,6 +68,7 @@ export default {
     element: Object,
   },
   components: {
+    BorderStyle,
     InputColor,
     InputNumber,
   },
