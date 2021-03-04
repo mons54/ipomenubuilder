@@ -62,10 +62,10 @@ export default {
     stylePageContent(pi) {
       let backgroundImage
       if (this.menu.background) {
-        if (pi % 2)
-          backgroundImage = `url(${this.menu.background.verso})`
-        else
+        if (pi === 0)
           backgroundImage = `url(${this.menu.background.recto})`
+        else
+          backgroundImage = `url(${this.menu.background.verso})`
       }
       return {
         display: 'flex',

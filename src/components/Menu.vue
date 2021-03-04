@@ -511,6 +511,7 @@ export default {
           position: absolute;
           left: 40px;
           right: 40px;
+          z-index: -1;
           .name {
             font-size: 12px;
             flex: inherit;
