@@ -289,6 +289,24 @@
             :style="styleBleedLeft"
           />
         </div>
+        <div id="safeZone">
+          <div
+            class="safe-zone safe-zone--top"
+            :style="styleSafeZoneTop"
+          />
+          <div
+            class="safe-zone safe-zone--right"
+            :style="styleSafeZoneRight"
+          />
+          <div
+            class="safe-zone safe-zone--bottom"
+            :style="styleSafeZoneBottom"
+          />
+          <div
+            class="safe-zone safe-zone--left"
+            :style="styleSafeZoneLeft"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -346,6 +364,9 @@ export default {
     bleedSpacing () {
       return this.spacing - this.bleed * 2
     },
+    safeZonePosition () {
+      return this.safeZone + this.bleedPosition
+    },
     styleMenuContent () {
       const height = `${this.fullHeight * this.scale}px`
       return {
@@ -388,6 +409,34 @@ export default {
         left: `${this.bleedPosition}px`,
         top: `${this.bleedSpacing}px`,
         bottom: `${this.bleedSpacing}px`,
+      }
+    },
+    styleSafeZoneTop () {
+      return {
+        top: `${this.safeZonePosition}px`,
+        left: `${this.safeZonePosition}px`,
+        right: `${this.safeZonePosition}px`,
+      }
+    },
+    styleSafeZoneRight () {
+      return {
+        right: `${this.safeZonePosition}px`,
+        top: `${this.safeZonePosition}px`,
+        bottom: `${this.safeZonePosition}px`,
+      }
+    },
+    styleSafeZoneBottom () {
+      return {
+        bottom: `${this.safeZonePosition}px`,
+        left: `${this.safeZonePosition}px`,
+        right: `${this.safeZonePosition}px`,
+      }
+    },
+    styleSafeZoneLeft () {
+      return {
+        left: `${this.safeZonePosition}px`,
+        top: `${this.safeZonePosition}px`,
+        bottom: `${this.safeZonePosition}px`,
       }
     },
     hasDeletePage() {
@@ -617,6 +666,30 @@ export default {
 
       .bleed--left {
         border-left-width: 2px;
+      }
+
+      .safe-zone {
+        position: absolute;
+        border-color: #BDBDBD;
+        border-style: dashed;
+        border-width: 0;
+        z-index: 1;
+      }
+
+      .safe-zone--top {
+        border-top-width: 1px;
+      }
+
+      .safe-zone--right {
+        border-right-width: 1px;
+      }
+
+      .safe-zone--bottom {
+        border-bottom-width: 1px;
+      }
+
+      .safe-zone--left {
+        border-left-width: 1px;
       }
     }
   }
